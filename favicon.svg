@@ -1,0 +1,16 @@
+<svg width="2000" height="2000" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Background -->
+  <rect width="200" height="200" fill="black"></rect>
+
+  <!-- Atom Orbits -->
+  <ellipse cx="100" cy="100" rx="70" ry="30" stroke="#FFB612" stroke-width="3" fill="none"></ellipse>
+
+  <ellipse cx="100" cy="100" rx="70" ry="30" stroke="#FFB612" stroke-width="3" fill="none" transform="rotate(60 100 100)"></ellipse>
+
+  <ellipse cx="100" cy="100" rx="70" ry="30" stroke="#FFB612" stroke-width="3" fill="none" transform="rotate(-60 100 100)"></ellipse>
+
+  <!-- Center Nucleus Filled -->
+  <circle cx="100" cy="100" r="12" fill="#FFB612"></circle>
+
+</svg>
