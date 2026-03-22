@@ -1,1 +1,0 @@
-import{j as o}from"./index-Dgic6xmu.js";import{fetchEphemerisBatch as r}from"./horizons-rL_QCDw0.js";const a=async t=>{const s=o(t.startJd),c=o(t.endJd);return{byBodyId:await r({targetIds:[...t.bodyIds],start:s,stop:c,step:t.step,concurrency:t.concurrency??2})}};export{a as defaultEphemerisBatchSource};
