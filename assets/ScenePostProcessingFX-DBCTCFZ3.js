@@ -1,0 +1,1 @@
+import{j as s}from"./react-vendor-CAamGHtO.js";import{E as e,p as o,q as n}from"./three-vendor-DInyzDTe.js";function r(){return s.jsxs(e,{children:[s.jsx(o,{luminanceThreshold:.2,luminanceSmoothing:.9,intensity:1.2}),s.jsx(n,{eskil:!1,offset:.2,darkness:.6})]})}export{r as ScenePostProcessingFX};
