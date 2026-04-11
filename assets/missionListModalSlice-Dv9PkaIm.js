@@ -1,1 +1,0 @@
-import{j as p}from"./react-vendor-xCsZSjRa.js";const u=100;function S(n,o,t,r,a){const i=n.length,l=[...n,...o].slice(t,r),e=[];for(let s=0;s<l.length;s++){const c=t+s;c===i&&i>0&&o.length>0&&e.push(p.jsx("li",{className:"constellation-modal__list-separator","aria-hidden":!0},`list-split-sep-${t}-${c}`)),e.push(a(l[s]))}return e}export{u as M,S as r};
