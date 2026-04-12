@@ -1,6 +1,6 @@
 (function() {
-	const M = Symbol("Comlink.proxy"), z = Symbol("Comlink.endpoint"), N = Symbol("Comlink.releaseProxy"), k = Symbol("Comlink.finalizer"), w = Symbol("Comlink.thrown"), S = (e) => typeof e == "object" && e !== null || typeof e == "function", x = new Map([["proxy", {
-		canHandle: (e) => S(e) && e[M],
+	const S = Symbol("Comlink.proxy"), z = Symbol("Comlink.endpoint"), N = Symbol("Comlink.releaseProxy"), k = Symbol("Comlink.finalizer"), w = Symbol("Comlink.thrown"), M = (e) => typeof e == "object" && e !== null || typeof e == "function", x = new Map([["proxy", {
+		canHandle: (e) => M(e) && e[S],
 		serialize(e) {
 			const { port1: t, port2: r } = new MessageChannel();
 			return A(e, t), [r, [r]];
@@ -9,7 +9,7 @@
 			return e.start(), _(e);
 		}
 	}], ["throw", {
-		canHandle: (e) => S(e) && w in e,
+		canHandle: (e) => M(e) && w in e,
 		serialize({ value: e }) {
 			let t;
 			return e instanceof Error ? t = {
@@ -33,28 +33,28 @@
 		return !1;
 	}
 	function A(e, t = globalThis, r = ["*"]) {
-		t.addEventListener("message", function g(n) {
+		t.addEventListener("message", function l(n) {
 			if (!n || !n.data) return;
 			if (!L(r, n.origin)) {
 				console.warn(`Invalid origin '${n.origin}' for comlink proxy`);
 				return;
 			}
-			const { id: s, type: f, path: i } = Object.assign({ path: [] }, n.data), l = (n.data.argumentList || []).map(y);
+			const { id: s, type: g, path: i } = Object.assign({ path: [] }, n.data), u = (n.data.argumentList || []).map(y);
 			let a;
 			try {
-				const o = i.slice(0, -1).reduce((c, d) => c[d], e), u = i.reduce((c, d) => c[d], e);
-				switch (f) {
+				const o = i.slice(0, -1).reduce((c, d) => c[d], e), f = i.reduce((c, d) => c[d], e);
+				switch (g) {
 					case "GET":
-						a = u;
+						a = f;
 						break;
 					case "SET":
 						o[i.slice(-1)[0]] = y(n.data.value), a = !0;
 						break;
 					case "APPLY":
-						a = u.apply(o, l);
+						a = f.apply(o, u);
 						break;
 					case "CONSTRUCT":
-						a = I(new u(...l));
+						a = I(new f(...u));
 						break;
 					case "ENDPOINT":
 						{
@@ -77,14 +77,14 @@
 				value: o,
 				[w]: 0
 			})).then((o) => {
-				const [u, c] = p(o);
-				t.postMessage(Object.assign(Object.assign({}, u), { id: s }), c), f === "RELEASE" && (t.removeEventListener("message", g), C(t), k in e && typeof e[k] == "function" && e[k]());
+				const [f, c] = p(o);
+				t.postMessage(Object.assign(Object.assign({}, f), { id: s }), c), g === "RELEASE" && (t.removeEventListener("message", l), C(t), k in e && typeof e[k] == "function" && e[k]());
 			}).catch((o) => {
-				const [u, c] = p({
+				const [f, c] = p({
 					value: /* @__PURE__ */ new TypeError("Unserializable return value"),
 					[w]: 0
 				});
-				t.postMessage(Object.assign(Object.assign({}, u), { id: s }), c);
+				t.postMessage(Object.assign(Object.assign({}, f), { id: s }), c);
 			});
 		}), t.start && t.start();
 	}
@@ -99,9 +99,9 @@
 		return e.addEventListener("message", function(n) {
 			const { data: s } = n;
 			if (!s || !s.id) return;
-			const f = r.get(s.id);
-			if (f) try {
-				f(s);
+			const g = r.get(s.id);
+			if (g) try {
+				g(s);
 			} finally {
 				r.delete(s.id);
 			}
@@ -126,51 +126,51 @@
 	function D(e) {
 		b && b.unregister(e);
 	}
-	function P(e, t, r = [], g = function() {}) {
+	function P(e, t, r = [], l = function() {}) {
 		let n = !1;
-		const s = new Proxy(g, {
-			get(f, i) {
+		const s = new Proxy(l, {
+			get(g, i) {
 				if (h(n), i === N) return () => {
 					D(s), R(e), t.clear(), n = !0;
 				};
 				if (i === "then") {
 					if (r.length === 0) return { then: () => s };
-					const l = m(e, t, {
+					const u = m(e, t, {
 						type: "GET",
 						path: r.map((a) => a.toString())
 					}).then(y);
-					return l.then.bind(l);
+					return u.then.bind(u);
 				}
 				return P(e, t, [...r, i]);
 			},
-			set(f, i, l) {
+			set(g, i, u) {
 				h(n);
-				const [a, o] = p(l);
+				const [a, o] = p(u);
 				return m(e, t, {
 					type: "SET",
-					path: [...r, i].map((u) => u.toString()),
+					path: [...r, i].map((f) => f.toString()),
 					value: a
 				}, o).then(y);
 			},
-			apply(f, i, l) {
+			apply(g, i, u) {
 				h(n);
 				const a = r[r.length - 1];
 				if (a === z) return m(e, t, { type: "ENDPOINT" }).then(y);
 				if (a === "bind") return P(e, t, r.slice(0, -1));
-				const [o, u] = O(l);
+				const [o, f] = O(u);
 				return m(e, t, {
 					type: "APPLY",
 					path: r.map((c) => c.toString()),
 					argumentList: o
-				}, u).then(y);
+				}, f).then(y);
 			},
-			construct(f, i) {
+			construct(g, i) {
 				h(n);
-				const [l, a] = O(i);
+				const [u, a] = O(i);
 				return m(e, t, {
 					type: "CONSTRUCT",
 					path: r.map((o) => o.toString()),
-					argumentList: l
+					argumentList: u
 				}, a).then(y);
 			}
 		});
@@ -188,15 +188,15 @@
 		return T.set(e, t), e;
 	}
 	function I(e) {
-		return Object.assign(e, { [M]: !0 });
+		return Object.assign(e, { [S]: !0 });
 	}
 	function p(e) {
 		for (const [t, r] of x) if (r.canHandle(e)) {
-			const [g, n] = r.serialize(e);
+			const [l, n] = r.serialize(e);
 			return [{
 				type: "HANDLER",
 				name: t,
-				value: g
+				value: l
 			}, n];
 		}
 		return [{
@@ -210,22 +210,28 @@
 			case "RAW": return e.value;
 		}
 	}
-	function m(e, t, r, g) {
+	function m(e, t, r, l) {
 		return new Promise((n) => {
 			const s = W();
-			t.set(s, n), e.start && e.start(), e.postMessage(Object.assign({ id: s }, r), g);
+			t.set(s, n), e.start && e.start(), e.postMessage(Object.assign({ id: s }, r), l);
 		});
 	}
 	function W() {
 		return new Array(4).fill(0).map(() => Math.floor(Math.random() * Number.MAX_SAFE_INTEGER).toString(16)).join("-");
 	}
-	async function U(e) {
+	function U(e) {
+		return e.replace(/,(?!\s)/g, ", ");
+	}
+	async function G(e) {
 		const t = await fetch(e);
 		if (!t.ok) throw new Error(`Failed to load deep-sky catalog: ${t.status}`);
 		const r = await t.json();
-		return Array.isArray(r) ? r : Array.isArray(r.entries) ? r.entries : [];
+		return (Array.isArray(r) ? r : Array.isArray(r.entries) ? r.entries : []).map((l) => ({
+			...l,
+			name: U(l.name)
+		}));
 	}
 	A({ async loadCatalog(e) {
-		return U(e);
+		return G(e);
 	} });
 })();
