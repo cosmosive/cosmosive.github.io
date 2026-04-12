@@ -1,0 +1,1 @@
+import{t as p}from"./react-vendor-B17dtMLq.js";var u=p();function h(i,l,e,c,a){const n=i.length,r=[...i,...l].slice(e,c),s=[];for(let t=0;t<r.length;t++){const o=e+t;o===n&&n>0&&l.length>0&&s.push((0,u.jsx)("li",{className:"constellation-modal__list-separator","aria-hidden":!0},`list-split-sep-${e}-${o}`)),s.push(a(r[t]))}return s}export{h as t};
