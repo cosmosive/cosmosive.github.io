@@ -39,16 +39,16 @@
 				console.warn(`Invalid origin '${a.origin}' for comlink proxy`);
 				return;
 			}
-			const { id: o, type: _, path: f } = Object.assign({ path: [] }, a.data), u = (a.data.argumentList || []).map(U);
+			const { id: o, type: _, path: A } = Object.assign({ path: [] }, a.data), u = (a.data.argumentList || []).map(U);
 			let i;
 			try {
-				const S = f.slice(0, -1).reduce((A, N) => A[N], t), R = f.reduce((A, N) => A[N], t);
+				const S = A.slice(0, -1).reduce((E, N) => E[N], t), R = A.reduce((E, N) => E[N], t);
 				switch (_) {
 					case "GET":
 						i = R;
 						break;
 					case "SET":
-						S[f.slice(-1)[0]] = U(a.data.value), i = !0;
+						S[A.slice(-1)[0]] = U(a.data.value), i = !0;
 						break;
 					case "APPLY":
 						i = R.apply(S, u);
@@ -58,8 +58,8 @@
 						break;
 					case "ENDPOINT":
 						{
-							const { port1: A, port2: N } = new MessageChannel();
-							L(t, N), i = Q(A, [A]);
+							const { port1: E, port2: N } = new MessageChannel();
+							L(t, N), i = Q(E, [E]);
 						}
 						break;
 					case "RELEASE":
@@ -77,14 +77,14 @@
 				value: S,
 				[h]: 0
 			})).then((S) => {
-				const [R, A] = P(S);
-				n.postMessage(Object.assign(Object.assign({}, R), { id: o }), A), _ === "RELEASE" && (n.removeEventListener("message", e), $(n), w in t && typeof t[w] == "function" && t[w]());
+				const [R, E] = P(S);
+				n.postMessage(Object.assign(Object.assign({}, R), { id: o }), E), _ === "RELEASE" && (n.removeEventListener("message", e), $(n), w in t && typeof t[w] == "function" && t[w]());
 			}).catch((S) => {
-				const [R, A] = P({
+				const [R, E] = P({
 					value: /* @__PURE__ */ new TypeError("Unserializable return value"),
 					[h]: 0
 				});
-				n.postMessage(Object.assign(Object.assign({}, R), { id: o }), A);
+				n.postMessage(Object.assign(Object.assign({}, R), { id: o }), E);
 			});
 		}), n.start && n.start();
 	}
@@ -129,11 +129,11 @@
 	function d(t, n, r = [], e = function() {}) {
 		let a = !1;
 		const o = new Proxy(e, {
-			get(_, f) {
-				if (y(a), f === St) return () => {
+			get(_, A) {
+				if (y(a), A === St) return () => {
 					Rt(o), W(t), n.clear(), a = !0;
 				};
-				if (f === "then") {
+				if (A === "then") {
 					if (r.length === 0) return { then: () => o };
 					const u = I(t, n, {
 						type: "GET",
@@ -141,18 +141,18 @@
 					}).then(U);
 					return u.then.bind(u);
 				}
-				return d(t, n, [...r, f]);
+				return d(t, n, [...r, A]);
 			},
-			set(_, f, u) {
+			set(_, A, u) {
 				y(a);
 				const [i, S] = P(u);
 				return I(t, n, {
 					type: "SET",
-					path: [...r, f].map((R) => R.toString()),
+					path: [...r, A].map((R) => R.toString()),
 					value: i
 				}, S).then(U);
 			},
-			apply(_, f, u) {
+			apply(_, A, u) {
 				y(a);
 				const i = r[r.length - 1];
 				if (i === lt) return I(t, n, { type: "ENDPOINT" }).then(U);
@@ -160,13 +160,13 @@
 				const [S, R] = j(u);
 				return I(t, n, {
 					type: "APPLY",
-					path: r.map((A) => A.toString()),
+					path: r.map((E) => E.toString()),
 					argumentList: S
 				}, R).then(U);
 			},
-			construct(_, f) {
+			construct(_, A) {
 				y(a);
-				const [u, i] = j(f);
+				const [u, i] = j(A);
 				return I(t, n, {
 					type: "CONSTRUCT",
 					path: r.map((S) => S.toString()),
@@ -464,9 +464,9 @@
 			y: C.y,
 			z: C.z
 		};
-		const n = Z + it(t) * 20, { x: r, y: e, z: a, ra: o, dec: _ } = t, f = r != null && e != null && a != null && Number.isFinite(r) && Number.isFinite(e) && Number.isFinite(a);
+		const n = Z + it(t) * 20, { x: r, y: e, z: a, ra: o, dec: _ } = t, A = r != null && e != null && a != null && Number.isFinite(r) && Number.isFinite(e) && Number.isFinite(a);
 		let u = null;
-		return f && (u = gt({
+		return A && (u = gt({
 			x: r,
 			y: e,
 			z: a
@@ -511,40 +511,41 @@
 		}));
 	}
 	function Gt(t) {
-		const { catalog: n, maxDistanceLevel: r, simplifyStars: e, bounds: a, raInHours: o } = t, _ = zt(xt(n, { raInHours: o }).filter((l) => !V(l)), a, { maxDistanceLevel: r }), f = (l, M, E, g) => ({
+		const { catalog: n, maxDistanceLevel: r, simplifyStars: e, bounds: a, raInHours: o } = t, _ = zt(xt(n, { raInHours: o }).filter((l) => !V(l)), a, { maxDistanceLevel: r }), A = (l, M, f, g) => ({
 			positions: l,
 			sizes: M,
-			colors: E,
+			colors: f,
 			brightness: g,
 			namedStarsInView: [],
 			starsInView: []
 		});
 		if (_.length === 0) {
-			if (r === 0) return f(new Float32Array(0), new Float32Array(0), new Float32Array(0), new Float32Array(0));
-			const l = Yt(), M = l.length, E = new Float32Array(M * 3), g = new Float32Array(M).fill(ct), k = new Float32Array(M * 3).fill(1), K = new Float32Array(M).fill(1);
-			for (let m = 0; m < M; m++) E[m * 3] = l[m].x, E[m * 3 + 1] = l[m].y, E[m * 3 + 2] = l[m].z;
-			return f(E, g, k, K);
+			if (r === 0) return A(new Float32Array(0), new Float32Array(0), new Float32Array(0), new Float32Array(0));
+			const l = Yt(), M = l.length, f = new Float32Array(M * 3), g = new Float32Array(M).fill(ct), k = new Float32Array(M * 3).fill(1), K = new Float32Array(M).fill(1);
+			for (let m = 0; m < M; m++) f[m * 3] = l[m].x, f[m * 3 + 1] = l[m].y, f[m * 3 + 2] = l[m].z;
+			return A(f, g, k, K);
 		}
-		const u = _.map(Ht), i = u.length, S = new Float32Array(i * 3), R = new Float32Array(i), A = new Float32Array(i * 3), N = new Float32Array(i), ut = [];
+		const u = _.map(Ht), i = u.length, S = new Float32Array(i * 3), R = new Float32Array(i), E = new Float32Array(i * 3), N = new Float32Array(i), ut = [];
 		for (let l = 0; l < i; l++) {
-			const M = u[l], E = _[l];
+			const M = u[l], f = _[l];
 			S[l * 3] = M.x, S[l * 3 + 1] = M.y, S[l * 3 + 2] = M.z;
-			const g = E ? bt(E.mag, it(E)) : T;
+			const g = f ? bt(f.mag, it(f)) : T;
 			R[l] = e ? ct : g;
-			const k = E?.c != null ? `#${E.c}` : void 0, [K, m, $t] = e ? [
+			const k = f?.c != null ? `#${f.c}` : void 0, [K, m, $t] = e ? [
 				1,
 				1,
 				1
 			] : Vt(k);
-			A[l * 3] = K, A[l * 3 + 1] = m, A[l * 3 + 2] = $t, N[l] = e ? 1 : E?.br != null && Number.isFinite(E.br) ? Math.max(0, Math.min(1, E.br)) : 1, E?.proper && ut.push({
+			E[l * 3] = K, E[l * 3 + 1] = m, E[l * 3 + 2] = $t, N[l] = e ? 1 : f?.br != null && Number.isFinite(f.br) ? Math.max(0, Math.min(1, f.br)) : 1, f?.proper && ut.push({
 				position: { ...M },
-				name: E.proper
+				name: f.proper,
+				catalogId: String(f.id)
 			});
 		}
 		return {
 			positions: S,
 			sizes: R,
-			colors: A,
+			colors: E,
 			brightness: N,
 			namedStarsInView: ut,
 			starsInView: _
