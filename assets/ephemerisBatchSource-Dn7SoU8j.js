@@ -1,1 +1,0 @@
-import{Nn as o,an as a}from"./player-BkNUE8ok.js";import{fetchEphemerisBatch as c}from"./horizons-BlAE5uDc.js";a();var d=async t=>{const r=o(t.startJd),s=o(t.endJd);return{byBodyId:await c({targetIds:[...t.bodyIds],start:r,stop:s,step:t.step,concurrency:t.concurrency??2})}};export{d as defaultEphemerisBatchSource};
