@@ -1,0 +1,1 @@
+import{xn as o}from"./multiplayerHostAuthority-B2JOLPAE.js";import{fetchEphemerisBatch as c}from"./horizons-BjMVzXam.js";var d=async t=>{const r=o(t.startJd),s=o(t.endJd);return{byBodyId:await c({targetIds:[...t.bodyIds],start:r,stop:s,step:t.step,concurrency:t.concurrency??2})}};export{d as defaultEphemerisBatchSource};
