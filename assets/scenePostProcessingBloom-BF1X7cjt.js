@@ -1,1 +1,0 @@
-import{t as r}from"./react-vendor-EYoWN3qG.js";import{i as t,n,r as i,t as s}from"./three-vendor-1geCG0zW.js";var e=r();function a(){return(0,e.jsxs)(s,{renderPriority:1,children:[(0,e.jsx)(i,{luminanceThreshold:.35,luminanceSmoothing:.9,intensity:.85}),(0,e.jsx)(n,{technique:t.DEFAULT,offset:.2,darkness:.6})]})}export{a as ScenePostProcessingBloom};
