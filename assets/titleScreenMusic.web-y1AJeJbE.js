@@ -1,1 +1,0 @@
-var i="Cosmosive";function t(){}function s(){}function a(){}function o(){return!1}function u(e,n){}function c(e){}function r(){return!1}function l(e,n){}function m(){}async function f(e){}export{l as a,t as c,i as d,m as i,a as l,r as n,o,c as r,s,f as t,u};
