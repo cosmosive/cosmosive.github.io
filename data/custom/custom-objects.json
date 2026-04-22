@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "catalogId": "CUSTOM-SGR-A-STAR",
+      "name": "Sagittarius A*",
+      "aliases": [
+        "Sgr A*",
+        "SgrA*",
+        "Sgr A",
+        "Galactic Center",
+        "Milky Way Center"
+      ],
+      "type": "black_hole",
+      "subtype": "supermassive",
+      "raDeg": 266.41683,
+      "decDeg": -29.00781,
+      "distPc": 8178,
+      "constellation": "Sgr",
+      "featured": true,
+      "description": "Supermassive black hole at the dynamical center of the Milky Way.",
+      "wikipediaTitle": "Sagittarius A*",
+      "discoveredYear": 1974,
+      "physical": {
+        "massSolarMasses": 4297000,
+        "schwarzschildRadiusKm": 12700000
+      },
+      "externalLinks": {
+        "simbad": "https://simbad.u-strasbg.fr/simbad/sim-id?Ident=Sagittarius+A%2A",
+        "vizieR": "https://vizier.cds.unistra.fr/viz-bin/VizieR-5?-c=266.41683-29.00781&-c.rs=2&-c.unit=arcmin&-out.max=50&-out.form=HTML"
+      },
+      "references": [
+        "https://en.wikipedia.org/wiki/Sagittarius_A*",
+        "https://www.eventhorizontelescope.org/"
+      ]
+    }
+  ]
+}
