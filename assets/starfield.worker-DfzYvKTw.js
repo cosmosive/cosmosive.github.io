@@ -384,8 +384,8 @@
 	const p3 = .008;
 	function E3(t, n) {
 		if (!Number.isFinite(n) || n <= 0 || t == null || !Number.isFinite(t)) return v1(1);
-		const e = t - 5 * Math.log10(n / 10), r = Math.pow(10, (4.83 - e) / 2.5);
-		return v1(Math.max(p3, Math.min(100, Math.sqrt(r))));
+		const e = 10 ** ((4.83 - (t - 5 * Math.log10(n / 10))) / 2.5);
+		return v1(Math.max(p3, Math.min(100, Math.sqrt(e))));
 	}
 	var D1 = Qn({
 		AU_PER_LY: () => d2,

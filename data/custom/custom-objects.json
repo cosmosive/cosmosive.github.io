@@ -4,13 +4,7 @@
     {
       "catalogId": "CUSTOM-SGR-A-STAR",
       "name": "Sagittarius A*",
-      "aliases": [
-        "Sgr A*",
-        "SgrA*",
-        "Sgr A",
-        "Galactic Center",
-        "Milky Way Center"
-      ],
+      "aliases": ["Sgr A*", "SgrA*", "Sgr A", "Galactic Center", "Milky Way Center"],
       "type": "black_hole",
       "subtype": "supermassive",
       "raDeg": 266.41683,
