@@ -1,0 +1,1 @@
+import{i as o}from"./rolldown-runtime-BOC55nOF.js";import{f as i,u as a}from"./r3f-vendor-DnCU4-fA.js";var r=o(i(),1),m=a(),n=r.createContext(void 0);function _(t){const e=r.useContext(n);return t||e||"ltr"}export{_ as t};
