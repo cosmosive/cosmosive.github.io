@@ -1,0 +1,1 @@
+var u=new Set,a=new Set;function o(e,r="normal"){const t=r==="high"?u:a;return t.add(e),()=>{t.delete(e)}}function f(e,r){const t=i=>{const s=[...i];for(let n=s.length-1;n>=0;n-=1)if(s[n](e,r)===!0)return!0;return!1};return!!(t(u)||t(a))}export{o as n,f as t};
