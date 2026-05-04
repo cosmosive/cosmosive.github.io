@@ -27,6 +27,69 @@
         "https://en.wikipedia.org/wiki/Sagittarius_A*",
         "https://www.eventhorizontelescope.org/"
       ]
+    },
+    {
+      "catalogId": "CUSTOM-BARNARD-33",
+      "name": "Horsehead Nebula",
+      "aliases": ["B33"],
+      "type": "nebula",
+      "raDeg": 85.25,
+      "decDeg": -2.45833,
+      "distPc": 422,
+      "majAxArcmin": 8,
+      "constellation": "Ori",
+      "featured": true,
+      "wikipediaTitle": "Horsehead Nebula"
+    }
+  ],
+  "overrides": [
+    {
+      "catalogId": "NGC1976",
+      "type": "nebula",
+      "featured": true,
+      "aliases": ["M42", "Great Orion Nebula"],
+      "wikipediaTitle": "Orion Nebula"
+    },
+    {
+      "catalogId": "NGC3372",
+      "featured": true,
+      "wikipediaTitle": "Carina Nebula"
+    },
+    {
+      "catalogId": "NGC6853",
+      "featured": true,
+      "aliases": ["M27"],
+      "wikipediaTitle": "Dumbbell Nebula"
+    },
+    {
+      "catalogId": "NGC6523",
+      "featured": true,
+      "aliases": ["M8"],
+      "wikipediaTitle": "Lagoon Nebula"
+    },
+    {
+      "catalogId": "NGC6611",
+      "featured": true,
+      "aliases": ["M16", "Star Queen"],
+      "wikipediaTitle": "Eagle Nebula"
+    },
+    {
+      "catalogId": "NGC6618",
+      "name": "Omega Nebula",
+      "featured": true,
+      "aliases": ["M17", "Swan Nebula", "Checkmark Nebula", "Lobster Nebula"],
+      "wikipediaTitle": "Omega Nebula"
+    },
+    {
+      "catalogId": "NGC1952",
+      "featured": true,
+      "aliases": ["M1"],
+      "wikipediaTitle": "Crab Nebula"
+    },
+    {
+      "catalogId": "NGC7000",
+      "featured": true,
+      "wikipediaTitle": "North America Nebula"
     }
   ]
 }
