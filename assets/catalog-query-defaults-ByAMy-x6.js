@@ -1,0 +1,1 @@
+import{Bt as a}from"./sceneModel-BTMHFJxN.js";import"./deepSkyScenePosition-BjL4EWuY.js";function s(r){return a().assets.publicUrl(r)}var T=600*1e3,e=3600*1e3,A=300*1e3;export{s as i,A as n,T as r,e as t};
