@@ -301,6 +301,7 @@
 			radiusKm: 69911,
 			kind: "gasGiant",
 			textureResolution: 256,
+			geometricAlbedo: .52,
 			massKg: 18982e23,
 			semiMajorAxisAu: 5.2044,
 			parentBodyId: R.SUN
@@ -312,6 +313,7 @@
 			radiusKm: 58232,
 			kind: "gasGiant",
 			textureResolution: 256,
+			geometricAlbedo: .47,
 			features: { rings: !0 },
 			massKg: 56834e22,
 			semiMajorAxisAu: 9.5826,
@@ -324,6 +326,7 @@
 			radiusKm: 25362,
 			kind: "iceGiant",
 			textureResolution: 224,
+			geometricAlbedo: .51,
 			massKg: 868103e20,
 			semiMajorAxisAu: 19.2184,
 			parentBodyId: R.SUN
@@ -335,6 +338,7 @@
 			radiusKm: 24622,
 			kind: "iceGiant",
 			textureResolution: 224,
+			geometricAlbedo: .41,
 			massKg: 102413e21,
 			semiMajorAxisAu: 30.110387,
 			parentBodyId: R.SUN
