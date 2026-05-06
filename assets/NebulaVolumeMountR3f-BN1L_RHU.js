@@ -1,4 +1,4 @@
-import{i as B}from"./rolldown-runtime-BOC55nOF.js";import{p as I}from"./r3f-vendor-XIshX99T.js";import{n as q}from"./state-data-vendor-sq1yP6E9.js";import{R as x,V as O,bt as p,dt as j,lt as Q,p as b,w as E,yt as V}from"./three-vendor-vu4QJ6OG.js";import{Fa as M,a as k,fa as N,mo as z,wn as W}from"./index-odFsId6h.js";import{a as G,n as Y,o as H,s as X,t as R}from"./queryCacheNotify-BoJ_4xvi.js";import{t as K}from"./deepSkyCatalogBridge-Bxtl6n8t.js";var _=B(I(),1),C=220,J=5e4,w=90,$=28e3,Z=10,h=10,ee=17,ae=9,oe=`
+import{i as B}from"./rolldown-runtime-BOC55nOF.js";import{p as I}from"./r3f-vendor-XIshX99T.js";import{n as q}from"./state-data-vendor-sq1yP6E9.js";import{R as x,V as O,bt as p,dt as j,lt as Q,p as b,w as E,yt as V}from"./three-vendor-vu4QJ6OG.js";import{Fa as M,a as k,fa as N,mo as z,wn as W}from"./index-CUgmmmUN.js";import{a as G,n as Y,o as H,s as X,t as R}from"./queryCacheNotify-BoJ_4xvi.js";import{t as K}from"./deepSkyCatalogBridge-CCWNGSZl.js";var _=B(I(),1),C=220,J=5e4,w=90,$=28e3,Z=10,h=10,ee=17,ae=9,oe=`
 varying vec3 vWorldPos;
 varying vec3 vLocalPos;
 varying vec3 vNormalDir;
