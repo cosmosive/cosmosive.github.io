@@ -1,1 +1,0 @@
-var e=null,r=0,t=new Set;function o(){r+=1;for(const n of t)n()}function u(){return r}function a(n){return t.add(n),()=>t.delete(n)}function s(n,i){e={c1Abbr:n,c2Abbr:i},o()}function f(){const n=e;return e=null,n}export{f as i,s as n,a as r,u as t};
