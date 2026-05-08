@@ -1,5 +1,5 @@
 (function() {
-	var e2 = Object.defineProperty, Yn = (t, n) => {
+	var e2 = Object.defineProperty, Wn = (t, n) => {
 		let e = {};
 		for (var r in t) e2(e, r, {
 			get: t[r],
@@ -7,17 +7,17 @@
 		});
 		return n || e2(e, Symbol.toStringTag, { value: "Module" }), e;
 	};
-	const r2 = Symbol("Comlink.proxy"), Wn = Symbol("Comlink.endpoint"), jn = Symbol("Comlink.releaseProxy"), ct = Symbol("Comlink.finalizer"), g1 = Symbol("Comlink.thrown"), o2 = (t) => typeof t == "object" && t !== null || typeof t == "function", s2 = new Map([["proxy", {
+	const r2 = Symbol("Comlink.proxy"), jn = Symbol("Comlink.endpoint"), Xn = Symbol("Comlink.releaseProxy"), ct = Symbol("Comlink.finalizer"), y1 = Symbol("Comlink.thrown"), o2 = (t) => typeof t == "object" && t !== null || typeof t == "function", s2 = new Map([["proxy", {
 		canHandle: (t) => o2(t) && t[r2],
 		serialize(t) {
 			const { port1: n, port2: e } = new MessageChannel();
 			return ut(t, n), [e, [e]];
 		},
 		deserialize(t) {
-			return t.start(), te(t);
+			return t.start(), ne(t);
 		}
 	}], ["throw", {
-		canHandle: (t) => o2(t) && g1 in t,
+		canHandle: (t) => o2(t) && y1 in t,
 		serialize({ value: t }) {
 			let n;
 			return t instanceof Error ? n = {
@@ -36,18 +36,18 @@
 			throw t.isError ? Object.assign(new Error(t.value.message), t.value) : t.value;
 		}
 	}]]);
-	function Xn(t, n) {
+	function Zn(t, n) {
 		for (const e of t) if (n === e || e === "*" || e instanceof RegExp && e.test(n)) return !0;
 		return !1;
 	}
 	function ut(t, n = globalThis, e = ["*"]) {
 		n.addEventListener("message", function r(o) {
 			if (!o || !o.data) return;
-			if (!Xn(e, o.origin)) {
+			if (!Zn(e, o.origin)) {
 				console.warn(`Invalid origin '${o.origin}' for comlink proxy`);
 				return;
 			}
-			const { id: s, type: i, path: c } = Object.assign({ path: [] }, o.data), a = (o.data.argumentList || []).map(P0);
+			const { id: s, type: i, path: c } = Object.assign({ path: [] }, o.data), a = (o.data.argumentList || []).map(z0);
 			let u;
 			try {
 				const h = c.slice(0, -1).reduce((d, _) => d[_], t), l = c.reduce((d, _) => d[_], t);
@@ -56,18 +56,18 @@
 						u = l;
 						break;
 					case "SET":
-						h[c.slice(-1)[0]] = P0(o.data.value), u = !0;
+						h[c.slice(-1)[0]] = z0(o.data.value), u = !0;
 						break;
 					case "APPLY":
 						u = l.apply(h, a);
 						break;
 					case "CONSTRUCT":
-						u = se(new l(...a));
+						u = ie(new l(...a));
 						break;
 					case "ENDPOINT":
 						{
 							const { port1: d, port2: _ } = new MessageChannel();
-							ut(t, _), u = oe(d, [d]);
+							ut(t, _), u = se(d, [d]);
 						}
 						break;
 					case "RELEASE":
@@ -78,31 +78,31 @@
 			} catch (h) {
 				u = {
 					value: h,
-					[g1]: 0
+					[y1]: 0
 				};
 			}
 			Promise.resolve(u).catch((h) => ({
 				value: h,
-				[g1]: 0
+				[y1]: 0
 			})).then((h) => {
-				const [l, d] = I1(h);
+				const [l, d] = x1(h);
 				n.postMessage(Object.assign(Object.assign({}, l), { id: s }), d), i === "RELEASE" && (n.removeEventListener("message", r), i2(n), ct in t && typeof t[ct] == "function" && t[ct]());
 			}).catch((h) => {
-				const [l, d] = I1({
+				const [l, d] = x1({
 					value: /* @__PURE__ */ new TypeError("Unserializable return value"),
-					[g1]: 0
+					[y1]: 0
 				});
 				n.postMessage(Object.assign(Object.assign({}, l), { id: s }), d);
 			});
 		}), n.start && n.start();
 	}
-	function Zn(t) {
+	function te(t) {
 		return t.constructor.name === "MessagePort";
 	}
 	function i2(t) {
-		Zn(t) && t.close();
+		te(t) && t.close();
 	}
-	function te(t, n) {
+	function ne(t, n) {
 		const e = /* @__PURE__ */ new Map();
 		return t.addEventListener("message", function(o) {
 			const { data: s } = o;
@@ -115,7 +115,7 @@
 			}
 		}), lt(t, e, [], n);
 	}
-	function m1(t) {
+	function g1(t) {
 		if (t) throw new Error("Proxy has been released and is not useable");
 	}
 	function a2(t) {
@@ -123,82 +123,82 @@
 			i2(t);
 		});
 	}
-	const R1 = /* @__PURE__ */ new WeakMap(), x1 = "FinalizationRegistry" in globalThis && new FinalizationRegistry((t) => {
-		const n = (R1.get(t) || 0) - 1;
-		R1.set(t, n), n === 0 && a2(t);
+	const m1 = /* @__PURE__ */ new WeakMap(), R1 = "FinalizationRegistry" in globalThis && new FinalizationRegistry((t) => {
+		const n = (m1.get(t) || 0) - 1;
+		m1.set(t, n), n === 0 && a2(t);
 	});
-	function ne(t, n) {
-		const e = (R1.get(n) || 0) + 1;
-		R1.set(n, e), x1 && x1.register(t, n, t);
+	function ee(t, n) {
+		const e = (m1.get(n) || 0) + 1;
+		m1.set(n, e), R1 && R1.register(t, n, t);
 	}
-	function ee(t) {
-		x1 && x1.unregister(t);
+	function re(t) {
+		R1 && R1.unregister(t);
 	}
 	function lt(t, n, e = [], r = function() {}) {
 		let o = !1;
 		const s = new Proxy(r, {
 			get(i, c) {
-				if (m1(o), c === jn) return () => {
-					ee(s), a2(t), n.clear(), o = !0;
+				if (g1(o), c === Xn) return () => {
+					re(s), a2(t), n.clear(), o = !0;
 				};
 				if (c === "then") {
 					if (e.length === 0) return { then: () => s };
 					const a = b0(t, n, {
 						type: "GET",
 						path: e.map((u) => u.toString())
-					}).then(P0);
+					}).then(z0);
 					return a.then.bind(a);
 				}
 				return lt(t, n, [...e, c]);
 			},
 			set(i, c, a) {
-				m1(o);
-				const [u, h] = I1(a);
+				g1(o);
+				const [u, h] = x1(a);
 				return b0(t, n, {
 					type: "SET",
 					path: [...e, c].map((l) => l.toString()),
 					value: u
-				}, h).then(P0);
+				}, h).then(z0);
 			},
 			apply(i, c, a) {
-				m1(o);
+				g1(o);
 				const u = e[e.length - 1];
-				if (u === Wn) return b0(t, n, { type: "ENDPOINT" }).then(P0);
+				if (u === jn) return b0(t, n, { type: "ENDPOINT" }).then(z0);
 				if (u === "bind") return lt(t, n, e.slice(0, -1));
 				const [h, l] = c2(a);
 				return b0(t, n, {
 					type: "APPLY",
 					path: e.map((d) => d.toString()),
 					argumentList: h
-				}, l).then(P0);
+				}, l).then(z0);
 			},
 			construct(i, c) {
-				m1(o);
+				g1(o);
 				const [a, u] = c2(c);
 				return b0(t, n, {
 					type: "CONSTRUCT",
 					path: e.map((h) => h.toString()),
 					argumentList: a
-				}, u).then(P0);
+				}, u).then(z0);
 			}
 		});
-		return ne(s, t), s;
+		return ee(s, t), s;
 	}
-	function re(t) {
+	function oe(t) {
 		return Array.prototype.concat.apply([], t);
 	}
 	function c2(t) {
-		const n = t.map(I1);
-		return [n.map((e) => e[0]), re(n.map((e) => e[1]))];
+		const n = t.map(x1);
+		return [n.map((e) => e[0]), oe(n.map((e) => e[1]))];
 	}
 	const u2 = /* @__PURE__ */ new WeakMap();
-	function oe(t, n) {
+	function se(t, n) {
 		return u2.set(t, n), t;
 	}
-	function se(t) {
+	function ie(t) {
 		return Object.assign(t, { [r2]: !0 });
 	}
-	function I1(t) {
+	function x1(t) {
 		for (const [n, e] of s2) if (e.canHandle(t)) {
 			const [r, o] = e.serialize(t);
 			return [{
@@ -212,7 +212,7 @@
 			value: t
 		}, u2.get(t) || []];
 	}
-	function P0(t) {
+	function z0(t) {
 		switch (t.type) {
 			case "HANDLER": return s2.get(t.name).deserialize(t.value);
 			case "RAW": return t.value;
@@ -220,24 +220,24 @@
 	}
 	function b0(t, n, e, r) {
 		return new Promise((o) => {
-			const s = ie();
+			const s = ae();
 			n.set(s, o), t.start && t.start(), t.postMessage(Object.assign({ id: s }, e), r);
 		});
 	}
-	function ie() {
+	function ae() {
 		return new Array(4).fill(0).map(() => Math.floor(Math.random() * Number.MAX_SAFE_INTEGER).toString(16)).join("-");
 	}
-	function ae(t) {
+	function ce(t) {
 		return Math.sqrt(t.x * t.x + t.y * t.y + t.z * t.z);
 	}
-	function ce(t) {
+	function ue(t) {
 		return t.x * t.x + t.y * t.y + t.z * t.z;
 	}
-	function ue(t) {
-		return Math.sqrt(ce(t));
-	}
 	function le(t) {
-		const n = ue(t);
+		return Math.sqrt(ue(t));
+	}
+	function he(t) {
+		const n = le(t);
 		return n < 1e-18 ? null : {
 			x: t.x / n,
 			y: t.y / n,
@@ -256,7 +256,7 @@
 		NEPTUNE: "899",
 		PLUTO: "999",
 		MOON: "301"
-	}, he = 384399 / 149597870.7, fe = {
+	}, fe = 384399 / 149597870.7, de = {
 		[I.SUN]: {
 			name: "Sun",
 			type: "star",
@@ -379,28 +379,29 @@
 			kind: "barren",
 			textureResolution: 192,
 			massKg: 7342e19,
-			semiMajorAxisAu: he,
+			semiMajorAxisAu: fe,
 			parentBodyId: I.EARTH
 		}
-	}, de = 149597870.7, l2 = 648e3 / Math.PI, ht = 1e3;
-	100 * ht;
-	100 / l2;
-	const h2 = 3.2615637771694, ft = {
+	}, ht = 149597870.7, ft = 648e3 / Math.PI;
+	ft * ht / 3.2615637771694;
+	const l2 = 1e3 / ht, h2 = ht * l2;
+	100 * h2;
+	100 / ft;
+	const f2 = 3.2615637771694, dt = {
 		x: 0,
 		y: 0,
 		z: 0
-	}, v1 = ht * l2;
-	25 * v1;
-	function f2(t) {
-		return !Number.isFinite(t) || t < 0 ? 0 : t * v1;
+	}, I1 = h2 * ft;
+	25 * I1;
+	function d2(t) {
+		return !Number.isFinite(t) || t < 0 ? 0 : t * I1;
 	}
-	const Me = 5e4, Se = 2e3, _e = Me / h2, Ae = Se / h2;
-	f2(_e);
-	f2(Ae);
-	const pe = 25 * v1, W = 9.7156e-9, i1 = 32408e-21, D1 = 32408e-18, dt = 32408e-15;
-	100 * i1;
-	1 * i1, 10 * i1, 100 * i1, 1 * D1, 10 * D1, 100 * D1, 1 * dt, 10 * dt, 100 * dt, .01 * W, .1 * W, .5 * W, 1 * W, 10 * W, 100 * W, 1e3 * W, 1e4 * W, 1e5 * W, 1e6 * W, 1e7 * W, 1e8 * W, 1e9 * W;
-	1 * i1;
+	const Me = 5e4, Se = 2e3, _e = Me / f2, Ae = Se / f2;
+	d2(_e);
+	d2(Ae);
+	const pe = 25 * I1, W = 299792.458, v1 = .001, D1 = 1e3;
+	1 * v1, 10 * v1, 100 * v1, 1 * D1, 10 * D1, 100 * D1, .01 * W, .1 * W, .5 * W, 1 * W, 10 * W, 100 * W, 1e3 * W, 1e4 * W, 1e5 * W, 1e6 * W, 1e7 * W, 1e8 * W, 1e9 * W;
+	1 * v1;
 	1e9 * W;
 	1 * D1;
 	function Ee(t) {
@@ -414,183 +415,182 @@
 			parentBodyId: t.parentBodyId
 		};
 	}
-	const d2 = Object.fromEntries(Object.entries(fe).map(([t, n]) => [t, Ee(n)]));
+	const M2 = Object.fromEntries(Object.entries(de).map(([t, n]) => [t, Ee(n)]));
 	I.SUN, I.MERCURY, I.VENUS, I.EARTH, I.MARS, I.JUPITER, I.SATURN, I.URANUS, I.NEPTUNE, I.PLUTO, I.MOON;
 	function we(t) {
-		return !Number.isFinite(t) || t < 0 ? 0 : t * v1;
+		return !Number.isFinite(t) || t < 0 ? 0 : t * I1;
 	}
-	const M2 = d2[I.EARTH]?.radiusKm ?? 6371, S2 = d2[I.SUN]?.radiusKm ?? 696340;
-	M2 / S2;
-	const ye = ht / de;
-	function _2(t) {
-		return !Number.isFinite(t) || t <= 0 ? 0 : t * ye;
+	const S2 = M2[I.EARTH]?.radiusKm ?? 6371, _2 = M2[I.SUN]?.radiusKm ?? 696340;
+	S2 / _2;
+	function A2(t) {
+		return !Number.isFinite(t) || t <= 0 ? 0 : t * l2;
 	}
-	_2(M2);
-	_2(S2);
-	var P1 = Yn({
-		AU_PER_LY: () => A2,
+	A2(S2);
+	A2(_2);
+	var z1 = Wn({
+		AU_PER_LY: () => p2,
 		AngleBetween: () => U1,
 		AngleFromSun: () => e1,
-		Apsis: () => p1,
+		Apsis: () => A1,
 		ApsisKind: () => x0,
 		AstroTime: () => g0,
-		Atmosphere: () => tn,
-		AtmosphereInfo: () => Z2,
+		Atmosphere: () => nn,
+		AtmosphereInfo: () => tn,
 		AxisInfo: () => qt,
-		BackdatePosition: () => q2,
-		BaryState: () => M3,
+		BackdatePosition: () => Y2,
+		BaryState: () => d3,
 		Body: () => f,
-		CALLISTO_RADIUS_KM: () => De,
-		C_AUDAY: () => z1,
-		CalcMoonCount: () => N2,
+		CALLISTO_RADIUS_KM: () => ve,
+		C_AUDAY: () => P1,
+		CalcMoonCount: () => T2,
 		CombineRotation: () => I0,
-		Constellation: () => Q3,
-		ConstellationInfo: () => yn,
-		CorrectLightTravel: () => Q2,
+		Constellation: () => B3,
+		ConstellationInfo: () => gn,
+		CorrectLightTravel: () => q2,
 		DEG2RAD: () => p,
-		DefineStar: () => $e,
+		DefineStar: () => He,
 		DeltaT_EspenakMeeus: () => yt,
-		DeltaT_JplHorizons: () => Ge,
-		EUROPA_RADIUS_KM: () => Ie,
-		EclipseEvent: () => zn,
+		DeltaT_JplHorizons: () => Je,
+		EUROPA_RADIUS_KM: () => xe,
+		EclipseEvent: () => Nn,
 		EclipseKind: () => Z,
-		Ecliptic: () => h1,
-		EclipticCoordinates: () => F2,
-		EclipticGeoMoon: () => G1,
+		Ecliptic: () => l1,
+		EclipticCoordinates: () => V2,
+		EclipticGeoMoon: () => K1,
 		EclipticLongitude: () => U0,
-		Elongation: () => sn,
-		ElongationEvent: () => on,
-		Equator: () => l1,
+		Elongation: () => an,
+		ElongationEvent: () => sn,
+		Equator: () => u1,
 		EquatorFromVector: () => Vt,
 		EquatorialCoordinates: () => $1,
-		GANYMEDE_RADIUS_KM: () => ve,
+		GANYMEDE_RADIUS_KM: () => Ie,
 		GeoEmbState: () => It,
 		GeoMoon: () => a0,
-		GeoMoonState: () => f1,
+		GeoMoonState: () => h1,
 		GeoVector: () => e0,
-		GlobalSolarEclipseInfo: () => vn,
-		GravitySimulator: () => f4,
+		GlobalSolarEclipseInfo: () => Dn,
+		GravitySimulator: () => h4,
 		HOUR2RAD: () => Mt,
 		HelioDistance: () => C0,
 		HelioState: () => Y1,
 		HelioVector: () => c0,
 		Horizon: () => J1,
-		HorizonFromVector: () => O3,
-		HorizontalCoordinates: () => k2,
-		HourAngle: () => v3,
-		HourAngleEvent: () => en,
-		IO_RADIUS_KM: () => xe,
-		IdentityMatrix: () => L3,
+		HorizonFromVector: () => U3,
+		HorizontalCoordinates: () => F2,
+		HourAngle: () => I3,
+		HourAngleEvent: () => rn,
+		IO_RADIUS_KM: () => Re,
+		IdentityMatrix: () => C3,
 		Illumination: () => W1,
-		IlluminationInfo: () => W2,
-		InverseRefraction: () => hn,
+		IlluminationInfo: () => j2,
+		InverseRefraction: () => fn,
 		InverseRotation: () => o1,
-		JUPITER_EQUATORIAL_RADIUS_KM: () => ge,
-		JUPITER_MEAN_RADIUS_KM: () => Re,
-		JUPITER_POLAR_RADIUS_KM: () => me,
-		JupiterMoons: () => f3,
-		JupiterMoonsInfo: () => B2,
+		JUPITER_EQUATORIAL_RADIUS_KM: () => ye,
+		JUPITER_MEAN_RADIUS_KM: () => me,
+		JUPITER_POLAR_RADIUS_KM: () => ge,
+		JupiterMoons: () => h3,
+		JupiterMoonsInfo: () => Q2,
 		KM_PER_AU: () => b,
-		LagrangePoint: () => h4,
-		LagrangePointFast: () => $n,
-		Libration: () => Ye,
-		LibrationInfo: () => T2,
-		LocalSolarEclipseInfo: () => Nn,
-		LunarEclipseInfo: () => gn,
-		MakeRotation: () => t3,
+		LagrangePoint: () => l4,
+		LagrangePointFast: () => Jn,
+		Libration: () => qe,
+		LibrationInfo: () => C2,
+		LocalSolarEclipseInfo: () => Tn,
+		LunarEclipseInfo: () => mn,
+		MakeRotation: () => Ze,
 		MakeTime: () => m,
 		MassProduct: () => wt,
 		MoonPhase: () => kt,
-		MoonQuarter: () => j2,
-		NextGlobalSolarEclipse: () => e4,
-		NextLocalSolarEclipse: () => s4,
-		NextLunarApsis: () => N3,
-		NextLunarEclipse: () => n4,
-		NextMoonNode: () => c4,
-		NextMoonQuarter: () => E3,
-		NextPlanetApsis: () => C3,
-		NextTransit: () => a4,
-		NodeEventInfo: () => Fn,
+		MoonQuarter: () => X2,
+		NextGlobalSolarEclipse: () => n4,
+		NextLocalSolarEclipse: () => o4,
+		NextLunarApsis: () => P3,
+		NextLunarEclipse: () => t4,
+		NextMoonNode: () => a4,
+		NextMoonQuarter: () => p3,
+		NextPlanetApsis: () => T3,
+		NextTransit: () => i4,
+		NodeEventInfo: () => Vn,
 		NodeEventKind: () => A0,
 		Observer: () => Rt,
-		ObserverGravity: () => o3,
-		ObserverState: () => e3,
-		ObserverVector: () => n3,
+		ObserverGravity: () => r3,
+		ObserverState: () => n3,
+		ObserverVector: () => t3,
 		PairLongitude: () => bt,
-		Pivot: () => U3,
-		PlanetOrbitalPeriod: () => Je,
+		Pivot: () => L3,
+		PlanetOrbitalPeriod: () => $e,
 		RAD2DEG: () => V,
 		RAD2HOUR: () => St,
-		Refraction: () => E1,
+		Refraction: () => p1,
 		RotateState: () => X1,
-		RotateVector: () => w1,
-		RotationAxis: () => l4,
-		RotationMatrix: () => G,
-		Rotation_ECL_EQD: () => _n,
-		Rotation_ECL_EQJ: () => k3,
-		Rotation_ECL_HOR: () => An,
-		Rotation_ECT_EQD: () => pn,
-		Rotation_ECT_EQJ: () => V3,
-		Rotation_EQD_ECL: () => Sn,
-		Rotation_EQD_ECT: () => En,
+		RotateVector: () => E1,
+		RotationAxis: () => u4,
+		RotationMatrix: () => K,
+		Rotation_ECL_EQD: () => An,
+		Rotation_ECL_EQJ: () => b3,
+		Rotation_ECL_HOR: () => pn,
+		Rotation_ECT_EQD: () => En,
+		Rotation_ECT_EQJ: () => F3,
+		Rotation_EQD_ECL: () => _n,
+		Rotation_EQD_ECT: () => wn,
 		Rotation_EQD_EQJ: () => tt,
 		Rotation_EQD_HOR: () => $t,
-		Rotation_EQJ_ECL: () => fn,
-		Rotation_EQJ_ECT: () => F3,
+		Rotation_EQJ_ECL: () => dn,
+		Rotation_EQJ_ECT: () => k3,
 		Rotation_EQJ_EQD: () => Z1,
-		Rotation_EQJ_GAL: () => J3,
-		Rotation_EQJ_HOR: () => H3,
-		Rotation_GAL_EQJ: () => G3,
-		Rotation_HOR_ECL: () => $3,
-		Rotation_HOR_EQD: () => dn,
-		Rotation_HOR_EQJ: () => Mn,
-		Search: () => K,
-		SearchAltitude: () => m3,
+		Rotation_EQJ_GAL: () => $3,
+		Rotation_EQJ_HOR: () => V3,
+		Rotation_GAL_EQJ: () => J3,
+		Rotation_HOR_ECL: () => H3,
+		Rotation_HOR_EQD: () => Mn,
+		Rotation_HOR_EQJ: () => Sn,
+		Search: () => G,
+		SearchAltitude: () => g3,
 		SearchGlobalSolarEclipse: () => Pn,
-		SearchHourAngle: () => I3,
-		SearchLocalSolarEclipse: () => Un,
-		SearchLunarApsis: () => an,
-		SearchLunarEclipse: () => In,
-		SearchMaxElongation: () => P3,
-		SearchMoonNode: () => Hn,
-		SearchMoonPhase: () => A1,
-		SearchMoonQuarter: () => X2,
+		SearchHourAngle: () => x3,
+		SearchLocalSolarEclipse: () => On,
+		SearchLunarApsis: () => cn,
+		SearchLunarEclipse: () => vn,
+		SearchMaxElongation: () => D3,
+		SearchMoonNode: () => $n,
+		SearchMoonPhase: () => _1,
+		SearchMoonQuarter: () => Z2,
 		SearchPeakMagnitude: () => z3,
-		SearchPlanetApsis: () => un,
+		SearchPlanetApsis: () => ln,
 		SearchRelativeLongitude: () => r1,
-		SearchRiseSet: () => g3,
-		SearchSunLongitude: () => Y2,
-		SearchTransit: () => kn,
-		SeasonInfo: () => rn,
-		Seasons: () => D3,
+		SearchRiseSet: () => y3,
+		SearchSunLongitude: () => W2,
+		SearchTransit: () => Fn,
+		SeasonInfo: () => on,
+		Seasons: () => v3,
 		SetDeltaTFunction: () => Ke,
-		SiderealTime: () => U2,
+		SiderealTime: () => O2,
 		SphereFromVector: () => Ht,
 		Spherical: () => Q0,
 		StateVector: () => $,
-		SunPosition: () => H2,
-		TransitInfo: () => On,
+		SunPosition: () => $2,
+		TransitInfo: () => bn,
 		Vector: () => C,
-		VectorFromHorizon: () => b3,
+		VectorFromHorizon: () => O3,
 		VectorFromSphere: () => j1,
-		VectorObserver: () => r3,
+		VectorObserver: () => e3,
 		e_tilt: () => m0
 	});
-	const z1 = 173.1446326846693, b = 149597870.69098932, A2 = 63241.07708807546, p = .017453292519943295, Mt = .26179938779914946, V = 57.29577951308232, St = 3.819718634205488, ge = 71492, me = 66854, Re = 69911, xe = 1821.6, Ie = 1560.8, ve = 2631.2, De = 2410.3, p2 = 365.24217, E2 = /* @__PURE__ */ new Date("2000-01-01T12:00:00Z"), n0 = 2 * Math.PI, y0 = 3600 * (180 / Math.PI), k0 = 484813681109536e-20, w2 = 10800 * 60, Pe = 2 * w2, y2 = 7292115e-11, ze = w2 / Math.PI, Ne = -.17 - 5 * Math.log10(ze), N1 = 29.530588, T1 = 24 * 3600, Te = T1 * 1e3, g2 = .9972695717592592, a1 = 695700, m2 = a1 / b, s0 = .996647180302104, F0 = s0 * s0, M0 = 6378.1366, Ce = M0 / b, Le = M0 * s0, R2 = 6371, Ue = R2 + 88, Oe = 1738.1 / b, j = 1737.4, x2 = 1736, be = x2 / b, ke = 34 / 60, _t = 81.30056, c1 = .0002959122082855911, At = 4912547451450812e-26, pt = 7243452486162703e-25, u1 = 8887692390113509e-25, Et = 9549535105779258e-26, V0 = 2.825345909524226e-7, H0 = 8.459715185680659e-8, $0 = 1.292024916781969e-8, J0 = 1.524358900784276e-8, Fe = 218869976542597e-26, C1 = u1 / _t;
+	const P1 = 173.1446326846693, b = 149597870.69098932, p2 = 63241.07708807546, p = .017453292519943295, Mt = .26179938779914946, V = 57.29577951308232, St = 3.819718634205488, ye = 71492, ge = 66854, me = 69911, Re = 1821.6, xe = 1560.8, Ie = 2631.2, ve = 2410.3, E2 = 365.24217, w2 = /* @__PURE__ */ new Date("2000-01-01T12:00:00Z"), n0 = 2 * Math.PI, y0 = 3600 * (180 / Math.PI), k0 = 484813681109536e-20, y2 = 10800 * 60, De = 2 * y2, g2 = 7292115e-11, ze = y2 / Math.PI, Pe = -.17 - 5 * Math.log10(ze), N1 = 29.530588, T1 = 24 * 3600, Ne = T1 * 1e3, m2 = .9972695717592592, i1 = 695700, R2 = i1 / b, s0 = .996647180302104, F0 = s0 * s0, M0 = 6378.1366, Te = M0 / b, Ce = M0 * s0, x2 = 6371, Le = x2 + 88, Ue = 1738.1 / b, j = 1737.4, I2 = 1736, Oe = I2 / b, be = 34 / 60, _t = 81.30056, a1 = .0002959122082855911, At = 4912547451450812e-26, pt = 7243452486162703e-25, c1 = 8887692390113509e-25, Et = 9549535105779258e-26, V0 = 2.825345909524226e-7, H0 = 8.459715185680659e-8, $0 = 1.292024916781969e-8, J0 = 1.524358900784276e-8, ke = 218869976542597e-26, C1 = c1 / _t;
 	function wt(t) {
 		switch (t) {
-			case f.Sun: return c1;
+			case f.Sun: return a1;
 			case f.Mercury: return At;
 			case f.Venus: return pt;
-			case f.Earth: return u1;
+			case f.Earth: return c1;
 			case f.Moon: return C1;
-			case f.EMB: return u1 + C1;
+			case f.EMB: return c1 + C1;
 			case f.Mars: return Et;
 			case f.Jupiter: return V0;
 			case f.Saturn: return H0;
 			case f.Uranus: return $0;
 			case f.Neptune: return J0;
-			case f.Pluto: return Fe;
+			case f.Pluto: return ke;
 			default: throw `Do not know mass product for body: ${t}`;
 		}
 	}
@@ -602,7 +602,7 @@
 		if (!Number.isFinite(t)) throw console.trace(), `Value is not a finite number: ${t}`;
 		return t;
 	}
-	function G0(t) {
+	function K0(t) {
 		return t - Math.floor(t);
 	}
 	function U1(t, n) {
@@ -617,7 +617,7 @@
 	(function(t) {
 		t.Sun = "Sun", t.Moon = "Moon", t.Mercury = "Mercury", t.Venus = "Venus", t.Earth = "Earth", t.Mars = "Mars", t.Jupiter = "Jupiter", t.Saturn = "Saturn", t.Uranus = "Uranus", t.Neptune = "Neptune", t.Pluto = "Pluto", t.SSB = "SSB", t.EMB = "EMB", t.Star1 = "Star1", t.Star2 = "Star2", t.Star3 = "Star3", t.Star4 = "Star4", t.Star5 = "Star5", t.Star6 = "Star6", t.Star7 = "Star7", t.Star8 = "Star8";
 	})(f || (f = {}));
-	const Ve = [
+	const Fe = [
 		f.Star1,
 		f.Star2,
 		f.Star3,
@@ -626,7 +626,7 @@
 		f.Star6,
 		f.Star7,
 		f.Star8
-	], He = [
+	], Ve = [
 		{
 			ra: 0,
 			dec: 0,
@@ -668,21 +668,21 @@
 			dist: 0
 		}
 	];
-	function I2(t) {
-		const n = Ve.indexOf(t);
-		return n >= 0 ? He[n] : null;
+	function v2(t) {
+		const n = Fe.indexOf(t);
+		return n >= 0 ? Ve[n] : null;
 	}
 	function O1(t) {
-		const n = I2(t);
+		const n = v2(t);
 		return n && n.dist > 0 ? n : null;
 	}
-	function $e(t, n, e, r) {
-		const o = I2(t);
+	function He(t, n, e, r) {
+		const o = v2(t);
 		if (!o) throw `Invalid star body: ${t}`;
 		if (N(n), N(e), N(r), n < 0 || n >= 24) throw `Invalid right ascension for star: ${n}`;
 		if (e < -90 || e > 90) throw `Invalid declination for star: ${e}`;
 		if (r < 1) throw `Invalid star distance: ${r}`;
-		o.ra = n, o.dec = e, o.dist = r * A2;
+		o.ra = n, o.dec = e, o.dist = r * p2;
 	}
 	var F;
 	(function(t) {
@@ -699,7 +699,7 @@
 		Neptune: { OrbitalPeriod: 60189 },
 		Pluto: { OrbitalPeriod: 90560 }
 	};
-	function Je(t) {
+	function $e(t) {
 		if (t in i0) return i0[t].OrbitalPeriod;
 		throw `Unknown orbital period for: ${t}`;
 	}
@@ -3123,18 +3123,18 @@
 	};
 	function yt(t) {
 		var n, e, r, o, s, i, c;
-		const a = 2e3 + (t - 14) / p2;
+		const a = 2e3 + (t - 14) / E2;
 		return a < -500 ? (n = (a - 1820) / 100, -20 + 32 * n * n) : a < 500 ? (n = a / 100, e = n * n, r = n * e, o = e * e, s = e * r, i = r * r, 10583.6 - 1014.41 * n + 33.78311 * e - 5.952053 * r - .1798452 * o + .022174192 * s + .0090316521 * i) : a < 1600 ? (n = (a - 1e3) / 100, e = n * n, r = n * e, o = e * e, s = e * r, i = r * r, 1574.2 - 556.01 * n + 71.23472 * e + .319781 * r - .8503463 * o - .005050998 * s + .0083572073 * i) : a < 1700 ? (n = a - 1600, e = n * n, r = n * e, 120 - .9808 * n - .01532 * e + r / 7129) : a < 1800 ? (n = a - 1700, e = n * n, r = n * e, o = e * e, 8.83 + .1603 * n - .0059285 * e + 13336e-8 * r - o / 1174e3) : a < 1860 ? (n = a - 1800, e = n * n, r = n * e, o = e * e, s = e * r, i = r * r, c = r * o, 13.72 - .332447 * n + .0068612 * e + .0041116 * r - 37436e-8 * o + 121272e-10 * s - 1.699e-7 * i + 875e-12 * c) : a < 1900 ? (n = a - 1860, e = n * n, r = n * e, o = e * e, s = e * r, 7.62 + .5737 * n - .251754 * e + .01680668 * r - .0004473624 * o + s / 233174) : a < 1920 ? (n = a - 1900, e = n * n, r = n * e, o = e * e, -2.79 + 1.494119 * n - .0598939 * e + .0061966 * r - 197e-6 * o) : a < 1941 ? (n = a - 1920, e = n * n, r = n * e, 21.2 + .84493 * n - .0761 * e + .0020936 * r) : a < 1961 ? (n = a - 1950, e = n * n, r = n * e, 29.07 + .407 * n - e / 233 + r / 2547) : a < 1986 ? (n = a - 1975, e = n * n, r = n * e, 45.45 + 1.067 * n - e / 260 - r / 718) : a < 2005 ? (n = a - 2e3, e = n * n, r = n * e, o = e * e, s = e * r, 63.86 + .3345 * n - .060374 * e + .0017275 * r + 651814e-9 * o + 2373599e-11 * s) : a < 2050 ? (n = a - 2e3, 62.92 + .32217 * n + .005589 * n * n) : a < 2150 ? (n = (a - 1820) / 100, -20 + 32 * n * n - .5628 * (2150 - a)) : (n = (a - 1820) / 100, -20 + 32 * n * n);
 	}
-	function Ge(t) {
-		return yt(Math.min(t, 17 * p2));
+	function Je(t) {
+		return yt(Math.min(t, 17 * E2));
 	}
-	let v2 = yt;
+	let D2 = yt;
 	function Ke(t) {
-		v2 = t;
+		D2 = t;
 	}
-	function D2(t) {
-		return t + v2(t) / 86400;
+	function z2(t) {
+		return t + D2(t) / 86400;
 	}
 	var g0 = class at {
 		constructor(n) {
@@ -3144,11 +3144,11 @@
 			}
 			const e = 1e3 * 3600 * 24;
 			if (n instanceof Date && Number.isFinite(n.getTime())) {
-				this.date = n, this.ut = (n.getTime() - E2.getTime()) / e, this.tt = D2(this.ut);
+				this.date = n, this.ut = (n.getTime() - w2.getTime()) / e, this.tt = z2(this.ut);
 				return;
 			}
 			if (Number.isFinite(n)) {
-				this.date = new Date(E2.getTime() + n * e), this.ut = n, this.tt = D2(this.ut);
+				this.date = new Date(w2.getTime() + n * e), this.ut = n, this.tt = z2(this.ut);
 				return;
 			}
 			throw "Argument must be a Date object, an AstroTime object, or a numeric UTC Julian date.";
@@ -3168,15 +3168,15 @@
 			return new at(this.ut + n);
 		}
 	};
-	function Be(t, n, e) {
+	function Ge(t, n, e) {
 		return new g0(t.ut + e * (n.ut - t.ut));
 	}
 	function m(t) {
 		return t instanceof g0 ? t : new g0(t);
 	}
-	function Qe(t) {
+	function Be(t) {
 		function n(d) {
-			return d % Pe * k0;
+			return d % De * k0;
 		}
 		const e = t.tt / 36525, r = n(1287104.79305 + e * 129596581.0481), o = n(335779.526232 + e * 1739527262.8478), s = n(1072260.70369 + e * 1602961601.209), i = n(450160.398036 - e * 6962890.5431);
 		let c = Math.sin(i), a = Math.cos(i), u = (-172064161 - 174666 * e) * c + 33386 * a, h = (92052331 + 9086 * e) * a + 15377 * c, l = 2 * (o - s + i);
@@ -3192,7 +3192,7 @@
 	var b1;
 	function m0(t) {
 		if (!b1 || Math.abs(b1.tt - t.tt) > 1e-6) {
-			const n = Qe(t), e = P2(t), r = e + n.deps / 3600;
+			const n = Be(t), e = P2(t), r = e + n.deps / 3600;
 			b1 = {
 				tt: t.tt,
 				dpsi: n.dpsi,
@@ -3204,7 +3204,7 @@
 		}
 		return b1;
 	}
-	function z2(t, n) {
+	function N2(t, n) {
 		const e = t * p, r = Math.cos(e), o = Math.sin(e);
 		return [
 			n[0],
@@ -3212,12 +3212,12 @@
 			n[1] * o + n[2] * r
 		];
 	}
-	function qe(t, n) {
-		return z2(P2(t), n);
+	function Qe(t, n) {
+		return N2(P2(t), n);
 	}
-	let N2 = 0;
+	let T2 = 0;
 	function R0(t) {
-		++N2;
+		++T2;
 		const n = t.tt / 36525;
 		function e(L, k) {
 			const H = [];
@@ -3244,7 +3244,7 @@
 			const Q = L.array[k - L.min];
 			Q.array[H - Q.min] = J;
 		}
-		let i, c, a, u, h, l, d, _, M, A, g, E, y, w, x, R, P, v, z, D, T, U, B, u0 = r(-6, 6, 1, 4), o0 = r(-6, 6, 1, 4);
+		let i, c, a, u, h, l, d, _, M, A, g, E, y, w, x, R, z, v, P, D, T, U, B, u0 = r(-6, 6, 1, 4), o0 = r(-6, 6, 1, 4);
 		function p0(L, k) {
 			return o(u0, L, k);
 		}
@@ -3264,8 +3264,8 @@
 			return Math.sin(n0 * L);
 		}
 		d = n * n, M = 0, B = 0, g = 0, E = 3422.7;
-		var f0 = O(.19833 + .05611 * n), Wt = O(.27869 + .04508 * n), jt = O(.16827 - .36903 * n), Xt = O(.34734 - 5.37261 * n), Zt = O(.10498 - 5.37899 * n), it = O(.42681 - .41855 * n), T4 = O(.14943 - 5.37511 * n);
-		for (v = .84 * f0 + .31 * Wt + 14.27 * jt + 7.26 * Xt + .28 * Zt + .24 * it, z = 2.94 * f0 + .31 * Wt + 14.27 * jt + 9.34 * Xt + 1.12 * Zt + .83 * it, D = -6.4 * f0 - 1.89 * it, T = .21 * f0 + .31 * Wt + 14.27 * jt - 88.7 * Xt - 15.3 * Zt + .24 * it - 1.86 * T4, U = v - D, _ = -3332e-9 * O(.59734 - 5.37261 * n) - 539e-9 * O(.35498 - 5.37899 * n) - 64e-9 * O(.39943 - 5.37511 * n), y = n0 * G0(.60643382 + 1336.85522467 * n - 313e-8 * d) + v / y0, w = n0 * G0(.37489701 + 1325.55240982 * n + 2565e-8 * d) + z / y0, x = n0 * G0(.99312619 + 99.99735956 * n - 44e-8 * d) + D / y0, R = n0 * G0(.25909118 + 1342.2278298 * n - 892e-8 * d) + T / y0, P = n0 * G0(.82736186 + 1236.85308708 * n - 397e-8 * d) + U / y0, h = 1; h <= 4; ++h) {
+		var f0 = O(.19833 + .05611 * n), Wt = O(.27869 + .04508 * n), jt = O(.16827 - .36903 * n), Xt = O(.34734 - 5.37261 * n), Zt = O(.10498 - 5.37899 * n), it = O(.42681 - .41855 * n), N4 = O(.14943 - 5.37511 * n);
+		for (v = .84 * f0 + .31 * Wt + 14.27 * jt + 7.26 * Xt + .28 * Zt + .24 * it, P = 2.94 * f0 + .31 * Wt + 14.27 * jt + 9.34 * Xt + 1.12 * Zt + .83 * it, D = -6.4 * f0 - 1.89 * it, T = .21 * f0 + .31 * Wt + 14.27 * jt - 88.7 * Xt - 15.3 * Zt + .24 * it - 1.86 * N4, U = v - D, _ = -3332e-9 * O(.59734 - 5.37261 * n) - 539e-9 * O(.35498 - 5.37899 * n) - 64e-9 * O(.39943 - 5.37511 * n), y = n0 * K0(.60643382 + 1336.85522467 * n - 313e-8 * d) + v / y0, w = n0 * K0(.37489701 + 1325.55240982 * n + 2565e-8 * d) + P / y0, x = n0 * K0(.99312619 + 99.99735956 * n - 44e-8 * d) + D / y0, R = n0 * K0(.25909118 + 1342.2278298 * n - 892e-8 * d) + T / y0, z = n0 * K0(.82736186 + 1236.85308708 * n - 397e-8 * d) + U / y0, h = 1; h <= 4; ++h) {
 			switch (h) {
 				case 1:
 					a = w, c = 4, u = 1.000002208;
@@ -3277,14 +3277,14 @@
 					a = R, c = 4, u = 1.000002708 + 139.978 * _;
 					break;
 				case 4:
-					a = P, c = 6, u = 1;
+					a = z, c = 6, u = 1;
 					break;
 				default: throw `Internal error: I = ${h}`;
 			}
 			for (l0(0, h, 1), l0(1, h, Math.cos(a) * u), h0(0, h, 0), h0(1, h, Math.sin(a) * u), l = 2; l <= c; ++l) st(p0(l - 1, h), v0(l - 1, h), p0(1, h), v0(1, h), (L, k) => (l0(l, h, L), h0(l, h, k)));
 			for (l = 1; l <= c; ++l) l0(-l, h, p0(l, h)), h0(-l, h, -v0(l, h));
 		}
-		function Qn(L, k, H, J) {
+		function qn(L, k, H, J) {
 			for (var Q = {
 				x: 1,
 				y: 0
@@ -3298,49 +3298,49 @@
 			return Q;
 		}
 		function S(L, k, H, J, Q, D0, E0, t2) {
-			var s1 = Qn(Q, D0, E0, t2);
+			var s1 = qn(Q, D0, E0, t2);
 			M += L * s1.y, B += k * s1.y, g += H * s1.x, E += J * s1.x;
 		}
 		S(13.902, 14.06, -.001, .2607, 0, 0, 0, 4), S(.403, -4.01, .394, .0023, 0, 0, 0, 3), S(2369.912, 2373.36, .601, 28.2333, 0, 0, 0, 2), S(-125.154, -112.79, -.725, -.9781, 0, 0, 0, 1), S(1.979, 6.98, -.445, .0433, 1, 0, 0, 4), S(191.953, 192.72, .029, 3.0861, 1, 0, 0, 2), S(-8.466, -13.51, .455, -.1093, 1, 0, 0, 1), S(22639.5, 22609.07, .079, 186.5398, 1, 0, 0, 0), S(18.609, 3.59, -.094, .0118, 1, 0, 0, -1), S(-4586.465, -4578.13, -.077, 34.3117, 1, 0, 0, -2), S(3.215, 5.44, .192, -.0386, 1, 0, 0, -3), S(-38.428, -38.64, .001, .6008, 1, 0, 0, -4), S(-.393, -1.43, -.092, .0086, 1, 0, 0, -6), S(-.289, -1.59, .123, -.0053, 0, 1, 0, 4), S(-24.42, -25.1, .04, -.3, 0, 1, 0, 2), S(18.023, 17.93, .007, .1494, 0, 1, 0, 1), S(-668.146, -126.98, -1.302, -.3997, 0, 1, 0, 0), S(.56, .32, -.001, -.0037, 0, 1, 0, -1), S(-165.145, -165.06, .054, 1.9178, 0, 1, 0, -2), S(-1.877, -6.46, -.416, .0339, 0, 1, 0, -4), S(.213, 1.02, -.074, .0054, 2, 0, 0, 4), S(14.387, 14.78, -.017, .2833, 2, 0, 0, 2), S(-.586, -1.2, .054, -.01, 2, 0, 0, 1), S(769.016, 767.96, .107, 10.1657, 2, 0, 0, 0), S(1.75, 2.01, -.018, .0155, 2, 0, 0, -1), S(-211.656, -152.53, 5.679, -.3039, 2, 0, 0, -2), S(1.225, .91, -.03, -.0088, 2, 0, 0, -3), S(-30.773, -34.07, -.308, .3722, 2, 0, 0, -4), S(-.57, -1.4, -.074, .0109, 2, 0, 0, -6), S(-2.921, -11.75, .787, -.0484, 1, 1, 0, 2), S(1.267, 1.52, -.022, .0164, 1, 1, 0, 1), S(-109.673, -115.18, .461, -.949, 1, 1, 0, 0), S(-205.962, -182.36, 2.056, 1.4437, 1, 1, 0, -2), S(.233, .36, .012, -.0025, 1, 1, 0, -3), S(-4.391, -9.66, -.471, .0673, 1, 1, 0, -4), S(.283, 1.53, -.111, .006, 1, -1, 0, 4), S(14.577, 31.7, -1.54, .2302, 1, -1, 0, 2), S(147.687, 138.76, .679, 1.1528, 1, -1, 0, 0), S(-1.089, .55, .021, 0, 1, -1, 0, -1), S(28.475, 23.59, -.443, -.2257, 1, -1, 0, -2), S(-.276, -.38, -.006, -.0036, 1, -1, 0, -3), S(.636, 2.27, .146, -.0102, 1, -1, 0, -4), S(-.189, -1.68, .131, -.0028, 0, 2, 0, 2), S(-7.486, -.66, -.037, -.0086, 0, 2, 0, 0), S(-8.096, -16.35, -.74, .0918, 0, 2, 0, -2), S(-5.741, -.04, 0, -9e-4, 0, 0, 2, 2), S(.255, 0, 0, 0, 0, 0, 2, 1), S(-411.608, -.2, 0, -.0124, 0, 0, 2, 0), S(.584, .84, 0, .0071, 0, 0, 2, -1), S(-55.173, -52.14, 0, -.1052, 0, 0, 2, -2), S(.254, .25, 0, -.0017, 0, 0, 2, -3), S(.025, -1.67, 0, .0031, 0, 0, 2, -4), S(1.06, 2.96, -.166, .0243, 3, 0, 0, 2), S(36.124, 50.64, -1.3, .6215, 3, 0, 0, 0), S(-13.193, -16.4, .258, -.1187, 3, 0, 0, -2), S(-1.187, -.74, .042, .0074, 3, 0, 0, -4), S(-.293, -.31, -.002, .0046, 3, 0, 0, -6), S(-.29, -1.45, .116, -.0051, 2, 1, 0, 2), S(-7.649, -10.56, .259, -.1038, 2, 1, 0, 0), S(-8.627, -7.59, .078, -.0192, 2, 1, 0, -2), S(-2.74, -2.54, .022, .0324, 2, 1, 0, -4), S(1.181, 3.32, -.212, .0213, 2, -1, 0, 2), S(9.703, 11.67, -.151, .1268, 2, -1, 0, 0), S(-.352, -.37, .001, -.0028, 2, -1, 0, -1), S(-2.494, -1.17, -.003, -.0017, 2, -1, 0, -2), S(.36, .2, -.012, -.0043, 2, -1, 0, -4), S(-1.167, -1.25, .008, -.0106, 1, 2, 0, 0), S(-7.412, -6.12, .117, .0484, 1, 2, 0, -2), S(-.311, -.65, -.032, .0044, 1, 2, 0, -4), S(.757, 1.82, -.105, .0112, 1, -2, 0, 2), S(2.58, 2.32, .027, .0196, 1, -2, 0, 0), S(2.533, 2.4, -.014, -.0212, 1, -2, 0, -2), S(-.344, -.57, -.025, .0036, 0, 3, 0, -2), S(-.992, -.02, 0, 0, 1, 0, 2, 2), S(-45.099, -.02, 0, -.001, 1, 0, 2, 0), S(-.179, -9.52, 0, -.0833, 1, 0, 2, -2), S(-.301, -.33, 0, .0014, 1, 0, 2, -4), S(-6.382, -3.37, 0, -.0481, 1, 0, -2, 2), S(39.528, 85.13, 0, -.7136, 1, 0, -2, 0), S(9.366, .71, 0, -.0112, 1, 0, -2, -2), S(.202, .02, 0, 0, 1, 0, -2, -4), S(.415, .1, 0, .0013, 0, 1, 2, 0), S(-2.152, -2.26, 0, -.0066, 0, 1, 2, -2), S(-1.44, -1.3, 0, .0014, 0, 1, -2, 2), S(.384, -.04, 0, 0, 0, 1, -2, -2), S(1.938, 3.6, -.145, .0401, 4, 0, 0, 0), S(-.952, -1.58, .052, -.013, 4, 0, 0, -2), S(-.551, -.94, .032, -.0097, 3, 1, 0, 0), S(-.482, -.57, .005, -.0045, 3, 1, 0, -2), S(.681, .96, -.026, .0115, 3, -1, 0, 0), S(-.297, -.27, .002, -9e-4, 2, 2, 0, -2), S(.254, .21, -.003, 0, 2, -2, 0, -2), S(-.25, -.22, .004, .0014, 1, 3, 0, -2), S(-3.996, 0, 0, 4e-4, 2, 0, 2, 0), S(.557, -.75, 0, -.009, 2, 0, 2, -2), S(-.459, -.38, 0, -.0053, 2, 0, -2, 2), S(-1.298, .74, 0, 4e-4, 2, 0, -2, 0), S(.538, 1.14, 0, -.0141, 2, 0, -2, -2), S(.263, .02, 0, 0, 1, 1, 2, 0), S(.426, .07, 0, -6e-4, 1, 1, -2, -2), S(-.304, .03, 0, 3e-4, 1, -1, 2, 0), S(-.372, -.19, 0, -.0027, 1, -1, -2, 2), S(.418, 0, 0, 0, 0, 0, 4, 0), S(-.33, -.04, 0, 0, 3, 0, 2, 0);
 		function d0(L, k, H, J, Q) {
-			return L * Qn(k, H, J, Q).y;
+			return L * qn(k, H, J, Q).y;
 		}
 		A = 0, A += d0(-526.069, 0, 0, 1, -2), A += d0(-3.352, 0, 0, 1, -4), A += d0(44.297, 1, 0, 1, -2), A += d0(-6, 1, 0, 1, -4), A += d0(20.599, -1, 0, 1, 0), A += d0(-30.598, -1, 0, 1, -2), A += d0(-24.649, -2, 0, 1, 0), A += d0(-2, -2, 0, 1, -2), A += d0(-22.571, 0, 1, 1, -2), A += d0(10.985, 0, -1, 1, -2), M += .82 * O(.7736 - 62.5512 * n) + .31 * O(.0466 - 125.1025 * n) + .35 * O(.5785 - 25.1042 * n) + .66 * O(.4591 + 1335.8075 * n) + .64 * O(.313 - 91.568 * n) + 1.14 * O(.148 + 1331.2898 * n) + .21 * O(.5918 + 1056.5859 * n) + .44 * O(.5784 + 1322.8595 * n) + .24 * O(.2275 - 5.7374 * n) + .28 * O(.2965 + 2.6929 * n) + .33 * O(.3132 + 6.3368 * n), i = R + B / y0;
-		let C4 = (1.000002708 + 139.978 * _) * (18519.699999999997 + g) * Math.sin(i) - 6.24 * Math.sin(3 * i) + A;
+		let T4 = (1.000002708 + 139.978 * _) * (18519.699999999997 + g) * Math.sin(i) - 6.24 * Math.sin(3 * i) + A;
 		return {
-			geo_eclip_lon: n0 * G0((y + M / y0) / n0),
-			geo_eclip_lat: Math.PI / (180 * 3600) * C4,
-			distance_au: y0 * Ce / (.999953253 * E)
+			geo_eclip_lon: n0 * K0((y + M / y0) / n0),
+			geo_eclip_lat: Math.PI / (180 * 3600) * T4,
+			distance_au: y0 * Te / (.999953253 * E)
 		};
 	}
-	var T2 = class {
+	var C2 = class {
 		constructor(t, n, e, r, o, s) {
 			this.elat = t, this.elon = n, this.mlat = e, this.mlon = r, this.dist_km = o, this.diam_deg = s;
 		}
 	};
-	function Ye(t) {
-		const n = m(t), e = n.tt / 36525, r = e * e, o = r * e, s = r * r, i = R0(n), c = i.geo_eclip_lon, a = i.geo_eclip_lat, u = i.distance_au * b, h = p * 1.543, l = p * n1(93.272095 + 483202.0175233 * e - .0036539 * r - o / 3526e3 + s / 86331e4), d = p * n1(125.0445479 - 1934.1362891 * e + .0020754 * r + o / 467441 - s / 60616e3), _ = p * n1(357.5291092 + 35999.0502909 * e - 1536e-7 * r + o / 2449e4), M = p * n1(134.9633964 + 477198.8675055 * e + .0087414 * r + o / 69699 - s / 14712e3), A = p * n1(297.8501921 + 445267.1114034 * e - .0018819 * r + o / 545868 - s / 113065e3), g = 1 - .002516 * e - 74e-7 * r, E = c - d, y = Math.atan2(Math.sin(E) * Math.cos(a) * Math.cos(h) - Math.sin(a) * Math.sin(h), Math.cos(E) * Math.cos(a)), w = t1(V * (y - l)), x = Math.asin(-Math.sin(E) * Math.cos(a) * Math.sin(h) - Math.sin(a) * Math.cos(h)), R = p * (119.75 + 131.849 * e), P = p * (72.56 + 20.186 * e), v = -.02752 * Math.cos(M) + -.02245 * Math.sin(l) + .00684 * Math.cos(M - 2 * l) + -.00293 * Math.cos(2 * l) + -85e-5 * Math.cos(2 * l - 2 * A) + -54e-5 * Math.cos(M - 2 * A) + -2e-4 * Math.sin(M + l) + -2e-4 * Math.cos(M + 2 * l) + -2e-4 * Math.cos(M - l) + 14e-5 * Math.cos(M + 2 * l - 2 * A), z = -.02816 * Math.sin(M) + .02244 * Math.cos(l) + -.00682 * Math.sin(M - 2 * l) + -.00279 * Math.sin(2 * l) + -83e-5 * Math.sin(2 * l - 2 * A) + 69e-5 * Math.sin(M - 2 * A) + 4e-4 * Math.cos(M + l) + -25e-5 * Math.sin(2 * M) + -23e-5 * Math.sin(M + 2 * l) + 2e-4 * Math.cos(M - l) + 19e-5 * Math.sin(M - l) + 13e-5 * Math.sin(M + 2 * l - 2 * A) + -1e-4 * Math.cos(M - 3 * l), D = -(.0252 * g * Math.sin(_) + .00473 * Math.sin(2 * M - 2 * l) + -.00467 * Math.sin(M) + .00396 * Math.sin(R) + .00276 * Math.sin(2 * M - 2 * A) + .00196 * Math.sin(d) + -.00183 * Math.cos(M - l) + .00115 * Math.sin(M - 2 * A) + -96e-5 * Math.sin(M - A) + 46e-5 * Math.sin(2 * l - 2 * A) + -39e-5 * Math.sin(M - l) + -32e-5 * Math.sin(M - _ - A) + 27e-5 * Math.sin(2 * M - _ - 2 * A) + 23e-5 * Math.sin(P) + -14e-5 * Math.sin(2 * A) + 14e-5 * Math.cos(2 * M - 2 * l) + -12e-5 * Math.sin(M - 2 * l) + -12e-5 * Math.sin(2 * M) + 11e-5 * Math.sin(2 * M - 2 * _ - 2 * A)) + (v * Math.cos(y) + z * Math.sin(y)) * Math.tan(x), T = z * Math.cos(y) - v * Math.sin(y), U = 2 * V * Math.atan(j / Math.sqrt(u * u - j * j));
-		return new T2(V * x + T, w + D, V * a, V * c, u, U);
+	function qe(t) {
+		const n = m(t), e = n.tt / 36525, r = e * e, o = r * e, s = r * r, i = R0(n), c = i.geo_eclip_lon, a = i.geo_eclip_lat, u = i.distance_au * b, h = p * 1.543, l = p * n1(93.272095 + 483202.0175233 * e - .0036539 * r - o / 3526e3 + s / 86331e4), d = p * n1(125.0445479 - 1934.1362891 * e + .0020754 * r + o / 467441 - s / 60616e3), _ = p * n1(357.5291092 + 35999.0502909 * e - 1536e-7 * r + o / 2449e4), M = p * n1(134.9633964 + 477198.8675055 * e + .0087414 * r + o / 69699 - s / 14712e3), A = p * n1(297.8501921 + 445267.1114034 * e - .0018819 * r + o / 545868 - s / 113065e3), g = 1 - .002516 * e - 74e-7 * r, E = c - d, y = Math.atan2(Math.sin(E) * Math.cos(a) * Math.cos(h) - Math.sin(a) * Math.sin(h), Math.cos(E) * Math.cos(a)), w = t1(V * (y - l)), x = Math.asin(-Math.sin(E) * Math.cos(a) * Math.sin(h) - Math.sin(a) * Math.cos(h)), R = p * (119.75 + 131.849 * e), z = p * (72.56 + 20.186 * e), v = -.02752 * Math.cos(M) + -.02245 * Math.sin(l) + .00684 * Math.cos(M - 2 * l) + -.00293 * Math.cos(2 * l) + -85e-5 * Math.cos(2 * l - 2 * A) + -54e-5 * Math.cos(M - 2 * A) + -2e-4 * Math.sin(M + l) + -2e-4 * Math.cos(M + 2 * l) + -2e-4 * Math.cos(M - l) + 14e-5 * Math.cos(M + 2 * l - 2 * A), P = -.02816 * Math.sin(M) + .02244 * Math.cos(l) + -.00682 * Math.sin(M - 2 * l) + -.00279 * Math.sin(2 * l) + -83e-5 * Math.sin(2 * l - 2 * A) + 69e-5 * Math.sin(M - 2 * A) + 4e-4 * Math.cos(M + l) + -25e-5 * Math.sin(2 * M) + -23e-5 * Math.sin(M + 2 * l) + 2e-4 * Math.cos(M - l) + 19e-5 * Math.sin(M - l) + 13e-5 * Math.sin(M + 2 * l - 2 * A) + -1e-4 * Math.cos(M - 3 * l), D = -(.0252 * g * Math.sin(_) + .00473 * Math.sin(2 * M - 2 * l) + -.00467 * Math.sin(M) + .00396 * Math.sin(R) + .00276 * Math.sin(2 * M - 2 * A) + .00196 * Math.sin(d) + -.00183 * Math.cos(M - l) + .00115 * Math.sin(M - 2 * A) + -96e-5 * Math.sin(M - A) + 46e-5 * Math.sin(2 * l - 2 * A) + -39e-5 * Math.sin(M - l) + -32e-5 * Math.sin(M - _ - A) + 27e-5 * Math.sin(2 * M - _ - 2 * A) + 23e-5 * Math.sin(z) + -14e-5 * Math.sin(2 * A) + 14e-5 * Math.cos(2 * M - 2 * l) + -12e-5 * Math.sin(M - 2 * l) + -12e-5 * Math.sin(2 * M) + 11e-5 * Math.sin(2 * M - 2 * _ - 2 * A)) + (v * Math.cos(y) + P * Math.sin(y)) * Math.tan(x), T = P * Math.cos(y) - v * Math.sin(y), U = 2 * V * Math.atan(j / Math.sqrt(u * u - j * j));
+		return new C2(V * x + T, w + D, V * a, V * c, u, U);
 	}
-	function C2(t, n) {
+	function L2(t, n) {
 		return [
 			t.rot[0][0] * n[0] + t.rot[1][0] * n[1] + t.rot[2][0] * n[2],
 			t.rot[0][1] * n[0] + t.rot[1][1] * n[1] + t.rot[2][1] * n[2],
 			t.rot[0][2] * n[0] + t.rot[1][2] * n[1] + t.rot[2][2] * n[2]
 		];
 	}
-	function K0(t, n, e) {
-		return C2(k1(n, e), t);
+	function G0(t, n, e) {
+		return L2(k1(n, e), t);
 	}
-	function L2(t, n, e) {
+	function U2(t, n, e) {
 		return X1(k1(n, e), t);
 	}
 	function k1(t, n) {
 		const e = t.tt / 36525;
 		let r = 84381.406, o = ((((-9.51e-8 * e + 132851e-9) * e - .00114045) * e - 1.0790069) * e + 5038.481507) * e, s = ((((3.337e-7 * e - 467e-9) * e - .00772503) * e + .0512623) * e - .025754) * e + r, i = ((((-56e-9 * e + 170663e-9) * e - .00121197) * e - 2.3814292) * e + 10.556403) * e;
 		r *= k0, o *= k0, s *= k0, i *= k0;
-		const c = Math.sin(r), a = Math.cos(r), u = Math.sin(-o), h = Math.cos(-o), l = Math.sin(-s), d = Math.cos(-s), _ = Math.sin(i), M = Math.cos(i), A = M * h - u * _ * d, g = M * u * a + _ * d * h * a - c * _ * l, E = M * u * c + _ * d * h * c + a * _ * l, y = -_ * h - u * M * d, w = -_ * u * a + M * d * h * a - c * M * l, x = -_ * u * c + M * d * h * c + a * M * l, R = u * l, P = -l * h * a - c * d, v = -l * h * c + d * a;
-		if (n === F.Into2000) return new G([
+		const c = Math.sin(r), a = Math.cos(r), u = Math.sin(-o), h = Math.cos(-o), l = Math.sin(-s), d = Math.cos(-s), _ = Math.sin(i), M = Math.cos(i), A = M * h - u * _ * d, g = M * u * a + _ * d * h * a - c * _ * l, E = M * u * c + _ * d * h * c + a * _ * l, y = -_ * h - u * M * d, w = -_ * u * a + M * d * h * a - c * M * l, x = -_ * u * c + M * d * h * c + a * M * l, R = u * l, z = -l * h * a - c * d, v = -l * h * c + d * a;
+		if (n === F.Into2000) return new K([
 			[
 				A,
 				g,
@@ -3353,11 +3353,11 @@
 			],
 			[
 				R,
-				P,
+				z,
 				v
 			]
 		]);
-		if (n === F.From2000) return new G([
+		if (n === F.From2000) return new K([
 			[
 				A,
 				y,
@@ -3366,7 +3366,7 @@
 			[
 				g,
 				w,
-				P
+				z
 			],
 			[
 				E,
@@ -3376,7 +3376,7 @@
 		]);
 		throw "Invalid precess direction";
 	}
-	function We(t) {
+	function Ye(t) {
 		let n = 360 * ((.779057273264 + .00273781191135448 * t.ut + t.ut % 1) % 1);
 		return n < 0 && (n += 360), n;
 	}
@@ -3385,7 +3385,7 @@
 		if (!F1 || F1.tt !== t.tt) {
 			const n = t.tt / 36525;
 			let e = 15 * m0(t).ee;
-			const r = We(t);
+			const r = Ye(t);
 			let o = ((e + .014506 + ((((-3.68e-8 * n - 29956e-9) * n - 44e-8) * n + 1.3915817) * n + 4612.156534) * n) / 3600 + r) % 360 / 15;
 			o < 0 && (o += 24), F1 = {
 				tt: t.tt,
@@ -3394,13 +3394,13 @@
 		}
 		return F1.st;
 	}
-	function U2(t) {
+	function O2(t) {
 		return S0(m(t));
 	}
-	function je(t, n) {
+	function We(t, n) {
 		const e = t[0] * b, r = t[1] * b, o = t[2] * b, s = Math.hypot(e, r);
 		let i, c, a;
-		if (s < 1e-6) i = 0, c = o > 0 ? 90 : -90, a = Math.abs(o) - Le;
+		if (s < 1e-6) i = 0, c = o > 0 ? 90 : -90, a = Math.abs(o) - Ce;
 		else {
 			for (i = V * Math.atan2(r, e) - 15 * n; i <= -180;) i += 360;
 			for (; i > 180;) i -= 360;
@@ -3430,21 +3430,21 @@
 				u * r / b
 			],
 			vel: [
-				-y2 * a * o * l * 86400 / b,
-				y2 * a * o * d * 86400 / b,
+				-g2 * a * o * l * 86400 / b,
+				g2 * a * o * d * 86400 / b,
 				0
 			]
 		};
 	}
 	function B0(t, n, e) {
-		return C2(V1(n, e), t);
+		return L2(V1(n, e), t);
 	}
-	function O2(t, n, e) {
+	function b2(t, n, e) {
 		return X1(V1(n, e), t);
 	}
 	function V1(t, n) {
 		const e = m0(t), r = e.mobl * p, o = e.tobl * p, s = e.dpsi * k0, i = Math.cos(r), c = Math.sin(r), a = Math.cos(o), u = Math.sin(o), h = Math.cos(s), l = Math.sin(s), d = h, _ = -l * i, M = -l * c, A = l * a, g = h * i * a + c * u, E = h * c * a - i * u, y = l * u, w = h * i * u - c * a, x = h * c * u + i * a;
-		if (n === F.From2000) return new G([
+		if (n === F.From2000) return new K([
 			[
 				d,
 				A,
@@ -3461,7 +3461,7 @@
 				x
 			]
 		]);
-		if (n === F.Into2000) return new G([
+		if (n === F.Into2000) return new K([
 			[
 				d,
 				_,
@@ -3481,12 +3481,12 @@
 		throw "Invalid precess direction";
 	}
 	function H1(t, n, e) {
-		return e === F.Into2000 ? K0(B0(t, n, e), n, e) : B0(K0(t, n, e), n, e);
+		return e === F.Into2000 ? G0(B0(t, n, e), n, e) : B0(G0(t, n, e), n, e);
 	}
-	function Xe(t, n, e) {
-		return e === F.Into2000 ? L2(O2(t, n, e), n, e) : O2(L2(t, n, e), n, e);
+	function je(t, n, e) {
+		return e === F.Into2000 ? U2(b2(t, n, e), n, e) : b2(U2(t, n, e), n, e);
 	}
-	function b2(t, n) {
+	function k2(t, n) {
 		const e = gt(n, S0(t)).pos;
 		return H1(e, t, F.Into2000);
 	}
@@ -3510,7 +3510,7 @@
 			this.ra = N(t), this.dec = N(n), this.dist = N(e), this.vec = r;
 		}
 	};
-	function Ze(t) {
+	function Xe(t) {
 		if (!(t instanceof Array) || t.length !== 3) return !1;
 		for (let n = 0; n < 3; ++n) {
 			if (!(t[n] instanceof Array) || t[n].length !== 3) return !1;
@@ -3518,20 +3518,20 @@
 		}
 		return !0;
 	}
-	var G = class {
+	var K = class {
 		constructor(t) {
 			this.rot = t;
 		}
 	};
-	function t3(t) {
-		if (!Ze(t)) throw "Argument must be a [3][3] array of numbers";
-		return new G(t);
+	function Ze(t) {
+		if (!Xe(t)) throw "Argument must be a [3][3] array of numbers";
+		return new K(t);
 	}
-	var k2 = class {
+	var F2 = class {
 		constructor(t, n, e, r) {
 			this.azimuth = N(t), this.altitude = N(n), this.ra = N(e), this.dec = N(r);
 		}
-	}, F2 = class {
+	}, V2 = class {
 		constructor(t, n, e) {
 			this.vec = t, this.elat = N(n), this.elon = N(e);
 		}
@@ -3539,7 +3539,7 @@
 	function mt(t, n) {
 		return new C(t[0], t[1], t[2], n);
 	}
-	function V2(t, n) {
+	function H2(t, n) {
 		const e = mt(t, n), r = e.x * e.x + e.y * e.y, o = Math.sqrt(r + e.z * e.z);
 		if (r === 0) {
 			if (e.z === 0) throw "Indeterminate sky coordinates";
@@ -3581,19 +3581,19 @@
 			l * d,
 			h
 		];
-		const P = R[0] * y[0] + R[1] * y[1] + R[2] * y[2], v = R[0] * w[0] + R[1] * w[1] + R[2] * w[2], z = R[0] * x[0] + R[1] * x[1] + R[2] * x[2];
-		let D = Math.hypot(v, z), T;
-		D > 0 ? (T = -V * Math.atan2(z, v), T < 0 && (T += 360)) : T = 0;
-		let U = V * Math.atan2(D, P), B = e, u0 = r;
+		const z = R[0] * y[0] + R[1] * y[1] + R[2] * y[2], v = R[0] * w[0] + R[1] * w[1] + R[2] * w[2], P = R[0] * x[0] + R[1] * x[1] + R[2] * x[2];
+		let D = Math.hypot(v, P), T;
+		D > 0 ? (T = -V * Math.atan2(P, v), T < 0 && (T += 360)) : T = 0;
+		let U = V * Math.atan2(D, z), B = e, u0 = r;
 		if (o) {
-			let o0 = U, p0 = E1(o, 90 - U);
+			let o0 = U, p0 = p1(o, 90 - U);
 			if (U -= p0, p0 > 0 && U > 3e-4) {
 				const v0 = Math.sin(U * p), l0 = Math.cos(U * p), h0 = Math.sin(o0 * p), st = Math.cos(o0 * p), O = [];
 				for (let f0 = 0; f0 < 3; ++f0) O.push((R[f0] - st * y[f0]) / h0 * v0 + y[f0] * l0);
 				D = Math.hypot(O[0], O[1]), D > 0 ? (B = St * Math.atan2(O[1], O[0]), B < 0 && (B += 24)) : B = 0, u0 = V * Math.atan2(O[2], D);
 			}
 		}
-		return new k2(T, 90 - U, B, u0);
+		return new F2(T, 90 - U, B, u0);
 	}
 	function Y0(t) {
 		if (!(t instanceof Rt)) throw `Not an instance of the Observer class: ${t}`;
@@ -3605,42 +3605,42 @@
 			this.latitude = t, this.longitude = n, this.height = e, Y0(this);
 		}
 	};
-	function H2(t) {
-		const n = m(t).AddDays(-1 / z1), e = j0(q.Earth, n), [r, o, s] = H1([
+	function $2(t) {
+		const n = m(t).AddDays(-1 / P1), e = j0(q.Earth, n), [r, o, s] = H1([
 			-e.x,
 			-e.y,
 			-e.z
 		], n, F.From2000), i = p * m0(n).tobl, c = Math.cos(i), a = Math.sin(i);
 		return xt(new C(r, o, s, n), c, a);
 	}
-	function l1(t, n, e, r, o) {
+	function u1(t, n, e, r, o) {
 		Y0(e), L1(r), L1(o);
-		const s = m(n), i = b2(s, e), c = e0(t, s, o), a = [
+		const s = m(n), i = k2(s, e), c = e0(t, s, o), a = [
 			c.x - i[0],
 			c.y - i[1],
 			c.z - i[2]
 		];
-		return V2(r ? H1(a, s, F.From2000) : a, s);
+		return H2(r ? H1(a, s, F.From2000) : a, s);
 	}
-	function n3(t, n, e) {
+	function t3(t, n, e) {
 		const r = m(t);
 		let o = gt(n, S0(r)).pos;
 		return e || (o = H1(o, r, F.Into2000)), mt(o, r);
 	}
-	function e3(t, n, e) {
+	function n3(t, n, e) {
 		const r = m(t), o = gt(n, S0(r)), s = new $(o.pos[0], o.pos[1], o.pos[2], o.vel[0], o.vel[1], o.vel[2], r);
-		return e ? s : Xe(s, r, F.Into2000);
+		return e ? s : je(s, r, F.Into2000);
 	}
-	function r3(t, n) {
+	function e3(t, n) {
 		const e = S0(t.t);
 		let r = [
 			t.x,
 			t.y,
 			t.z
 		];
-		return n || (r = K0(r, t.t, F.From2000), r = B0(r, t.t, F.From2000)), je(r, e);
+		return n || (r = G0(r, t.t, F.From2000), r = B0(r, t.t, F.From2000)), We(r, e);
 	}
-	function o3(t, n) {
+	function r3(t, n) {
 		const e = Math.sin(t * p), r = e * e;
 		return 9.7803253359 * (1 + .00193185265241 * r) / Math.sqrt(1 - .00669437999013 * r) * (1 - (3.15704e-7 - 2.10269e-9 * r) * n + 737452e-19 * n * n);
 	}
@@ -3649,10 +3649,10 @@
 		let c = 0;
 		i > 0 && (c = V * Math.atan2(o, r), c < 0 && (c += 360));
 		let a = V * Math.atan2(s, i);
-		return new F2(new C(r, o, s, t.t), a, c);
+		return new V2(new C(r, o, s, t.t), a, c);
 	}
-	function h1(t) {
-		const n = m0(t.t), [e, r, o] = B0(K0([
+	function l1(t) {
+		const n = m0(t.t), [e, r, o] = B0(G0([
 			t.x,
 			t.y,
 			t.z
@@ -3660,30 +3660,30 @@
 		return xt(s, Math.cos(i), Math.sin(i));
 	}
 	function a0(t) {
-		const n = m(t), e = R0(n), r = e.distance_au * Math.cos(e.geo_eclip_lat), o = K0(qe(n, [
+		const n = m(t), e = R0(n), r = e.distance_au * Math.cos(e.geo_eclip_lat), o = G0(Qe(n, [
 			r * Math.cos(e.geo_eclip_lon),
 			r * Math.sin(e.geo_eclip_lon),
 			e.distance_au * Math.sin(e.geo_eclip_lat)
 		]), n, F.Into2000);
 		return new C(o[0], o[1], o[2], n);
 	}
-	function G1(t) {
+	function K1(t) {
 		const n = m(t), e = R0(n), r = e.distance_au * Math.cos(e.geo_eclip_lat), o = [
 			r * Math.cos(e.geo_eclip_lon),
 			r * Math.sin(e.geo_eclip_lon),
 			e.distance_au * Math.sin(e.geo_eclip_lat)
-		], s = m0(n), i = mt(B0(z2(s.mobl, o), n, F.From2000), n), c = s.tobl * p, a = xt(i, Math.cos(c), Math.sin(c));
+		], s = m0(n), i = mt(B0(N2(s.mobl, o), n, F.From2000), n), c = s.tobl * p, a = xt(i, Math.cos(c), Math.sin(c));
 		return new Q0(a.elat, a.elon, e.distance_au);
 	}
-	function f1(t) {
+	function h1(t) {
 		const n = m(t), e = 1e-5, r = n.AddDays(-e), o = n.AddDays(+e), s = a0(r), i = a0(o);
 		return new $((s.x + i.x) / 2, (s.y + i.y) / 2, (s.z + i.z) / 2, (i.x - s.x) / (2 * e), (i.y - s.y) / (2 * e), (i.z - s.z) / (2 * e), n);
 	}
 	function It(t) {
-		const n = m(t), e = f1(n), r = 1 + _t;
+		const n = m(t), e = h1(n), r = 1 + _t;
 		return new $(e.x / r, e.y / r, e.z / r, e.vx / r, e.vy / r, e.vz / r, n);
 	}
-	function z0(t, n, e) {
+	function P0(t, n, e) {
 		let r = 1, o = 0;
 		for (let s of t) {
 			let i = 0;
@@ -3705,11 +3705,11 @@
 		}
 		return o;
 	}
-	const W0 = 365250, Dt = 0, Pt = 1, K1 = 2;
-	function zt(t) {
+	const W0 = 365250, Dt = 0, zt = 1, G1 = 2;
+	function Pt(t) {
 		return new Y(t[0] + 4.4036e-7 * t[1] - 1.90919e-7 * t[2], -4.79966e-7 * t[0] + .917482137087 * t[1] - .397776982902 * t[2], .397776982902 * t[1] + .917482137087 * t[2]);
 	}
-	function $2(t, n, e) {
+	function J2(t, n, e) {
 		const r = e * Math.cos(n), o = Math.cos(t), s = Math.sin(t);
 		return [
 			r * o,
@@ -3719,25 +3719,25 @@
 	}
 	function j0(t, n) {
 		const e = n.tt / W0;
-		return zt($2(z0(t[Dt], e, !0), z0(t[Pt], e, !1), z0(t[K1], e, !1))).ToAstroVector(n);
+		return Pt(J2(P0(t[Dt], e, !0), P0(t[zt], e, !1), P0(t[G1], e, !1))).ToAstroVector(n);
 	}
-	function d1(t, n) {
-		const e = n / W0, r = z0(t[Dt], e, !0), o = z0(t[Pt], e, !1), s = z0(t[K1], e, !1), i = vt(t[Dt], e), c = vt(t[Pt], e), a = vt(t[K1], e), u = Math.cos(r), h = Math.sin(r), l = Math.cos(o), d = Math.sin(o), _ = +(a * l * u) - s * d * u * c - s * l * h * i, M = +(a * l * h) - s * d * h * c + s * l * u * i, A = +(a * d) + s * l * c, g = $2(r, o, s), E = [
+	function f1(t, n) {
+		const e = n / W0, r = P0(t[Dt], e, !0), o = P0(t[zt], e, !1), s = P0(t[G1], e, !1), i = vt(t[Dt], e), c = vt(t[zt], e), a = vt(t[G1], e), u = Math.cos(r), h = Math.sin(r), l = Math.cos(o), d = Math.sin(o), _ = +(a * l * u) - s * d * u * c - s * l * h * i, M = +(a * l * h) - s * d * h * c + s * l * u * i, A = +(a * d) + s * l * c, g = J2(r, o, s), E = [
 			_ / W0,
 			M / W0,
 			A / W0
 		];
-		return new T0(n, zt(g), zt(E));
+		return new T0(n, Pt(g), Pt(E));
 	}
 	function B1(t, n, e, r) {
-		const o = r / (r + c1), s = j0(q[e], n);
+		const o = r / (r + a1), s = j0(q[e], n);
 		t.x += o * s.x, t.y += o * s.y, t.z += o * s.z;
 	}
-	function s3(t) {
+	function o3(t) {
 		const n = new C(0, 0, 0, t);
 		return B1(n, t, f.Jupiter, V0), B1(n, t, f.Saturn, H0), B1(n, t, f.Uranus, $0), B1(n, t, f.Neptune, J0), n;
 	}
-	const Nt = 51, i3 = 29200, X0 = 146, _0 = 201, N0 = [
+	const Nt = 51, s3 = 29200, X0 = 146, _0 = 201, N0 = [
 		[
 			-73e4,
 			[
@@ -4453,35 +4453,35 @@
 			return new n2(this.tt, this.r.sub(n.r), this.v.sub(n.v));
 		}
 	};
-	function a3(t) {
+	function i3(t) {
 		let [n, [e, r, o], [s, i, c]] = t;
 		return new T0(n, new Y(e, r, o), new Y(s, i, c));
 	}
 	function X(t, n, e, r) {
-		const o = r / (r + c1), s = d1(q[e], n);
+		const o = r / (r + a1), s = f1(q[e], n);
 		return t.r.incr(s.r.mul(o)), t.v.incr(s.v.mul(o)), s;
 	}
-	function M1(t, n, e) {
+	function d1(t, n, e) {
 		const r = e.sub(t), o = r.quadrature();
 		return r.mul(n / (o * Math.sqrt(o)));
 	}
-	var S1 = class {
+	var M1 = class {
 		constructor(t) {
 			let n = new T0(t, new Y(0, 0, 0), new Y(0, 0, 0));
 			this.Jupiter = X(n, t, f.Jupiter, V0), this.Saturn = X(n, t, f.Saturn, H0), this.Uranus = X(n, t, f.Uranus, $0), this.Neptune = X(n, t, f.Neptune, J0), this.Jupiter.r.decr(n.r), this.Jupiter.v.decr(n.v), this.Saturn.r.decr(n.r), this.Saturn.v.decr(n.v), this.Uranus.r.decr(n.r), this.Uranus.v.decr(n.v), this.Neptune.r.decr(n.r), this.Neptune.v.decr(n.v), this.Sun = new T0(t, n.r.mul(-1), n.v.mul(-1));
 		}
 		Acceleration(t) {
-			let n = M1(t, c1, this.Sun.r);
-			return n.incr(M1(t, V0, this.Jupiter.r)), n.incr(M1(t, H0, this.Saturn.r)), n.incr(M1(t, $0, this.Uranus.r)), n.incr(M1(t, J0, this.Neptune.r)), n;
+			let n = d1(t, a1, this.Sun.r);
+			return n.incr(d1(t, V0, this.Jupiter.r)), n.incr(d1(t, H0, this.Saturn.r)), n.incr(d1(t, $0, this.Uranus.r)), n.incr(d1(t, J0, this.Neptune.r)), n;
 		}
-	}, Tt = class qn {
+	}, Tt = class Yn {
 		constructor(n, e, r, o) {
 			this.tt = n, this.r = e, this.v = r, this.a = o;
 		}
 		clone() {
-			return new qn(this.tt, this.r.clone(), this.v.clone(), this.a.clone());
+			return new Yn(this.tt, this.r.clone(), this.v.clone(), this.a.clone());
 		}
-	}, J2 = class {
+	}, K2 = class {
 		constructor(t, n) {
 			this.bary = t, this.grav = n;
 		}
@@ -4493,22 +4493,22 @@
 		return new Y(n.x + t * e.x, n.y + t * e.y, n.z + t * e.z);
 	}
 	function Lt(t, n) {
-		const e = t - n.tt, r = new S1(t), o = Z0(e, n.r, n.v, n.a), s = r.Acceleration(o).mean(n.a), i = Z0(e, n.r, n.v, s);
-		return new J2(r, new Tt(t, i, n.v.add(s.mul(e)), r.Acceleration(i)));
+		const e = t - n.tt, r = new M1(t), o = Z0(e, n.r, n.v, n.a), s = r.Acceleration(o).mean(n.a), i = Z0(e, n.r, n.v, s);
+		return new K2(r, new Tt(t, i, n.v.add(s.mul(e)), r.Acceleration(i)));
 	}
-	const c3 = [];
+	const a3 = [];
 	function G2(t, n) {
 		const e = Math.floor(t);
 		return e < 0 ? 0 : e >= n ? n - 1 : e;
 	}
 	function Ut(t) {
-		const n = a3(t), e = new S1(n.tt), r = n.r.add(e.Sun.r), o = n.v.add(e.Sun.v), s = e.Acceleration(r);
-		return new J2(e, new Tt(n.tt, r, o, s));
+		const n = i3(t), e = new M1(n.tt), r = n.r.add(e.Sun.r), o = n.v.add(e.Sun.v), s = e.Acceleration(r);
+		return new K2(e, new Tt(n.tt, r, o, s));
 	}
-	function u3(t, n) {
+	function c3(t, n) {
 		const e = N0[0][0];
 		if (n < e || n > N0[Nt - 1][0]) return null;
-		const r = G2((n - e) / i3, Nt - 1);
+		const r = G2((n - e) / s3, Nt - 1);
 		if (!t[r]) {
 			const s = t[r] = [];
 			s[0] = Ut(N0[r]).grav, s[_0 - 1] = Ut(N0[r + 1]).grav;
@@ -4524,7 +4524,7 @@
 		}
 		return t[r];
 	}
-	function K2(t, n, e) {
+	function B2(t, n, e) {
 		let r = Ut(t);
 		const o = Math.ceil((n - r.grav.tt) / e);
 		for (let s = 0; s < o; ++s) r = Lt(s + 1 === o ? n : r.grav.tt + e, r.grav);
@@ -4532,17 +4532,17 @@
 	}
 	function Ot(t, n) {
 		let e, r, o;
-		const s = u3(c3, t.tt);
+		const s = c3(a3, t.tt);
 		if (s) {
 			const i = G2((t.tt - s[0].tt) / X0, _0 - 1), c = s[i], a = s[i + 1], u = c.a.mean(a.a), h = Z0(t.tt - c.tt, c.r, c.v, u), l = Ct(t.tt - c.tt, c.v, u), d = Z0(t.tt - a.tt, a.r, a.v, u), _ = Ct(t.tt - a.tt, a.v, u), M = (t.tt - c.tt) / X0;
 			e = h.mul(1 - M).add(d.mul(M)), r = l.mul(1 - M).add(_.mul(M));
 		} else {
 			let i;
-			t.tt < N0[0][0] ? i = K2(N0[0], t.tt, -X0) : i = K2(N0[Nt - 1], t.tt, +X0), e = i.grav.r, r = i.grav.v, o = i.bary;
+			t.tt < N0[0][0] ? i = B2(N0[0], t.tt, -X0) : i = B2(N0[Nt - 1], t.tt, +X0), e = i.grav.r, r = i.grav.v, o = i.bary;
 		}
-		return n && (o || (o = new S1(t.tt)), e = e.sub(o.Sun.r), r = r.sub(o.Sun.v)), new $(e.x, e.y, e.z, r.x, r.y, r.z, t);
+		return n && (o || (o = new M1(t.tt)), e = e.sub(o.Sun.r), r = r.sub(o.Sun.v)), new $(e.x, e.y, e.z, r.x, r.y, r.z, t);
 	}
-	const l3 = new G([
+	const u3 = new K([
 		[
 			.999432765338654,
 			-.0336771074697641,
@@ -4972,20 +4972,20 @@
 			]
 		}
 	];
-	var B2 = class {
+	var Q2 = class {
 		constructor(t, n, e, r) {
 			this.io = t, this.europa = n, this.ganymede = e, this.callisto = r;
 		}
 	};
-	function h3(t, n, e) {
+	function l3(t, n, e) {
 		const r = e[0], o = e[1], s = e[2], i = e[3], c = e[4], a = e[5], u = Math.sqrt(n / (r * r * r));
 		let h, l, d, _ = o + s * Math.sin(o) - i * Math.cos(o);
 		do
 			h = Math.cos(_), l = Math.sin(_), d = (o - _ + s * l - i * h) / (1 - s * h - i * l), _ += d;
 		while (Math.abs(d) >= 1e-12);
 		h = Math.cos(_), l = Math.sin(_);
-		const M = i * h - s * l, A = -s * h - i * l, g = 1 / (1 + A), E = 1 / (1 + Math.sqrt(1 - s * s - i * i)), y = r * (h - s - E * i * M), w = r * (l - i + E * s * M), x = u * g * r * (-l - E * i * A), R = u * g * r * (+h + E * s * A), P = 2 * Math.sqrt(1 - c * c - a * a), v = 1 - 2 * a * a, z = 1 - 2 * c * c, D = 2 * a * c;
-		return new $(y * v + w * D, y * D + w * z, (c * w - y * a) * P, x * v + R * D, x * D + R * z, (c * R - x * a) * P, t);
+		const M = i * h - s * l, A = -s * h - i * l, g = 1 / (1 + A), E = 1 / (1 + Math.sqrt(1 - s * s - i * i)), y = r * (h - s - E * i * M), w = r * (l - i + E * s * M), x = u * g * r * (-l - E * i * A), R = u * g * r * (+h + E * s * A), z = 2 * Math.sqrt(1 - c * c - a * a), v = 1 - 2 * a * a, P = 1 - 2 * c * c, D = 2 * a * c;
+		return new $(y * v + w * D, y * D + w * P, (c * w - y * a) * z, x * v + R * D, x * D + R * P, (c * R - x * a) * z, t);
 	}
 	function q1(t, n) {
 		const e = t.tt + 18262.5, r = [
@@ -5007,11 +5007,11 @@
 			const c = s + e * i;
 			r[4] += o * Math.cos(c), r[5] += o * Math.sin(c);
 		}
-		return X1(l3, h3(t, n.mu, r));
+		return X1(u3, l3(t, n.mu, r));
 	}
-	function f3(t) {
+	function h3(t) {
 		const n = new g0(t);
-		return new B2(q1(n, Q1[0]), q1(n, Q1[1]), q1(n, Q1[2]), q1(n, Q1[3]));
+		return new Q2(q1(n, Q1[0]), q1(n, Q1[1]), q1(n, Q1[2]), q1(n, Q1[3]));
 	}
 	function c0(t, n) {
 		var e = m(n);
@@ -5029,7 +5029,7 @@
 			const i = j0(q.Earth, e), c = a0(e), a = 1 + _t;
 			return new C(i.x + c.x / a, i.y + c.y / a, i.z + c.z / a, e);
 		}
-		if (t === f.SSB) return s3(e);
+		if (t === f.SSB) return o3(e);
 		const s = O1(t);
 		if (s) return j1(new Q0(s.dec, 15 * s.ra, s.dist), e);
 		throw `HelioVector: Unknown body "${t}"`;
@@ -5038,12 +5038,12 @@
 		const e = O1(t);
 		if (e) return e.dist;
 		const r = m(n);
-		return t in q ? z0(q[t][K1], r.tt / W0, !1) : c0(t, r).Length();
+		return t in q ? P0(q[t][G1], r.tt / W0, !1) : c0(t, r).Length();
 	}
-	function Q2(t, n) {
+	function q2(t, n) {
 		let e = n, r = 0;
 		for (let o = 0; o < 10; ++o) {
-			const s = t(e), i = s.Length() / z1;
+			const s = t(e), i = s.Length() / P1;
 			if (i > 1) throw "Object is too distant for light-travel solver.";
 			const c = n.AddDays(-i);
 			if (r = Math.abs(c.tt - e.tt), r < 1e-9) return s;
@@ -5051,7 +5051,7 @@
 		}
 		throw `Light-travel time solver did not converge: dt = ${r}`;
 	}
-	var d3 = class {
+	var f3 = class {
 		constructor(t, n, e, r) {
 			this.observerBody = t, this.targetBody = n, this.aberration = e, this.observerPos = r;
 		}
@@ -5061,13 +5061,13 @@
 			return new C(n.x - this.observerPos.x, n.y - this.observerPos.y, n.z - this.observerPos.z, t);
 		}
 	};
-	function q2(t, n, e, r) {
+	function Y2(t, n, e, r) {
 		L1(r);
 		const o = m(t);
 		if (O1(e)) {
 			const c = c0(e, o);
 			if (r) {
-				const u = Y1(n, o), h = new C(c.x - u.x, c.y - u.y, c.z - u.z, o), l = z1 / h.Length();
+				const u = Y1(n, o), h = new C(c.x - u.x, c.y - u.y, c.z - u.z, o), l = P1 / h.Length();
 				return new C(h.x + u.vx / l, h.y + u.vy / l, h.z + u.vz / l, o);
 			}
 			const a = c0(n, o);
@@ -5075,8 +5075,8 @@
 		}
 		let s;
 		r ? s = new C(0, 0, 0, o) : s = c0(n, o);
-		const i = new d3(n, e, r, s);
-		return Q2((c) => i.Position(c), o);
+		const i = new f3(n, e, r, s);
+		return q2((c) => i.Position(c), o);
 	}
 	function e0(t, n, e) {
 		L1(e);
@@ -5085,18 +5085,18 @@
 			case f.Earth: return new C(0, 0, 0, r);
 			case f.Moon: return a0(r);
 			default:
-				const o = q2(r, f.Earth, t, e);
+				const o = Y2(r, f.Earth, t, e);
 				return o.t = r, o;
 		}
 	}
 	function L0(t, n) {
 		return new $(t.r.x, t.r.y, t.r.z, t.v.x, t.v.y, t.v.z, n);
 	}
-	function M3(t, n) {
+	function d3(t, n) {
 		const e = m(n);
 		if (t === f.SSB) return new $(0, 0, 0, 0, 0, 0, e);
 		if (t === f.Pluto) return Ot(e, !1);
-		const r = new S1(e.tt);
+		const r = new M1(e.tt);
 		switch (t) {
 			case f.Sun: return L0(r.Sun, e);
 			case f.Jupiter: return L0(r.Jupiter, e);
@@ -5105,11 +5105,11 @@
 			case f.Neptune: return L0(r.Neptune, e);
 			case f.Moon:
 			case f.EMB:
-				const o = d1(q[f.Earth], e.tt), s = t === f.Moon ? f1(e) : It(e);
+				const o = f1(q[f.Earth], e.tt), s = t === f.Moon ? h1(e) : It(e);
 				return new $(s.x + r.Sun.r.x + o.r.x, s.y + r.Sun.r.y + o.r.y, s.z + r.Sun.r.z + o.r.z, s.vx + r.Sun.v.x + o.v.x, s.vy + r.Sun.v.y + o.v.y, s.vz + r.Sun.v.z + o.v.z, e);
 		}
 		if (t in q) {
-			const o = d1(q[t], e.tt);
+			const o = f1(q[t], e.tt);
 			return new $(r.Sun.r.x + o.r.x, r.Sun.r.y + o.r.y, r.Sun.r.z + o.r.z, r.Sun.v.x + o.v.x, r.Sun.v.y + o.v.y, r.Sun.v.z + o.v.z, e);
 		}
 		throw `BaryState: Unsupported body "${t}"`;
@@ -5119,7 +5119,7 @@
 		switch (t) {
 			case f.Sun: return new $(0, 0, 0, 0, 0, 0, e);
 			case f.SSB:
-				const r = new S1(e.tt);
+				const r = new M1(e.tt);
 				return new $(-r.Sun.r.x, -r.Sun.r.y, -r.Sun.r.z, -r.Sun.v.x, -r.Sun.v.y, -r.Sun.v.z, e);
 			case f.Mercury:
 			case f.Venus:
@@ -5128,11 +5128,11 @@
 			case f.Jupiter:
 			case f.Saturn:
 			case f.Uranus:
-			case f.Neptune: return L0(d1(q[t], e.tt), e);
+			case f.Neptune: return L0(f1(q[t], e.tt), e);
 			case f.Pluto: return Ot(e, !0);
 			case f.Moon:
 			case f.EMB:
-				const o = d1(q.Earth, e.tt), s = t == f.Moon ? f1(e) : It(e);
+				const o = f1(q.Earth, e.tt), s = t == f.Moon ? h1(e) : It(e);
 				return new $(s.x + o.r.x, s.y + o.r.y, s.z + o.r.z, s.vx + o.v.x, s.vy + o.v.y, s.vz + o.v.z, e);
 			default:
 				if (O1(t)) {
@@ -5142,7 +5142,7 @@
 				throw `HelioState: Unsupported body "${t}"`;
 		}
 	}
-	function S3(t, n, e, r, o) {
+	function M3(t, n, e, r, o) {
 		let s = (o + e) / 2 - r, i = (o - e) / 2, c = r, a;
 		if (s == 0) {
 			if (i == 0 || (a = -c / i, a < -1 || a > 1)) return null;
@@ -5161,15 +5161,15 @@
 			df_dt: (2 * s * a + i) / n
 		};
 	}
-	function K(t, n, e, r) {
+	function G(t, n, e, r) {
 		const o = N(r && r.dt_tolerance_seconds || 1), s = Math.abs(o / T1);
 		let i = r && r.init_f1 || t(n), c = r && r.init_f2 || t(e), a = NaN, u = 0, h = r && r.iter_limit || 20, l = !0;
 		for (;;) {
 			if (++u > h) throw "Excessive iteration in Search()";
-			let d = Be(n, e, .5), _ = d.ut - n.ut;
+			let d = Ge(n, e, .5), _ = d.ut - n.ut;
 			if (Math.abs(_) < s) return d;
 			l ? a = t(d) : l = !0;
-			let M = S3(d.ut, e.ut - d.ut, i, a, c);
+			let M = M3(d.ut, e.ut - d.ut, i, a, c);
 			if (M) {
 				let A = m(M.t), g = t(A);
 				if (M.df_dt !== 0) {
@@ -5209,17 +5209,17 @@
 		for (; t >= 360;) t -= 360;
 		return t;
 	}
-	function Y2(t, n, e) {
+	function W2(t, n, e) {
 		function r(s) {
-			return t1(H2(s).elon - t);
+			return t1($2(s).elon - t);
 		}
 		N(t), N(e);
 		let o = m(n);
-		return K(r, o, o.AddDays(e), { dt_tolerance_seconds: .01 });
+		return G(r, o, o.AddDays(e), { dt_tolerance_seconds: .01 });
 	}
 	function bt(t, n, e) {
 		if (t === f.Earth || n === f.Earth) throw "The Earth does not have a longitude as seen from itself.";
-		const r = m(e), o = h1(e0(t, r, !1)), s = h1(e0(n, r, !1));
+		const r = m(e), o = l1(e0(t, r, !1)), s = l1(e0(n, r, !1));
 		return n1(o.elon - s.elon);
 	}
 	function e1(t, n) {
@@ -5229,9 +5229,9 @@
 	}
 	function U0(t, n) {
 		if (t === f.Sun) throw "Cannot calculate heliocentric longitude of the Sun.";
-		return h1(c0(t, n)).elon;
+		return l1(c0(t, n)).elon;
 	}
-	function _3(t, n, e, r) {
+	function S3(t, n, e, r) {
 		let o, s = 0, i = 0, c = 0;
 		switch (t) {
 			case f.Mercury:
@@ -5261,19 +5261,19 @@
 		let u = o + a * (s + a * (i + a * c));
 		return u += 5 * Math.log10(e * r), u;
 	}
-	function A3(t, n, e, r, o) {
-		const s = h1(r), i = p * 28.06, c = p * (169.51 + 382e-7 * o.tt), a = p * s.elat, u = p * s.elon, h = Math.asin(Math.sin(a) * Math.cos(i) - Math.cos(a) * Math.sin(i) * Math.sin(u - c)), l = Math.sin(Math.abs(h));
+	function _3(t, n, e, r, o) {
+		const s = l1(r), i = p * 28.06, c = p * (169.51 + 382e-7 * o.tt), a = p * s.elat, u = p * s.elon, h = Math.asin(Math.sin(a) * Math.cos(i) - Math.cos(a) * Math.sin(i) * Math.sin(u - c)), l = Math.sin(Math.abs(h));
 		let d = -9 + .044 * t;
 		return d += l * (-2.6 + 1.2 * l), d += 5 * Math.log10(n * e), {
 			mag: d,
 			ring_tilt: V * h
 		};
 	}
-	function p3(t, n, e) {
+	function A3(t, n, e) {
 		let r = t * p, o = r * r, s = o * o, i = -12.717 + 1.49 * Math.abs(r) + .0431 * s, c = e / (385000.6 / b);
 		return i += 5 * Math.log10(n * c), i;
 	}
-	var W2 = class {
+	var j2 = class {
 		constructor(t, n, e, r, o, s, i, c) {
 			this.time = t, this.mag = n, this.phase_angle = e, this.helio_dist = r, this.geo_dist = o, this.gc = s, this.hc = i, this.ring_tilt = c, this.phase_fraction = (1 + Math.cos(p * e)) / 2;
 		}
@@ -5284,15 +5284,15 @@
 		let o, s, i, c;
 		t === f.Sun ? (i = new C(-r.x, -r.y, -r.z, e), s = new C(0, 0, 0, e), o = 0) : (t === f.Moon ? (i = a0(e), s = new C(r.x + i.x, r.y + i.y, r.z + i.z, e)) : (s = c0(t, n), i = new C(s.x - r.x, s.y - r.y, s.z - r.z, e)), o = U1(i, s));
 		let a = i.Length(), u = s.Length(), h;
-		if (t === f.Sun) c = Ne + 5 * Math.log10(a);
-		else if (t === f.Moon) c = p3(o, u, a);
+		if (t === f.Sun) c = Pe + 5 * Math.log10(a);
+		else if (t === f.Moon) c = A3(o, u, a);
 		else if (t === f.Saturn) {
-			const l = A3(o, u, a, i, e);
+			const l = _3(o, u, a, i, e);
 			c = l.mag, h = l.ring_tilt;
-		} else c = _3(t, o, u, a);
-		return new W2(e, c, o, u, a, i, s, h);
+		} else c = S3(t, o, u, a);
+		return new j2(e, c, o, u, a, i, s, h);
 	}
-	function _1(t) {
+	function S1(t) {
 		if (t === f.Earth) throw "The Earth does not have a synodic period as seen from itself.";
 		if (t === f.Moon) return N1;
 		let n = i0[t];
@@ -5310,7 +5310,7 @@
 			const h = U0(t, u);
 			return t1(o * (U0(f.Earth, u) - h) - n);
 		}
-		let i = _1(t), c = m(e), a = s(c);
+		let i = S1(t), c = m(e), a = s(c);
 		a > 0 && (a -= 360);
 		for (let u = 0; u < 100; ++u) {
 			let h = -a / 360 * i;
@@ -5326,7 +5326,7 @@
 	function kt(t) {
 		return bt(f.Moon, f.Sun, t);
 	}
-	function A1(t, n, e) {
+	function _1(t, n, e) {
 		function r(h) {
 			return t1(kt(h) - t);
 		}
@@ -5340,60 +5340,60 @@
 			if (i > 0 && (i -= 360), c = -(N1 * i) / 360, a = c - o, a > e) return null;
 			u = Math.min(e, c + o);
 		}
-		return K(r, s.AddDays(a), s.AddDays(u), { dt_tolerance_seconds: .1 });
+		return G(r, s.AddDays(a), s.AddDays(u), { dt_tolerance_seconds: .1 });
 	}
-	var j2 = class {
+	var X2 = class {
 		constructor(t, n) {
 			this.quarter = t, this.time = n;
 		}
 	};
-	function X2(t) {
-		let n = kt(t), e = (Math.floor(n / 90) + 1) % 4, r = A1(90 * e, t, 10);
+	function Z2(t) {
+		let n = kt(t), e = (Math.floor(n / 90) + 1) % 4, r = _1(90 * e, t, 10);
 		if (!r) throw "Cannot find moon quarter";
-		return new j2(e, r);
+		return new X2(e, r);
 	}
-	function E3(t) {
-		return X2(new Date(t.time.date.getTime() + 6 * Te));
+	function p3(t) {
+		return Z2(new Date(t.time.date.getTime() + 6 * Ne));
 	}
-	var Z2 = class {
+	var tn = class {
 		constructor(t, n, e) {
 			this.pressure = t, this.temperature = n, this.density = e;
 		}
 	};
-	function tn(t) {
+	function nn(t) {
 		if (!Number.isFinite(t) || t < -500 || t > 1e5) throw `Invalid elevation: ${t}`;
 		let o, s;
 		t <= 11e3 ? (o = 288.15 - .0065 * t, s = 101325 * Math.pow(288.15 / o, -5.25577)) : t <= 2e4 ? (o = 216.65, s = 22632 * Math.exp(-.00015768832 * (t - 11e3))) : (o = 216.65 + .001 * (t - 2e4), s = 5474.87 * Math.pow(216.65 / o, 34.16319));
 		const i = s / o / (101325 / 288.15);
-		return new Z2(s, o, i);
+		return new tn(s, o, i);
 	}
-	function w3(t, n) {
+	function E3(t, n) {
 		const e = t.latitude * p, r = Math.sin(e), o = Math.cos(e), s = 1 / Math.hypot(o, r * s0), i = s * (s0 * s0), c = (t.height - n) / 1e3, a = M0 * s + c, u = M0 * i + c, h = 1e3 * Math.hypot(a * o, u * r), l = .175 * Math.pow(1 - .0065 / 283.15 * (t.height - 2 / 3 * n), 3.256);
 		return V * -(Math.sqrt(2 * (1 - l) * n / h) / (1 - l));
 	}
-	function y3(t) {
+	function w3(t) {
 		switch (t) {
-			case f.Sun: return m2;
-			case f.Moon: return Oe;
+			case f.Sun: return R2;
+			case f.Moon: return Ue;
 			default: return 0;
 		}
 	}
-	function g3(t, n, e, r, o, s = 0) {
+	function y3(t, n, e, r, o, s = 0) {
 		if (!Number.isFinite(s) || s < 0) throw `Invalid value for metersAboveGround: ${s}`;
-		const i = y3(t), c = tn(n.height - s);
-		return nn(t, n, e, r, o, i, w3(n, s) - ke * c.density);
+		const i = w3(t), c = nn(n.height - s);
+		return en(t, n, e, r, o, i, E3(n, s) - be * c.density);
 	}
-	function m3(t, n, e, r, o, s) {
+	function g3(t, n, e, r, o, s) {
 		if (!Number.isFinite(s) || s < -90 || s > 90) throw `Invalid altitude angle: ${s}`;
-		return nn(t, n, e, r, o, 0, s);
+		return en(t, n, e, r, o, 0, s);
 	}
-	var R3 = class {
+	var m3 = class {
 		constructor(t, n, e, r) {
 			this.tx = t, this.ty = n, this.ax = e, this.ay = r;
 		}
 	};
 	function Ft(t, n, e, r, o, s, i) {
-		if (s < 0 && i >= 0) return new R3(r, o, s, i);
+		if (s < 0 && i >= 0) return new m3(r, o, s, i);
 		if (s >= 0 && i < 0) return null;
 		if (t > 17) throw "Excessive recursion in rise/set ascent search.";
 		const c = o.ut - r.ut;
@@ -5401,7 +5401,7 @@
 		const a = new g0((r.ut + o.ut) / 2), u = n(a);
 		return Ft(1 + t, n, e, r, a, s, u) || Ft(1 + t, n, e, a, o, u, i);
 	}
-	function x3(t, n) {
+	function R3(t, n) {
 		if (n < -90 || n > 90) throw `Invalid geographic latitude: ${n}`;
 		let e, r;
 		switch (t) {
@@ -5440,13 +5440,13 @@
 			default: throw `Body not allowed for altitude search: ${t}`;
 		}
 		const o = p * n;
-		return Math.abs((360 / g2 - e) * Math.cos(o)) + Math.abs(r * Math.sin(o));
+		return Math.abs((360 / m2 - e) * Math.cos(o)) + Math.abs(r * Math.sin(o));
 	}
-	function nn(t, n, e, r, o, s, i) {
+	function en(t, n, e, r, o, s, i) {
 		if (Y0(n), N(o), N(s), N(i), i < -90 || i > 90) throw `Invalid target altitude angle: ${i}`;
-		const c = .42, a = x3(t, n.latitude);
+		const c = .42, a = R3(t, n.latitude);
 		function u(A) {
-			const g = l1(t, A, n, !0, !0);
+			const g = u1(t, A, n, !0, !0);
 			return e * (J1(A, n, g.ra, g.dec).altitude + V * Math.asin(s / g.dist) - i);
 		}
 		const h = m(r);
@@ -5455,7 +5455,7 @@
 			o < 0 ? (l = d.AddDays(-c), _ = u(l)) : (d = l.AddDays(+c), M = u(d));
 			const A = Ft(0, u, a, l, d, _, M);
 			if (A) {
-				const g = K(u, A.tx, A.ty, {
+				const g = G(u, A.tx, A.ty, {
 					dt_tolerance_seconds: .1,
 					init_f1: A.ax,
 					init_f2: A.ay
@@ -5477,12 +5477,12 @@
 			}
 		}
 	}
-	var en = class {
+	var rn = class {
 		constructor(t, n) {
 			this.time = t, this.hor = n;
 		}
 	};
-	function I3(t, n, e, r, o = 1) {
+	function x3(t, n, e, r, o = 1) {
 		Y0(n);
 		let s = m(r), i = 0;
 		if (t === f.Earth) throw "Cannot search for hour angle of the Earth.";
@@ -5490,46 +5490,46 @@
 		if (N(o), o === 0) throw "Direction must be positive or negative.";
 		for (;;) {
 			++i;
-			let c = S0(s), a = l1(t, s, n, !0, !0), u = (e + a.ra - n.longitude / 15 - c) % 24;
+			let c = S0(s), a = u1(t, s, n, !0, !0), u = (e + a.ra - n.longitude / 15 - c) % 24;
 			if (i === 1 ? o > 0 ? u < 0 && (u += 24) : u > 0 && (u -= 24) : u < -12 ? u += 24 : u > 12 && (u -= 24), Math.abs(u) * 3600 < .1) {
 				const l = J1(s, n, a.ra, a.dec, "normal");
-				return new en(s, l);
+				return new rn(s, l);
 			}
-			let h = u / 24 * g2;
+			let h = u / 24 * m2;
 			s = s.AddDays(h);
 		}
 	}
-	function v3(t, n, e) {
-		const r = m(n), o = U2(r), s = l1(t, r, e, !0, !0);
+	function I3(t, n, e) {
+		const r = m(n), o = O2(r), s = u1(t, r, e, !0, !0);
 		let i = (e.longitude / 15 + o - s.ra) % 24;
 		return i < 0 && (i += 24), i;
 	}
-	var rn = class {
+	var on = class {
 		constructor(t, n, e, r) {
 			this.mar_equinox = t, this.jun_solstice = n, this.sep_equinox = e, this.dec_solstice = r;
 		}
 	};
-	function D3(t) {
+	function v3(t) {
 		function n(e, r, o) {
-			let s = new Date(Date.UTC(t, r - 1, o)), i = Y2(e, s, 20);
+			let s = new Date(Date.UTC(t, r - 1, o)), i = W2(e, s, 20);
 			if (!i) throw `Cannot find season change near ${s.toISOString()}`;
 			return i;
 		}
 		if (t instanceof Date && Number.isFinite(t.getTime()) && (t = t.getUTCFullYear()), !Number.isSafeInteger(t)) throw `Cannot calculate seasons because year argument ${t} is neither a Date nor a safe integer.`;
-		return new rn(n(0, 3, 10), n(90, 6, 10), n(180, 9, 10), n(270, 12, 10));
+		return new on(n(0, 3, 10), n(90, 6, 10), n(180, 9, 10), n(270, 12, 10));
 	}
-	var on = class {
+	var sn = class {
 		constructor(t, n, e, r) {
 			this.time = t, this.visibility = n, this.elongation = e, this.ecliptic_separation = r;
 		}
 	};
-	function sn(t, n) {
+	function an(t, n) {
 		let e = m(n), r = bt(t, f.Sun, e), o;
 		r > 180 ? (o = "morning", r = 360 - r) : o = "evening";
 		let s = e1(t, e);
-		return new on(e, o, s, r);
+		return new sn(e, o, s, r);
 	}
-	function P3(t, n) {
+	function D3(t, n) {
 		function r(c) {
 			const a = c.AddDays(-.005), u = c.AddDays(.01 / 2);
 			return (e1(t, a) - e1(t, u)) / .01;
@@ -5549,18 +5549,18 @@
 		let i = 0;
 		for (; ++i <= 2;) {
 			let c = t1(U0(t, o) - U0(f.Earth, o)), a, u, h;
-			c >= -s.s1 && c < +s.s1 ? (h = 0, a = +s.s1, u = +s.s2) : c >= +s.s2 || c < -s.s2 ? (h = 0, a = -s.s2, u = -s.s1) : c >= 0 ? (h = -_1(t) / 4, a = +s.s1, u = +s.s2) : (h = -_1(t) / 4, a = -s.s2, u = -s.s1);
+			c >= -s.s1 && c < +s.s1 ? (h = 0, a = +s.s1, u = +s.s2) : c >= +s.s2 || c < -s.s2 ? (h = 0, a = -s.s2, u = -s.s1) : c >= 0 ? (h = -S1(t) / 4, a = +s.s1, u = +s.s2) : (h = -S1(t) / 4, a = -s.s2, u = -s.s1);
 			let l = o.AddDays(h), d = r1(t, a, l), _ = r1(t, u, d), M = r(d);
 			if (M >= 0) throw `SearchMaxElongation: internal error: m1 = ${M}`;
 			let A = r(_);
 			if (A <= 0) throw `SearchMaxElongation: internal error: m2 = ${A}`;
-			let g = K(r, d, _, {
+			let g = G(r, d, _, {
 				init_f1: M,
 				init_f2: A,
 				dt_tolerance_seconds: 10
 			});
 			if (!g) throw `SearchMaxElongation: failed search iter ${i} (t1=${d.toString()}, t2=${_.toString()})`;
-			if (g.tt >= o.tt) return sn(t, g);
+			if (g.tt >= o.tt) return an(t, g);
 			o = _.AddDays(1);
 		}
 		throw "SearchMaxElongation: failed to find event after 2 tries.";
@@ -5577,12 +5577,12 @@
 		let c = 0;
 		for (; ++c <= 2;) {
 			let a = t1(U0(t, o) - U0(f.Earth, o)), u, h, l;
-			a >= -s && a < +s ? (l = 0, u = +s, h = +i) : a >= +i || a < -i ? (l = 0, u = -i, h = -s) : a >= 0 ? (l = -_1(t) / 4, u = +s, h = +i) : (l = -_1(t) / 4, u = -i, h = -s);
+			a >= -s && a < +s ? (l = 0, u = +s, h = +i) : a >= +i || a < -i ? (l = 0, u = -i, h = -s) : a >= 0 ? (l = -S1(t) / 4, u = +s, h = +i) : (l = -S1(t) / 4, u = -i, h = -s);
 			let d = o.AddDays(l), _ = r1(t, u, d), M = r1(t, h, _), A = r(_);
 			if (A >= 0) throw `SearchPeakMagnitude: internal error: m1 = ${A}`;
 			let g = r(M);
 			if (g <= 0) throw `SearchPeakMagnitude: internal error: m2 = ${g}`;
-			let E = K(r, _, M, {
+			let E = G(r, _, M, {
 				init_f1: A,
 				init_f2: g,
 				dt_tolerance_seconds: 10
@@ -5597,12 +5597,12 @@
 	(function(t) {
 		t[t.Pericenter = 0] = "Pericenter", t[t.Apocenter = 1] = "Apocenter";
 	})(x0 || (x0 = {}));
-	var p1 = class {
+	var A1 = class {
 		constructor(t, n, e) {
 			this.time = t, this.kind = n, this.dist_au = e, this.dist_km = e * b;
 		}
 	};
-	function an(t) {
+	function cn(t) {
 		function e(a) {
 			let u = a.AddDays(-5e-4), h = a.AddDays(.001 / 2), l = R0(u).distance_au;
 			return (R0(h).distance_au - l) / .001;
@@ -5616,22 +5616,22 @@
 			let a = o.AddDays(i), u = e(a);
 			if (s * u <= 0) {
 				if (s < 0 || u > 0) {
-					let h = K(e, o, a, {
+					let h = G(e, o, a, {
 						init_f1: s,
 						init_f2: u
 					});
 					if (!h) throw "SearchLunarApsis INTERNAL ERROR: perigee search failed!";
 					let l = R0(h).distance_au;
-					return new p1(h, 0, l);
+					return new A1(h, 0, l);
 				}
 				if (s > 0 || u < 0) {
-					let h = K(r, o, a, {
+					let h = G(r, o, a, {
 						init_f1: -s,
 						init_f2: -u
 					});
 					if (!h) throw "SearchLunarApsis INTERNAL ERROR: apogee search failed!";
 					let l = R0(h).distance_au;
-					return new p1(h, 1, l);
+					return new A1(h, 1, l);
 				}
 				throw "SearchLunarApsis INTERNAL ERROR: cannot classify apsis event!";
 			}
@@ -5639,18 +5639,18 @@
 		}
 		throw "SearchLunarApsis INTERNAL ERROR: could not find apsis within 2 synodic months of start date.";
 	}
-	function N3(t) {
-		let n = an(t.time.AddDays(11));
+	function P3(t) {
+		let n = cn(t.time.AddDays(11));
 		if (n.kind + t.kind !== 1) throw `NextLunarApsis INTERNAL ERROR: did not find alternating apogee/perigee: prev=${t.kind} @ ${t.time.toString()}, next=${n.kind} @ ${n.time.toString()}`;
 		return n;
 	}
-	function cn(t, n, e, r) {
+	function un(t, n, e, r) {
 		const o = n === x0.Apocenter ? 1 : -1, s = 10;
 		for (;;) {
 			const i = r / (s - 1);
 			if (i < 1 / 1440) {
 				const u = e.AddDays(i / 2);
-				return new p1(u, n, C0(t, u));
+				return new A1(u, n, C0(t, u));
 			}
 			let c = -1, a = 0;
 			for (let u = 0; u < s; ++u) {
@@ -5660,7 +5660,7 @@
 			e = e.AddDays((c - 1) * i), r = 2 * i;
 		}
 	}
-	function T3(t, n) {
+	function N3(t, n) {
 		const r = n.AddDays(i0[t].OrbitalPeriod * -.08333333333333333), o = n.AddDays(i0[t].OrbitalPeriod * (270 / 360));
 		let s = r, i = r, c = -1, a = -1;
 		const u = (o.ut - r.ut) / 99;
@@ -5668,13 +5668,13 @@
 			const _ = r.AddDays(d * u), M = C0(t, _);
 			d === 0 ? a = c = M : (M > a && (a = M, i = _), M < c && (c = M, s = _));
 		}
-		const h = cn(t, 0, s.AddDays(-2 * u), 4 * u), l = cn(t, 1, i.AddDays(-2 * u), 4 * u);
+		const h = un(t, 0, s.AddDays(-2 * u), 4 * u), l = un(t, 1, i.AddDays(-2 * u), 4 * u);
 		if (h.time.tt >= n.tt) return l.time.tt >= n.tt && l.time.tt < h.time.tt ? l : h;
 		if (l.time.tt >= n.tt) return l;
 		throw "Internal error: failed to find Neptune apsis.";
 	}
-	function un(t, n) {
-		if (n = m(n), t === f.Neptune || t === f.Pluto) return T3(t, n);
+	function ln(t, n) {
+		if (n = m(n), t === f.Neptune || t === f.Pluto) return N3(t, n);
 		function e(a) {
 			let h = a.AddDays(-5e-4), l = a.AddDays(.001 / 2), d = C0(t, h);
 			return (C0(t, l) - d) / .001;
@@ -5691,23 +5691,23 @@
 				if (c < 0 || h > 0) l = e, d = x0.Pericenter;
 				else if (c > 0 || h < 0) l = r, d = x0.Apocenter;
 				else throw "Internal error with slopes in SearchPlanetApsis";
-				const _ = K(l, i, u);
+				const _ = G(l, i, u);
 				if (!_) throw "Failed to find slope transition in planetary apsis search.";
 				const M = C0(t, _);
-				return new p1(_, d, M);
+				return new A1(_, d, M);
 			}
 			i = u, c = h;
 		}
 		throw "Internal error: should have found planetary apsis within 2 orbital periods.";
 	}
-	function C3(t, n) {
+	function T3(t, n) {
 		if (n.kind !== x0.Pericenter && n.kind !== x0.Apocenter) throw `Invalid apsis kind: ${n.kind}`;
-		const e = .25 * i0[t].OrbitalPeriod, r = un(t, n.time.AddDays(e));
+		const e = .25 * i0[t].OrbitalPeriod, r = ln(t, n.time.AddDays(e));
 		if (r.kind + n.kind !== 1) throw `Internal error: previous apsis was ${n.kind}, but found ${r.kind} for next apsis.`;
 		return r;
 	}
 	function o1(t) {
-		return new G([
+		return new K([
 			[
 				t.rot[0][0],
 				t.rot[1][0],
@@ -5726,7 +5726,7 @@
 		]);
 	}
 	function I0(t, n) {
-		return new G([
+		return new K([
 			[
 				n.rot[0][0] * t.rot[0][0] + n.rot[1][0] * t.rot[0][1] + n.rot[2][0] * t.rot[0][2],
 				n.rot[0][1] * t.rot[0][0] + n.rot[1][1] * t.rot[0][1] + n.rot[2][1] * t.rot[0][2],
@@ -5744,8 +5744,8 @@
 			]
 		]);
 	}
-	function L3() {
-		return new G([
+	function C3() {
+		return new K([
 			[
 				1,
 				0,
@@ -5763,7 +5763,7 @@
 			]
 		]);
 	}
-	function U3(t, n, e) {
+	function L3(t, n, e) {
 		if (n !== 0 && n !== 1 && n !== 2) throw `Invalid axis ${n}. Must be [0, 1, 2].`;
 		const r = N(e) * p, o = Math.cos(r), s = Math.sin(r), i = (n + 1) % 3, c = (n + 2) % 3, a = n;
 		let u = [
@@ -5783,7 +5783,7 @@
 				0
 			]
 		];
-		return u[i][i] = o * t.rot[i][i] - s * t.rot[i][c], u[i][c] = s * t.rot[i][i] + o * t.rot[i][c], u[i][a] = t.rot[i][a], u[c][i] = o * t.rot[c][i] - s * t.rot[c][c], u[c][c] = s * t.rot[c][i] + o * t.rot[c][c], u[c][a] = t.rot[c][a], u[a][i] = o * t.rot[a][i] - s * t.rot[a][c], u[a][c] = s * t.rot[a][i] + o * t.rot[a][c], u[a][a] = t.rot[a][a], new G(u);
+		return u[i][i] = o * t.rot[i][i] - s * t.rot[i][c], u[i][c] = s * t.rot[i][i] + o * t.rot[i][c], u[i][a] = t.rot[i][a], u[c][i] = o * t.rot[c][i] - s * t.rot[c][c], u[c][c] = s * t.rot[c][i] + o * t.rot[c][c], u[c][a] = t.rot[c][a], u[a][i] = o * t.rot[a][i] - s * t.rot[a][c], u[a][c] = s * t.rot[a][i] + o * t.rot[a][c], u[a][a] = t.rot[a][a], new K(u);
 	}
 	function j1(t, n) {
 		n = m(n);
@@ -5803,19 +5803,19 @@
 		} else o = V * Math.atan2(t.y, t.x), o < 0 && (o += 360), r = V * Math.atan2(t.z, Math.sqrt(n));
 		return new Q0(r, o, e);
 	}
-	function ln(t) {
+	function hn(t) {
 		return t = 360 - t, t >= 360 ? t -= 360 : t < 0 && (t += 360), t;
 	}
-	function O3(t, n) {
+	function U3(t, n) {
 		const e = Ht(t);
-		return e.lon = ln(e.lon), e.lat += E1(n, e.lat), e;
+		return e.lon = hn(e.lon), e.lat += p1(n, e.lat), e;
 	}
-	function b3(t, n, e) {
+	function O3(t, n, e) {
 		n = m(n);
-		const r = ln(t.lon);
-		return j1(new Q0(t.lat + hn(e, t.lat), r, t.dist), n);
+		const r = hn(t.lon);
+		return j1(new Q0(t.lat + fn(e, t.lat), r, t.dist), n);
 	}
-	function E1(t, n) {
+	function p1(t, n) {
 		let e;
 		if (N(n), n < -90 || n > 90) return 0;
 		if (t === "normal" || t === "jplhor") {
@@ -5825,24 +5825,24 @@
 		else throw `Invalid refraction option: ${t}`;
 		return e;
 	}
-	function hn(t, n) {
+	function fn(t, n) {
 		if (n < -90 || n > 90) return 0;
-		let e = n - E1(t, n);
+		let e = n - p1(t, n);
 		for (;;) {
-			let r = e + E1(t, e) - n;
+			let r = e + p1(t, e) - n;
 			if (Math.abs(r) < 1e-14) return e - n;
 			e -= r;
 		}
 	}
-	function w1(t, n) {
+	function E1(t, n) {
 		return new C(t.rot[0][0] * n.x + t.rot[1][0] * n.y + t.rot[2][0] * n.z, t.rot[0][1] * n.x + t.rot[1][1] * n.y + t.rot[2][1] * n.z, t.rot[0][2] * n.x + t.rot[1][2] * n.y + t.rot[2][2] * n.z, n.t);
 	}
 	function X1(t, n) {
 		return new $(t.rot[0][0] * n.x + t.rot[1][0] * n.y + t.rot[2][0] * n.z, t.rot[0][1] * n.x + t.rot[1][1] * n.y + t.rot[2][1] * n.z, t.rot[0][2] * n.x + t.rot[1][2] * n.y + t.rot[2][2] * n.z, t.rot[0][0] * n.vx + t.rot[1][0] * n.vy + t.rot[2][0] * n.vz, t.rot[0][1] * n.vx + t.rot[1][1] * n.vy + t.rot[2][1] * n.vz, t.rot[0][2] * n.vx + t.rot[1][2] * n.vy + t.rot[2][2] * n.vz, n.t);
 	}
-	function fn() {
+	function dn() {
 		const t = .9174821430670688, n = .3977769691083922;
-		return new G([
+		return new K([
 			[
 				1,
 				0,
@@ -5860,9 +5860,9 @@
 			]
 		]);
 	}
-	function k3() {
+	function b3() {
 		const t = .9174821430670688, n = .3977769691083922;
-		return new G([
+		return new K([
 			[
 				1,
 				0,
@@ -5883,13 +5883,13 @@
 	function Z1(t) {
 		return t = m(t), I0(k1(t, F.From2000), V1(t, F.From2000));
 	}
+	function k3(t) {
+		const n = m(t);
+		return I0(Z1(n), wn(n));
+	}
 	function F3(t) {
 		const n = m(t);
-		return I0(Z1(n), En(n));
-	}
-	function V3(t) {
-		const n = m(t);
-		return I0(pn(n), tt(n));
+		return I0(En(n), tt(n));
 	}
 	function tt(t) {
 		return t = m(t), I0(V1(t, F.Into2000), k1(t, F.Into2000));
@@ -5909,7 +5909,7 @@
 			-s,
 			0
 		], u = -15 * S0(t), h = q0(u, i), l = q0(u, c), d = q0(u, a);
-		return new G([
+		return new K([
 			[
 				l[0],
 				d[0],
@@ -5927,29 +5927,29 @@
 			]
 		]);
 	}
-	function dn(t, n) {
+	function Mn(t, n) {
 		return o1($t(t, n));
 	}
-	function Mn(t, n) {
-		return t = m(t), I0(dn(t, n), tt(t));
+	function Sn(t, n) {
+		return t = m(t), I0(Mn(t, n), tt(t));
 	}
-	function H3(t, n) {
-		return o1(Mn(t, n));
-	}
-	function Sn(t) {
-		return I0(tt(t), fn());
+	function V3(t, n) {
+		return o1(Sn(t, n));
 	}
 	function _n(t) {
-		return o1(Sn(t));
+		return I0(tt(t), dn());
 	}
-	function An(t, n) {
-		return t = m(t), I0(_n(t), $t(t, n));
+	function An(t) {
+		return o1(_n(t));
 	}
-	function $3(t, n) {
-		return o1(An(t, n));
+	function pn(t, n) {
+		return t = m(t), I0(An(t), $t(t, n));
 	}
-	function J3() {
-		return new G([
+	function H3(t, n) {
+		return o1(pn(t, n));
+	}
+	function $3() {
+		return new K([
 			[
 				-.0548624779711344,
 				.4941095946388765,
@@ -5967,8 +5967,8 @@
 			]
 		]);
 	}
-	function G3() {
-		return new G([
+	function J3() {
+		return new K([
 			[
 				-.0548624779711344,
 				-.8734572784246782,
@@ -5986,9 +5986,9 @@
 			]
 		]);
 	}
-	function pn(t) {
+	function En(t) {
 		const n = m0(m(t)).tobl * p, e = Math.cos(n), r = Math.sin(n);
-		return new G([
+		return new K([
 			[
 				1,
 				0,
@@ -6006,9 +6006,9 @@
 			]
 		]);
 	}
-	function En(t) {
+	function wn(t) {
 		const n = m0(m(t)).tobl * p, e = Math.cos(n), r = Math.sin(n);
-		return new G([
+		return new K([
 			[
 				1,
 				0,
@@ -6115,7 +6115,7 @@
 		["Vir", "Virgo"],
 		["Vol", "Volans"],
 		["Vul", "Vulpecula"]
-	], B3 = [
+	], G3 = [
 		[
 			83,
 			0,
@@ -8259,21 +8259,21 @@
 			-2160
 		]
 	];
-	let Jt, wn;
-	var yn = class {
+	let Jt, yn;
+	var gn = class {
 		constructor(t, n, e, r) {
 			this.symbol = t, this.name = n, this.ra1875 = e, this.dec1875 = r;
 		}
 	};
-	function Q3(t, n) {
+	function B3(t, n) {
 		if (N(t), N(n), n < -90 || n > 90) throw "Invalid declination angle. Must be -90..+90.";
-		t %= 24, t < 0 && (t += 24), Jt || (Jt = Z1(new g0(-45655.74141261017)), wn = new g0(0));
-		const e = j1(new Q0(n, 15 * t, 1), wn), r = Vt(w1(Jt, e)), o = 10 / 240, s = o / 15;
-		for (let i of B3) {
+		t %= 24, t < 0 && (t += 24), Jt || (Jt = Z1(new g0(-45655.74141261017)), yn = new g0(0));
+		const e = j1(new Q0(n, 15 * t, 1), yn), r = Vt(E1(Jt, e)), o = 10 / 240, s = o / 15;
+		for (let i of G3) {
 			const c = i[3] * o, a = i[1] * s, u = i[2] * s;
 			if (c <= r.dec && a <= r.ra && r.ra < u) {
 				const h = K3[i[0]];
-				return new yn(h[0], h[1], r.ra, r.dec);
+				return new gn(h[0], h[1], r.ra, r.dec);
 			}
 		}
 		throw "Unable to find constellation for given coordinates.";
@@ -8282,76 +8282,76 @@
 	(function(t) {
 		t.Penumbral = "penumbral", t.Partial = "partial", t.Annular = "annular", t.Total = "total";
 	})(Z || (Z = {}));
-	var gn = class {
+	var mn = class {
 		constructor(t, n, e, r, o, s) {
 			this.kind = t, this.obscuration = n, this.peak = e, this.sd_penum = r, this.sd_partial = o, this.sd_total = s;
 		}
-	}, q3 = class {
+	}, Q3 = class {
 		constructor(t, n, e, r, o, s, i) {
 			this.time = t, this.u = n, this.r = e, this.k = r, this.p = o, this.target = s, this.dir = i;
 		}
 	};
-	function y1(t, n, e, r) {
+	function w1(t, n, e, r) {
 		const o = (r.x * e.x + r.y * e.y + r.z * e.z) / (r.x * r.x + r.y * r.y + r.z * r.z), s = o * r.x - e.x, i = o * r.y - e.y, c = o * r.z - e.z;
-		return new q3(n, o, b * Math.hypot(s, i, c), +a1 - (1 + o) * (a1 - t), -a1 + (1 + o) * (a1 + t), e, r);
+		return new Q3(n, o, b * Math.hypot(s, i, c), +i1 - (1 + o) * (i1 - t), -i1 + (1 + o) * (i1 + t), e, r);
 	}
 	function nt(t) {
 		const n = e0(f.Sun, t, !0), e = new C(-n.x, -n.y, -n.z, n.t);
-		return y1(Ue, t, a0(t), e);
+		return w1(Le, t, a0(t), e);
 	}
-	function mn(t) {
+	function Rn(t) {
 		const n = e0(f.Sun, t, !0), e = a0(t), r = new C(-e.x, -e.y, -e.z, e.t);
-		return e.x -= n.x, e.y -= n.y, e.z -= n.z, y1(j, t, r, e);
+		return e.x -= n.x, e.y -= n.y, e.z -= n.z, w1(j, t, r, e);
 	}
-	function Gt(t, n) {
-		const e = b2(t, n), r = e0(f.Sun, t, !0), o = a0(t), s = new C(e[0] - o.x, e[1] - o.y, e[2] - o.z, t);
-		return o.x -= r.x, o.y -= r.y, o.z -= r.z, y1(j, t, s, o);
+	function Kt(t, n) {
+		const e = k2(t, n), r = e0(f.Sun, t, !0), o = a0(t), s = new C(e[0] - o.x, e[1] - o.y, e[2] - o.z, t);
+		return o.x -= r.x, o.y -= r.y, o.z -= r.z, w1(j, t, s, o);
 	}
 	function et(t, n, e) {
 		const r = e0(t, e, !0), o = e0(f.Sun, e, !0), s = new C(r.x - o.x, r.y - o.y, r.z - o.z, e);
-		return o.x = -r.x, o.y = -r.y, o.z = -r.z, y1(n, e, o, s);
+		return o.x = -r.x, o.y = -r.y, o.z = -r.z, w1(n, e, o, s);
 	}
-	function Kt(t, n) {
+	function Gt(t, n) {
 		const e = 11574074074074073e-21, r = n.AddDays(-e), o = n.AddDays(+e), s = t(r);
 		return (t(o).r - s.r) / e;
 	}
-	function Y3(t, n, e) {
+	function q3(t, n, e) {
 		const r = 11574074074074073e-21, o = et(t, n, e.AddDays(-r));
 		return (et(t, n, e.AddDays(+r)).r - o.r) / r;
 	}
-	function W3(t) {
-		const e = K((r) => Kt(nt, r), t.AddDays(-.03), t.AddDays(.03));
+	function Y3(t) {
+		const e = G((r) => Gt(nt, r), t.AddDays(-.03), t.AddDays(.03));
 		if (!e) throw "Failed to find peak Earth shadow time.";
 		return nt(e);
 	}
-	function j3(t) {
-		const e = K((r) => Kt(mn, r), t.AddDays(-.03), t.AddDays(.03));
+	function W3(t) {
+		const e = G((r) => Gt(Rn, r), t.AddDays(-.03), t.AddDays(.03));
 		if (!e) throw "Failed to find peak Moon shadow time.";
-		return mn(e);
+		return Rn(e);
 	}
-	function X3(t, n, e) {
-		const o = K((s) => Y3(t, n, s), e.AddDays(-1), e.AddDays(1));
+	function j3(t, n, e) {
+		const o = G((s) => q3(t, n, s), e.AddDays(-1), e.AddDays(1));
 		if (!o) throw "Failed to find peak planet shadow time.";
 		return et(t, n, o);
 	}
-	function Z3(t, n) {
+	function X3(t, n) {
 		const r = t.AddDays(-.2), o = t.AddDays(.2);
 		function s(c) {
-			return Gt(c, n);
+			return Kt(c, n);
 		}
-		const i = K((c) => Kt(s, c), r, o);
+		const i = G((c) => Gt(s, c), r, o);
 		if (!i) throw `PeakLocalMoonShadow: search failure for search_center_time = ${t}`;
-		return Gt(i, n);
+		return Kt(i, n);
 	}
 	function Bt(t, n, e) {
-		const r = e / 1440, o = t.AddDays(-r), s = t.AddDays(+r), i = K((a) => -(nt(a).r - n), o, t), c = K((a) => +(nt(a).r - n), t, s);
+		const r = e / 1440, o = t.AddDays(-r), s = t.AddDays(+r), i = G((a) => -(nt(a).r - n), o, t), c = G((a) => +(nt(a).r - n), t, s);
 		if (!i || !c) throw "Failed to find shadow semiduration";
 		return (c.ut - i.ut) * (1440 / 2);
 	}
 	function Qt(t) {
 		return V * R0(t).geo_eclip_lat;
 	}
-	function Rn(t, n, e) {
+	function xn(t, n, e) {
 		if (t <= 0) throw "Radius of first disc must be positive.";
 		if (n <= 0) throw "Radius of second disc must be positive.";
 		if (e < 0) throw "Distance between discs is not allowed to be negative.";
@@ -8362,38 +8362,38 @@
 		const s = Math.sqrt(o);
 		return (t * t * Math.acos(r / t) - r * s + (n * n * Math.acos((e - r) / n) - (e - r) * s)) / (Math.PI * t * t);
 	}
-	function xn(t, n) {
-		const e = new C(t.x + n.x, t.y + n.y, t.z + n.z, t.t), r = Rn(Math.asin(m2 / e.Length()), Math.asin(be / n.Length()), U1(n, e) * p);
+	function In(t, n) {
+		const e = new C(t.x + n.x, t.y + n.y, t.z + n.z, t.t), r = xn(Math.asin(R2 / e.Length()), Math.asin(Oe / n.Length()), U1(n, e) * p);
 		return Math.min(.9999, r);
 	}
-	function In(t) {
+	function vn(t) {
 		let e = m(t);
 		for (let r = 0; r < 12; ++r) {
-			const o = A1(180, e, 40);
+			const o = _1(180, e, 40);
 			if (!o) throw "Cannot find full moon.";
 			const s = Qt(o);
 			if (Math.abs(s) < 1.8) {
-				const i = W3(o);
+				const i = Y3(o);
 				if (i.r < i.p + j) {
 					let c = Z.Penumbral, a = 0, u = 0, h = 0, l = Bt(i.time, i.p + j, 200);
-					return i.r < i.k + j && (c = Z.Partial, h = Bt(i.time, i.k + j, l), i.r + j < i.k ? (c = Z.Total, a = 1, u = Bt(i.time, i.k - j, h)) : a = Rn(j, i.k, i.r)), new gn(c, a, i.time, l, h, u);
+					return i.r < i.k + j && (c = Z.Partial, h = Bt(i.time, i.k + j, l), i.r + j < i.k ? (c = Z.Total, a = 1, u = Bt(i.time, i.k - j, h)) : a = xn(j, i.k, i.r)), new mn(c, a, i.time, l, h, u);
 				}
 			}
 			e = o.AddDays(10);
 		}
 		throw "Failed to find lunar eclipse within 12 full moons.";
 	}
-	var vn = class {
+	var Dn = class {
 		constructor(t, n, e, r, o, s) {
 			this.kind = t, this.obscuration = n, this.peak = e, this.distance = r, this.latitude = o, this.longitude = s;
 		}
 	};
-	function Dn(t) {
+	function zn(t) {
 		return t > .014 ? Z.Total : Z.Annular;
 	}
-	function t4(t) {
+	function Z3(t) {
 		let n = Z.Partial, e = t.time, r = t.r, o, s;
-		const i = Z1(t.time), c = w1(i, t.dir), a = w1(i, t.target);
+		const i = Z1(t.time), c = E1(i, t.dir), a = E1(i, t.target);
 		c.x *= b, c.y *= b, c.z *= b / s0, a.x *= b, a.y *= b, a.z *= b / s0;
 		const u = M0, h = c.x * c.x + c.y * c.y + c.z * c.z, l = -2 * (c.x * a.x + c.y * a.y + c.z * a.z), d = a.x * a.x + a.y * a.y + a.z * a.z - u * u, _ = l * l - 4 * h * d;
 		let M;
@@ -8403,111 +8403,111 @@
 			const x = S0(e);
 			s = (V * Math.atan2(E, g) - 15 * x) % 360, s <= -180 ? s += 360 : s > 180 && (s -= 360);
 			const R = o1(i);
-			let P = new C(g / b, E / b, y / b, t.time);
-			P = w1(R, P), P.x += t.target.x, P.y += t.target.y, P.z += t.target.z;
-			const v = y1(x2, t.time, P, t.dir);
+			let z = new C(g / b, E / b, y / b, t.time);
+			z = E1(R, z), z.x += t.target.x, z.y += t.target.y, z.z += t.target.z;
+			const v = w1(I2, t.time, z, t.dir);
 			if (v.r > 1e-9 || v.r < 0) throw `Unexpected shadow distance from geoid intersection = ${v.r}`;
-			n = Dn(v.k), M = n === Z.Total ? 1 : xn(t.dir, P);
+			n = zn(v.k), M = n === Z.Total ? 1 : In(t.dir, z);
 		} else M = void 0;
-		return new vn(n, M, e, r, o, s);
+		return new Dn(n, M, e, r, o, s);
 	}
-	function n4(t) {
-		return t = m(t), In(t.AddDays(10));
+	function t4(t) {
+		return t = m(t), vn(t.AddDays(10));
 	}
 	function Pn(t) {
 		t = m(t);
 		const n = 1.8;
 		let e = t, r;
 		for (r = 0; r < 12; ++r) {
-			const o = A1(0, e, 40);
+			const o = _1(0, e, 40);
 			if (!o) throw "Cannot find new moon";
 			const s = Qt(o);
 			if (Math.abs(s) < n) {
-				const i = j3(o);
-				if (i.r < i.p + R2) return t4(i);
+				const i = W3(o);
+				if (i.r < i.p + x2) return Z3(i);
 			}
 			e = o.AddDays(10);
 		}
 		throw "Failed to find solar eclipse within 12 full moons.";
 	}
-	function e4(t) {
+	function n4(t) {
 		return t = m(t), Pn(t.AddDays(10));
 	}
-	var zn = class {
+	var Nn = class {
 		constructor(t, n) {
 			this.time = t, this.altitude = n;
 		}
-	}, Nn = class {
+	}, Tn = class {
 		constructor(t, n, e, r, o, s, i) {
 			this.kind = t, this.obscuration = n, this.partial_begin = e, this.total_begin = r, this.peak = o, this.total_end = s, this.partial_end = i;
 		}
 	};
-	function Tn(t) {
+	function Cn(t) {
 		return t.p - t.r;
 	}
-	function Cn(t) {
+	function Ln(t) {
 		return Math.abs(t.k) - t.r;
 	}
-	function r4(t, n) {
-		const o = Ln(n, t.time);
+	function e4(t, n) {
+		const o = Un(n, t.time);
 		let s = t.time.AddDays(-.2), i = t.time.AddDays(.2);
-		const c = rt(n, 1, Tn, s, t.time), a = rt(n, -1, Tn, t.time, i);
+		const c = rt(n, 1, Cn, s, t.time), a = rt(n, -1, Cn, t.time, i);
 		let u, h, l;
-		t.r < Math.abs(t.k) ? (s = t.time.AddDays(-.01), i = t.time.AddDays(.01), u = rt(n, 1, Cn, s, t.time), h = rt(n, -1, Cn, t.time, i), l = Dn(t.k)) : l = Z.Partial;
-		const d = l === Z.Total ? 1 : xn(t.dir, t.target);
-		return new Nn(l, d, c, u, o, h, a);
+		t.r < Math.abs(t.k) ? (s = t.time.AddDays(-.01), i = t.time.AddDays(.01), u = rt(n, 1, Ln, s, t.time), h = rt(n, -1, Ln, t.time, i), l = zn(t.k)) : l = Z.Partial;
+		const d = l === Z.Total ? 1 : In(t.dir, t.target);
+		return new Tn(l, d, c, u, o, h, a);
 	}
 	function rt(t, n, e, r, o) {
 		function s(c) {
-			return n * e(Gt(c, t));
+			return n * e(Kt(c, t));
 		}
-		const i = K(s, r, o);
+		const i = G(s, r, o);
 		if (!i) throw "Local eclipse transition search failed.";
-		return Ln(t, i);
-	}
-	function Ln(t, n) {
-		return new zn(n, o4(n, t));
-	}
-	function o4(t, n) {
-		const e = l1(f.Sun, t, n, !0, !0);
-		return J1(t, n, e.ra, e.dec, "normal").altitude;
+		return Un(t, i);
 	}
 	function Un(t, n) {
+		return new Nn(n, r4(n, t));
+	}
+	function r4(t, n) {
+		const e = u1(f.Sun, t, n, !0, !0);
+		return J1(t, n, e.ra, e.dec, "normal").altitude;
+	}
+	function On(t, n) {
 		t = m(t), Y0(n);
 		const e = 1.8;
 		let r = t;
 		for (;;) {
-			const o = A1(0, r, 40);
+			const o = _1(0, r, 40);
 			if (!o) throw "Cannot find next new moon";
 			const s = Qt(o);
 			if (Math.abs(s) < e) {
-				const i = Z3(o, n);
+				const i = X3(o, n);
 				if (i.r < i.p) {
-					const c = r4(i, n);
+					const c = e4(i, n);
 					if (c.partial_begin.altitude > 0 || c.partial_end.altitude > 0) return c;
 				}
 			}
 			r = o.AddDays(10);
 		}
 	}
-	function s4(t, n) {
-		return t = m(t), Un(t.AddDays(10), n);
+	function o4(t, n) {
+		return t = m(t), On(t.AddDays(10), n);
 	}
-	var On = class {
+	var bn = class {
 		constructor(t, n, e, r) {
 			this.start = t, this.peak = n, this.finish = e, this.separation = r;
 		}
 	};
-	function i4(t, n, e, r) {
+	function s4(t, n, e, r) {
 		const o = et(n, e, t);
 		return r * (o.r - o.p);
 	}
-	function bn(t, n, e, r, o) {
-		const s = K((i) => i4(i, t, n, o), e, r);
+	function kn(t, n, e, r, o) {
+		const s = G((i) => s4(i, t, n, o), e, r);
 		if (!s) throw "Planet transit boundary search failed";
 		return s;
 	}
-	function kn(t, n) {
+	function Fn(t, n) {
 		n = m(n);
 		const e = .4, r = 1;
 		let o;
@@ -8524,42 +8524,42 @@
 		for (;;) {
 			const i = r1(t, 0, s);
 			if (e1(t, i) < e) {
-				const c = X3(t, o, i);
+				const c = j3(t, o, i);
 				if (c.r < c.p) {
-					const a = c.time.AddDays(-r), u = bn(t, o, a, c.time, -1), h = c.time.AddDays(+r), l = bn(t, o, c.time, h, 1), d = 60 * e1(t, c.time);
-					return new On(u, c.time, l, d);
+					const a = c.time.AddDays(-r), u = kn(t, o, a, c.time, -1), h = c.time.AddDays(+r), l = kn(t, o, c.time, h, 1), d = 60 * e1(t, c.time);
+					return new bn(u, c.time, l, d);
 				}
 			}
 			s = i.AddDays(10);
 		}
 	}
-	function a4(t, n) {
-		return n = m(n), kn(t, n.AddDays(100));
+	function i4(t, n) {
+		return n = m(n), Fn(t, n.AddDays(100));
 	}
 	var A0;
 	(function(t) {
 		t[t.Invalid = 0] = "Invalid", t[t.Ascending = 1] = "Ascending", t[t.Descending = -1] = "Descending";
 	})(A0 || (A0 = {}));
-	var Fn = class {
+	var Vn = class {
 		constructor(t, n) {
 			this.kind = t, this.time = n;
 		}
 	};
-	const Vn = 10;
-	function Hn(t) {
-		let n = m(t), e = G1(n);
+	const Hn = 10;
+	function $n(t) {
+		let n = m(t), e = K1(n);
 		for (;;) {
-			const r = n.AddDays(Vn), o = G1(r);
+			const r = n.AddDays(Hn), o = K1(r);
 			if (e.lat * o.lat <= 0) {
-				const s = o.lat > e.lat ? A0.Ascending : A0.Descending, i = K((c) => s * G1(c).lat, n, r);
+				const s = o.lat > e.lat ? A0.Ascending : A0.Descending, i = G((c) => s * K1(c).lat, n, r);
 				if (!i) throw "Could not find moon node.";
-				return new Fn(s, i);
+				return new Vn(s, i);
 			}
 			n = r, e = o;
 		}
 	}
-	function c4(t) {
-		const n = Hn(t.time.AddDays(Vn));
+	function a4(t) {
+		const n = $n(t.time.AddDays(Hn));
 		switch (t.kind) {
 			case A0.Ascending:
 				if (n.kind !== A0.Descending) throw `Internal error: previous node was ascending, but this node was: ${n.kind}`;
@@ -8576,15 +8576,15 @@
 			this.ra = t, this.dec = n, this.spin = e, this.north = r;
 		}
 	};
-	function u4(t) {
-		const n = K0(B0([
+	function c4(t) {
+		const n = G0(B0([
 			0,
 			0,
 			1
 		], t, F.Into2000), t, F.Into2000), e = new C(n[0], n[1], n[2], t), r = Vt(e), o = 190.41375788700253 + 360.9856122880876 * t.ut;
 		return new qt(r.ra, r.dec, o, e);
 	}
-	function l4(t, n) {
+	function u4(t, n) {
 		const e = m(n), r = e.tt, o = r / 36525;
 		let s, i, c;
 		switch (t) {
@@ -8597,10 +8597,10 @@
 			case f.Venus:
 				s = 272.76, i = 67.16, c = 160.2 - 1.4813688 * r;
 				break;
-			case f.Earth: return u4(e);
+			case f.Earth: return c4(e);
 			case f.Moon:
-				const d = p * (125.045 - .0529921 * r), _ = p * (250.089 - .1059842 * r), M = p * (260.008 + 13.0120009 * r), A = p * (176.625 + 13.3407154 * r), g = p * (357.529 + .9856003 * r), E = p * (311.589 + 26.4057084 * r), y = p * (134.963 + 13.064993 * r), w = p * (276.617 + .3287146 * r), x = p * (34.226 + 1.7484877 * r), R = p * (15.134 - .1589763 * r), P = p * (119.743 + .0036096 * r), v = p * (239.961 + .1643573 * r), z = p * (25.053 + 12.9590088 * r);
-				s = 269.9949 + .0031 * o - 3.8787 * Math.sin(d) - .1204 * Math.sin(_) + .07 * Math.sin(M) - .0172 * Math.sin(A) + .0072 * Math.sin(E) - .0052 * Math.sin(R) + .0043 * Math.sin(z), i = 66.5392 + .013 * o + 1.5419 * Math.cos(d) + .0239 * Math.cos(_) - .0278 * Math.cos(M) + .0068 * Math.cos(A) - .0029 * Math.cos(E) + 9e-4 * Math.cos(y) + 8e-4 * Math.cos(R) - 9e-4 * Math.cos(z), c = 38.3213 + (13.17635815 - 14e-13 * r) * r + 3.561 * Math.sin(d) + .1208 * Math.sin(_) - .0642 * Math.sin(M) + .0158 * Math.sin(A) + .0252 * Math.sin(g) - .0066 * Math.sin(E) - .0047 * Math.sin(y) - .0046 * Math.sin(w) + .0028 * Math.sin(x) + .0052 * Math.sin(R) + .004 * Math.sin(P) + .0019 * Math.sin(v) - .0044 * Math.sin(z);
+				const d = p * (125.045 - .0529921 * r), _ = p * (250.089 - .1059842 * r), M = p * (260.008 + 13.0120009 * r), A = p * (176.625 + 13.3407154 * r), g = p * (357.529 + .9856003 * r), E = p * (311.589 + 26.4057084 * r), y = p * (134.963 + 13.064993 * r), w = p * (276.617 + .3287146 * r), x = p * (34.226 + 1.7484877 * r), R = p * (15.134 - .1589763 * r), z = p * (119.743 + .0036096 * r), v = p * (239.961 + .1643573 * r), P = p * (25.053 + 12.9590088 * r);
+				s = 269.9949 + .0031 * o - 3.8787 * Math.sin(d) - .1204 * Math.sin(_) + .07 * Math.sin(M) - .0172 * Math.sin(A) + .0072 * Math.sin(E) - .0052 * Math.sin(R) + .0043 * Math.sin(P), i = 66.5392 + .013 * o + 1.5419 * Math.cos(d) + .0239 * Math.cos(_) - .0278 * Math.cos(M) + .0068 * Math.cos(A) - .0029 * Math.cos(E) + 9e-4 * Math.cos(y) + 8e-4 * Math.cos(R) - 9e-4 * Math.cos(P), c = 38.3213 + (13.17635815 - 14e-13 * r) * r + 3.561 * Math.sin(d) + .1208 * Math.sin(_) - .0642 * Math.sin(M) + .0158 * Math.sin(A) + .0252 * Math.sin(g) - .0066 * Math.sin(E) - .0047 * Math.sin(y) - .0046 * Math.sin(w) + .0028 * Math.sin(x) + .0052 * Math.sin(R) + .004 * Math.sin(z) + .0019 * Math.sin(v) - .0044 * Math.sin(P);
 				break;
 			case f.Mars:
 				s = 317.269202 - .10927547 * o + 68e-6 * Math.sin(p * (198.991226 + 19139.4819985 * o)) + 238e-6 * Math.sin(p * (226.292679 + 38280.8511281 * o)) + 52e-6 * Math.sin(p * (249.663391 + 57420.7251593 * o)) + 9e-6 * Math.sin(p * (266.18351 + 76560.636795 * o)) + .419057 * Math.sin(p * (79.398797 + .5042615 * o)), i = 54.432516 - .05827105 * o + 51e-6 * Math.cos(p * (122.433576 + 19139.9407476 * o)) + 141e-6 * Math.cos(p * (43.058401 + 38280.8753272 * o)) + 31e-6 * Math.cos(p * (57.663379 + 57420.7517205 * o)) + 5e-6 * Math.cos(p * (79.476401 + 76560.6495004 * o)) + 1.591274 * Math.cos(p * (166.325722 + .5042615 * o)), c = 176.049863 + 350.891982443297 * r + 145e-6 * Math.sin(p * (129.071773 + 19140.0328244 * o)) + 157e-6 * Math.sin(p * (36.352167 + 38281.0473591 * o)) + 4e-5 * Math.sin(p * (56.668646 + 57420.929536 * o)) + 1e-6 * Math.sin(p * (67.364003 + 76560.2552215 * o)) + 1e-6 * Math.sin(p * (104.79268 + 95700.4387578 * o)) + .584542 * Math.sin(p * (95.391654 + .5042615 * o));
@@ -8627,12 +8627,12 @@
 		const a = i * p, u = s * p, h = Math.cos(a), l = new C(h * Math.cos(u), h * Math.sin(u), Math.sin(a), e);
 		return new qt(s / 15, i, c, l);
 	}
-	function h4(t, n, e, r) {
+	function l4(t, n, e, r) {
 		const o = m(n), s = wt(e), i = wt(r);
 		let c, a;
-		return e === f.Earth && r === f.Moon ? (c = new $(0, 0, 0, 0, 0, 0, o), a = f1(o)) : (c = Y1(e, o), a = Y1(r, o)), $n(t, c, s, a, i);
+		return e === f.Earth && r === f.Moon ? (c = new $(0, 0, 0, 0, 0, 0, o), a = h1(o)) : (c = Y1(e, o), a = Y1(r, o)), Jn(t, c, s, a, i);
 	}
-	function $n(t, n, e, r, o) {
+	function Jn(t, n, e, r, o) {
 		const i = .8660254037844386;
 		if (t < 1 || t > 5) throw `Invalid lagrange point ${t}`;
 		if (!Number.isFinite(e) || e <= 0) throw "Major mass must be a positive number.";
@@ -8643,32 +8643,32 @@
 		if (t === 4 || t === 5) {
 			const g = a * M - u * _, E = u * d - c * M, y = c * _ - a * d;
 			let w = E * u - y * a, x = y * c - g * u, R = g * a - E * c;
-			const P = Math.sqrt(w * w + x * x + R * R);
-			w /= P, x /= P, R /= P, c /= l, a /= l, u /= l;
-			const v = t == 4 ? +i : -i, z = .5 * c + v * w, D = .5 * a + v * x, T = .5 * u + v * R, U = .5 * w - v * c, B = .5 * x - v * a, u0 = .5 * R - v * u, o0 = l * z, p0 = l * D, v0 = l * T, l0 = d * c + _ * a + M * u, h0 = d * w + _ * x + M * R;
-			A = new $(o0, p0, v0, l0 * z + h0 * U, l0 * D + h0 * B, l0 * T + h0 * u0, n.t);
+			const z = Math.sqrt(w * w + x * x + R * R);
+			w /= z, x /= z, R /= z, c /= l, a /= l, u /= l;
+			const v = t == 4 ? +i : -i, P = .5 * c + v * w, D = .5 * a + v * x, T = .5 * u + v * R, U = .5 * w - v * c, B = .5 * x - v * a, u0 = .5 * R - v * u, o0 = l * P, p0 = l * D, v0 = l * T, l0 = d * c + _ * a + M * u, h0 = d * w + _ * x + M * R;
+			A = new $(o0, p0, v0, l0 * P + h0 * U, l0 * D + h0 * B, l0 * T + h0 * u0, n.t);
 		} else {
 			const g = -l * (o / (e + o)), E = +l * (e / (e + o)), y = (e + o) / (h * l);
 			let w, x, R;
 			if (t === 1 || t === 2) w = e / (e + o) * Math.cbrt(o / (3 * e)), x = -e, t == 1 ? (w = 1 - w, R = +o) : (w = 1 + w, R = -o);
 			else if (t === 3) w = (7 / 12 * o - e) / (o + e), x = +e, R = +o;
 			else throw `Invalid Langrage point ${t}. Must be an integer 1..5.`;
-			let P = l * w - g, v;
+			let z = l * w - g, v;
 			do {
-				const z = P - g, D = P - E;
-				v = (y * P + x / (z * z) + R / (D * D)) / (y - 2 * x / (z * z * z) - 2 * R / (D * D * D)), P -= v;
+				const P = z - g, D = z - E;
+				v = (y * z + x / (P * P) + R / (D * D)) / (y - 2 * x / (P * P * P) - 2 * R / (D * D * D)), z -= v;
 			} while (Math.abs(v / l) > 1e-14);
-			w = (P - g) / l, A = new $(w * c, w * a, w * u, w * d, w * _, w * M, n.t);
+			w = (z - g) / l, A = new $(w * c, w * a, w * u, w * d, w * _, w * M, n.t);
 		}
 		return A;
 	}
-	var f4 = class t0 {
+	var h4 = class t0 {
 		constructor(n, e, r) {
 			const o = m(e);
 			this.originBody = n;
 			for (let a of r) if (a.t.tt !== o.tt) throw "Inconsistent times in bodyStates";
 			const s = [], i = t0.CalcSolarSystem(o);
-			this.curr = new Jn(o, i, s);
+			this.curr = new Kn(o, i, s);
 			const c = this.InternalBodyState(n);
 			for (let a of r) {
 				const u = new Y(a.x + c.r.x, a.y + c.r.y, a.z + c.r.z), h = new Y(a.vx + c.v.x, a.vy + c.v.y, a.vz + c.v.z), l = Y.zero();
@@ -8718,12 +8718,12 @@
 		}
 		static CalcSolarSystem(n) {
 			const e = {}, r = new T0(n.tt, Y.zero(), Y.zero());
-			e[f.Mercury] = X(r, n.tt, f.Mercury, At), e[f.Venus] = X(r, n.tt, f.Venus, pt), e[f.Earth] = X(r, n.tt, f.Earth, u1 + C1), e[f.Mars] = X(r, n.tt, f.Mars, Et), e[f.Jupiter] = X(r, n.tt, f.Jupiter, V0), e[f.Saturn] = X(r, n.tt, f.Saturn, H0), e[f.Uranus] = X(r, n.tt, f.Uranus, $0), e[f.Neptune] = X(r, n.tt, f.Neptune, J0);
+			e[f.Mercury] = X(r, n.tt, f.Mercury, At), e[f.Venus] = X(r, n.tt, f.Venus, pt), e[f.Earth] = X(r, n.tt, f.Earth, c1 + C1), e[f.Mars] = X(r, n.tt, f.Mars, Et), e[f.Jupiter] = X(r, n.tt, f.Jupiter, V0), e[f.Saturn] = X(r, n.tt, f.Saturn, H0), e[f.Uranus] = X(r, n.tt, f.Uranus, $0), e[f.Neptune] = X(r, n.tt, f.Neptune, J0);
 			for (let o in e) e[o].r.decr(r.r), e[o].v.decr(r.v);
 			return e[f.Sun] = new T0(n.tt, r.r.neg(), r.v.neg()), e;
 		}
 		CalcBodyAccelerations() {
-			for (let n of this.curr.bodies) n.a = Y.zero(), t0.AddAcceleration(n.a, n.r, this.curr.gravitators[f.Sun].r, c1), t0.AddAcceleration(n.a, n.r, this.curr.gravitators[f.Mercury].r, At), t0.AddAcceleration(n.a, n.r, this.curr.gravitators[f.Venus].r, pt), t0.AddAcceleration(n.a, n.r, this.curr.gravitators[f.Earth].r, u1 + C1), t0.AddAcceleration(n.a, n.r, this.curr.gravitators[f.Mars].r, Et), t0.AddAcceleration(n.a, n.r, this.curr.gravitators[f.Jupiter].r, V0), t0.AddAcceleration(n.a, n.r, this.curr.gravitators[f.Saturn].r, H0), t0.AddAcceleration(n.a, n.r, this.curr.gravitators[f.Uranus].r, $0), t0.AddAcceleration(n.a, n.r, this.curr.gravitators[f.Neptune].r, J0);
+			for (let n of this.curr.bodies) n.a = Y.zero(), t0.AddAcceleration(n.a, n.r, this.curr.gravitators[f.Sun].r, a1), t0.AddAcceleration(n.a, n.r, this.curr.gravitators[f.Mercury].r, At), t0.AddAcceleration(n.a, n.r, this.curr.gravitators[f.Venus].r, pt), t0.AddAcceleration(n.a, n.r, this.curr.gravitators[f.Earth].r, c1 + C1), t0.AddAcceleration(n.a, n.r, this.curr.gravitators[f.Mars].r, Et), t0.AddAcceleration(n.a, n.r, this.curr.gravitators[f.Jupiter].r, V0), t0.AddAcceleration(n.a, n.r, this.curr.gravitators[f.Saturn].r, H0), t0.AddAcceleration(n.a, n.r, this.curr.gravitators[f.Uranus].r, $0), t0.AddAcceleration(n.a, n.r, this.curr.gravitators[f.Neptune].r, J0);
 		}
 		static AddAcceleration(n, e, r, o) {
 			const s = r.x - e.x, i = r.y - e.y, c = r.z - e.z, a = s * s + i * i + c * c, u = o / (a * Math.sqrt(a));
@@ -8734,9 +8734,9 @@
 			for (let r in this.curr.gravitators) n[r] = this.curr.gravitators[r].clone();
 			const e = [];
 			for (let r of this.curr.bodies) e.push(r.clone());
-			return new Jn(this.curr.time, n, e);
+			return new Kn(this.curr.time, n, e);
 		}
-	}, Jn = class {
+	}, Kn = class {
 		constructor(t, n, e) {
 			this.time = t, this.gravitators = n, this.bodies = e;
 		}
@@ -8744,8 +8744,8 @@
 	function ot(t) {
 		return typeof t.Observer == "function" ? t : t.default ?? t;
 	}
-	const { MakeTime: W4, SearchRiseSet: j4, Body: X4, Observer: d4 } = ot(P1);
-	new d4(40.7128, -74.006, 10);
+	const { MakeTime: W4, SearchRiseSet: j4, Body: X4, Observer: f4 } = ot(z1);
+	new f4(40.7128, -74.006, 10);
 	function Gn(t, n) {
 		if (!Number.isFinite(t) || !Number.isFinite(n)) return null;
 		const e = t * Math.PI / 180, r = n * Math.PI / 180, o = Math.cos(r);
@@ -8755,56 +8755,56 @@
 			z: Math.sin(r)
 		};
 	}
-	function M4(t) {
+	function d4(t) {
 		if (t == null || !Number.isFinite(t) || t <= 0) return null;
 		const n = 1 / t;
 		return Number.isFinite(n) ? n : null;
 	}
-	const { Body: r0 } = ot(P1);
+	const { Body: r0 } = ot(z1);
 	I.SUN, r0.Sun, I.MERCURY, r0.Mercury, I.VENUS, r0.Venus, I.EARTH, r0.Earth, I.MARS, r0.Mars, I.JUPITER, r0.Jupiter, I.SATURN, r0.Saturn, I.URANUS, r0.Uranus, I.NEPTUNE, r0.Neptune, I.PLUTO, r0.Pluto, I.MOON, r0.Moon;
 	2 * Math.PI;
-	const { Rotation_EQD_EQJ: e6, CombineRotation: r6, MakeRotation: o6 } = ot(P1);
+	const { Rotation_EQD_EQJ: e6, CombineRotation: r6, MakeRotation: o6 } = ot(z1);
 	Math.PI / (180 * 3600);
-	function S4(t) {
+	function M4(t) {
 		return t == null || !Number.isFinite(t) || t < 1 || t > 4 ? 4 : Math.floor(t);
 	}
-	const { HelioState: a6 } = ot(P1);
-	function _4(t, n) {
+	const { HelioState: a6 } = ot(z1);
+	function S4(t, n) {
 		return t.length === 0 || n?.raInHours !== !0 ? t : t.map((e) => ({
 			...e,
 			ra: e.ra * 15
 		}));
 	}
-	function A4(t, n, e) {
+	function _4(t, n, e) {
 		let r = t.filter((s) => s.ra >= n.raMin && s.ra <= n.raMax && s.dec >= n.decMin && s.dec <= n.decMax);
 		const o = e?.maxDistanceLevel;
 		if (o != null) {
 			if (o === 0) return [];
-			r = r.filter((s) => S4(s.dl) <= o);
+			r = r.filter((s) => M4(s.dl) <= o);
 		}
 		return r;
 	}
 	function Yt(t) {
 		return t.id === 0 || t.id === "0";
 	}
-	function p4(t) {
+	function A4(t) {
 		if (Yt(t)) return 0;
 		const { x: n, y: e, z: r, plx: o } = t;
-		return n != null && e != null && r != null && Number.isFinite(n) && Number.isFinite(e) && Number.isFinite(r) ? ae({
+		return n != null && e != null && r != null && Number.isFinite(n) && Number.isFinite(e) && Number.isFinite(r) ? ce({
 			x: n,
 			y: e,
 			z: r
-		}) : M4(o) ?? 25;
+		}) : d4(o) ?? 25;
 	}
-	function E4(t) {
+	function p4(t) {
 		if (Yt(t)) return {
-			x: ft.x,
-			y: ft.y,
-			z: ft.z
+			x: dt.x,
+			y: dt.y,
+			z: dt.z
 		};
-		const n = we(p4(t)), { x: e, y: r, z: o, ra: s, dec: i } = t, c = e != null && r != null && o != null && Number.isFinite(e) && Number.isFinite(r) && Number.isFinite(o);
+		const n = we(A4(t)), { x: e, y: r, z: o, ra: s, dec: i } = t, c = e != null && r != null && o != null && Number.isFinite(e) && Number.isFinite(r) && Number.isFinite(o);
 		let a = null;
-		return c && (a = le({
+		return c && (a = he({
 			x: e,
 			y: r,
 			z: o
@@ -8818,7 +8818,7 @@
 			z: a.z * n
 		};
 	}
-	function w4(t) {
+	function E4(t) {
 		if (!t || typeof t != "string") return [
 			1,
 			1,
@@ -8835,32 +8835,32 @@
 			1
 		];
 	}
-	const Kn = 1, y4 = 500, Bn = .01;
+	const Bn = 1, w4 = 500, Qn = .01;
 	function O0(t) {
 		return Math.max(0, Math.min(1, t));
 	}
-	function g4(t) {
-		return t?.warm != null && Number.isFinite(t.warm) ? O0(t.warm) : Bn;
+	function y4(t) {
+		return t?.warm != null && Number.isFinite(t.warm) ? O0(t.warm) : Qn;
 	}
-	function m4(t) {
+	function g4(t) {
 		return t?.size != null && Number.isFinite(t.size) ? O0(t.size) : .5;
 	}
-	function R4(t) {
+	function m4(t) {
 		return O0(.995 - .6 * t ** 30);
 	}
-	function x4(t) {
-		return Kn;
+	function R4(t) {
+		return Bn;
 	}
-	const I4 = 12e3;
-	function v4(t) {
+	const x4 = 12e3;
+	function I4(t) {
 		return t.con?.trim() || "non";
 	}
-	function D4(t, n, e, r, o, s, i, c = I4) {
+	function v4(t, n, e, r, o, s, i, c = x4) {
 		const a = t.length, u = /* @__PURE__ */ new Map();
 		for (let d = 0; d < a; d += 1) {
 			const _ = t[d];
 			if (!_) continue;
-			const M = v4(_);
+			const M = I4(_);
 			let A = u.get(M);
 			A || (A = [], u.set(M, A)), A.push(d);
 		}
@@ -8870,13 +8870,13 @@
 			if (!_) continue;
 			let M = 0;
 			for (let A = 0; A < _.length; A += c) {
-				const g = _.slice(A, A + c), E = g.length, y = new Float32Array(E * 3), w = new Float32Array(E), x = new Float32Array(E * 3), R = new Float32Array(E), P = new Float32Array(E), v = new Float32Array(E), z = [];
+				const g = _.slice(A, A + c), E = g.length, y = new Float32Array(E * 3), w = new Float32Array(E), x = new Float32Array(E * 3), R = new Float32Array(E), z = new Float32Array(E), v = new Float32Array(E), P = [];
 				for (let T = 0; T < E; T += 1) {
 					const U = g[T];
 					if (U === void 0) throw new Error("starfieldChunk: missing slice index");
 					const B = t[U];
 					if (!B) throw new Error("starfieldChunk: missing star row");
-					z.push(B), y[T * 3] = n[U * 3], y[T * 3 + 1] = n[U * 3 + 1], y[T * 3 + 2] = n[U * 3 + 2], w[T] = e[U], x[T * 3] = r[U * 3], x[T * 3 + 1] = r[U * 3 + 1], x[T * 3 + 2] = r[U * 3 + 2], R[T] = o[U], P[T] = s[U], v[T] = i[U];
+					P.push(B), y[T * 3] = n[U * 3], y[T * 3 + 1] = n[U * 3 + 1], y[T * 3 + 2] = n[U * 3 + 2], w[T] = e[U], x[T * 3] = r[U * 3], x[T * 3 + 1] = r[U * 3 + 1], x[T * 3 + 2] = r[U * 3 + 2], R[T] = o[U], z[T] = s[U], v[T] = i[U];
 				}
 				const D = _.length <= c ? d : `${d}__part${M}`;
 				M += 1, l.push({
@@ -8885,17 +8885,17 @@
 					sizes: w,
 					colors: x,
 					warm: R,
-					brightness: P,
+					brightness: z,
 					mag: v,
-					starsInChunk: z
+					starsInChunk: P
 				});
 			}
 		}
 		return l;
 	}
-	function P4() {
+	function D4() {
 		const t = [];
-		for (let n = 0; n < y4; n += 1) {
+		for (let n = 0; n < w4; n += 1) {
 			const e = Gn(n * .7 % 360, n * .3 % 180 - 90);
 			e != null && t.push(e);
 		}
@@ -8903,24 +8903,24 @@
 	}
 	function z4() {
 		const t = pe;
-		return P4().map((n) => ({
+		return D4().map((n) => ({
 			x: n.x * t,
 			y: n.y * t,
 			z: n.z * t
 		}));
 	}
-	function N4(t) {
-		const { catalog: n, maxDistanceLevel: e, bounds: r, raInHours: o } = t, s = A4(_4(n, { raInHours: o }).filter((E) => !Yt(E)), r, { maxDistanceLevel: e }), i = () => ({
+	function P4(t) {
+		const { catalog: n, maxDistanceLevel: e, bounds: r, raInHours: o } = t, s = _4(S4(n, { raInHours: o }).filter((E) => !Yt(E)), r, { maxDistanceLevel: e }), i = () => ({
 			chunks: [],
 			namedStarsInView: [],
 			starsInView: []
 		});
 		if (s.length === 0) {
 			if (e === 0) return i();
-			const E = z4(), y = E.length, w = new Float32Array(y * 3), x = new Float32Array(y).fill(Kn), R = new Float32Array(y * 3).fill(1), P = new Float32Array(y).fill(1), v = new Float32Array(y).fill(Bn);
-			for (let z = 0; z < y; z += 1) {
-				const D = E[z];
-				D && (w[z * 3] = D.x, w[z * 3 + 1] = D.y, w[z * 3 + 2] = D.z);
+			const E = z4(), y = E.length, w = new Float32Array(y * 3), x = new Float32Array(y).fill(Bn), R = new Float32Array(y * 3).fill(1), z = new Float32Array(y).fill(1), v = new Float32Array(y).fill(Qn);
+			for (let P = 0; P < y; P += 1) {
+				const D = E[P];
+				D && (w[P * 3] = D.x, w[P * 3 + 1] = D.y, w[P * 3 + 2] = D.z);
 			}
 			return {
 				chunks: [{
@@ -8929,7 +8929,7 @@
 					sizes: x,
 					colors: R,
 					warm: v,
-					brightness: P,
+					brightness: z,
 					mag: new Float32Array(y).fill(-Infinity),
 					starsInChunk: []
 				}],
@@ -8937,20 +8937,20 @@
 				starsInView: []
 			};
 		}
-		const c = s.map(E4), a = c.length, u = new Float32Array(a * 3), h = new Float32Array(a), l = new Float32Array(a * 3), d = new Float32Array(a), _ = new Float32Array(a), M = new Float32Array(a), A = [];
+		const c = s.map(p4), a = c.length, u = new Float32Array(a * 3), h = new Float32Array(a), l = new Float32Array(a * 3), d = new Float32Array(a), _ = new Float32Array(a), M = new Float32Array(a), A = [];
 		for (let E = 0; E < a; E += 1) {
 			const y = c[E], w = s[E];
 			u[E * 3] = y.x, u[E * 3 + 1] = y.y, u[E * 3 + 2] = y.z;
-			const x = m4(w);
-			h[E] = x4(w);
-			const [R, P, v] = w4(w?.c != null ? `#${w.c}` : void 0), z = g4(w), D = R4(z), T = 1 - D;
-			l[E * 3] = O0(D + T * R), l[E * 3 + 1] = O0(D + T * P), l[E * 3 + 2] = O0(D + T * v), d[E] = z, _[E] = O0(.24 + .46 * (w?.br != null && Number.isFinite(w.br) ? Math.max(0, Math.min(1, w.br)) : 1) + .12 * x), M[E] = w?.mag != null && Number.isFinite(w.mag) ? w.mag : Number.POSITIVE_INFINITY, w?.proper && A.push({
+			const x = g4(w);
+			h[E] = R4(w);
+			const [R, z, v] = E4(w?.c != null ? `#${w.c}` : void 0), P = y4(w), D = m4(P), T = 1 - D;
+			l[E * 3] = O0(D + T * R), l[E * 3 + 1] = O0(D + T * z), l[E * 3 + 2] = O0(D + T * v), d[E] = P, _[E] = O0(.24 + .46 * (w?.br != null && Number.isFinite(w.br) ? Math.max(0, Math.min(1, w.br)) : 1) + .12 * x), M[E] = w?.mag != null && Number.isFinite(w.mag) ? w.mag : Number.POSITIVE_INFINITY, w?.proper && A.push({
 				position: { ...y },
 				name: w.proper,
 				catalogId: String(w.id)
 			});
 		}
-		const g = D4(s, u, h, l, d, _, M);
+		const g = v4(s, u, h, l, d, _, M);
 		return {
 			chunks: g,
 			namedStarsInView: A,
@@ -8962,7 +8962,7 @@
 		try {
 			return {
 				runId: n,
-				...N4(e)
+				...P4(e)
 			};
 		} catch (r) {
 			const o = r instanceof Error ? r.message : String(r);
