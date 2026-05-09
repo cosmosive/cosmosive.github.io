@@ -1,4 +1,4 @@
-import{i as L}from"./rolldown-runtime-BOC55nOF.js";import{p as j}from"./r3f-vendor-BRgrcVsg.js";import{n as q}from"./state-data-vendor-CyHnElWR.js";import{$r as S,Si as M,Vt as B,a as O,it as V,la as Q}from"./index-ZEi2g9q9.js";import{a as I,i as U,o as k,t as z}from"./r3fHostExtras-CuyrlSEU.js";import{R as _,V as W,bt as p,dt as G,lt as H,p as x,w as P,yt as Y}from"./three-vendor-Cq50JzVP.js";import{n as K,t as N}from"./queryCacheNotify-BFOhoWuv.js";var C=L(j(),1),X=V.far/4,J=10,h=10,$=17,Z=9,ee=`
+import{i as L}from"./rolldown-runtime-BOC55nOF.js";import{p as j}from"./r3f-vendor-BRgrcVsg.js";import{n as q}from"./state-data-vendor-CyHnElWR.js";import{$r as S,Si as M,Vt as B,a as O,it as V,la as Q}from"./index-Czwudx4Q.js";import{a as I,i as U,o as k,t as z}from"./r3fHostExtras-CuyrlSEU.js";import{R as _,V as W,bt as p,dt as G,lt as H,p as x,w as P,yt as Y}from"./three-vendor-Cq50JzVP.js";import{n as K,t as N}from"./queryCacheNotify-C68GVlbI.js";var C=L(j(),1),X=V.far/4,J=10,h=10,$=17,Z=9,ee=`
 varying vec3 vWorldPos;
 varying vec3 vLocalPos;
 varying vec3 vNormalDir;
