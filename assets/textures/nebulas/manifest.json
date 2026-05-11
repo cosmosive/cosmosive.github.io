@@ -1,0 +1,77 @@
+{
+  "$schema": "Vetted real-imagery equirect spheremaps. Each entry keyed by DSO catalog id (e.g., 'NGC1976' for M42). Add entries only when sourced from HST/JWST/ESO/STScI archival imagery. Tier paths are relative to /assets/textures/nebulas/<id>/. License + attribution required.",
+  "entries": {
+    "CUSTOM-BARNARD-33": {
+      "thumb": "/assets/textures/nebulas/CUSTOM-BARNARD-33/thumb.ktx2",
+      "mid": "/assets/textures/nebulas/CUSTOM-BARNARD-33/mid.ktx2",
+      "high": "/assets/textures/nebulas/CUSTOM-BARNARD-33/high.ktx2",
+      "source": "https://esahubble.org/images/heic1307a/",
+      "license": "CC-BY-4.0",
+      "attribution": "NASA, ESA, and the Hubble Heritage Team (STScI/AURA)"
+    },
+    "NGC1952": {
+      "thumb": "/assets/textures/nebulas/NGC1952/thumb.ktx2",
+      "mid": "/assets/textures/nebulas/NGC1952/mid.ktx2",
+      "high": "/assets/textures/nebulas/NGC1952/high.ktx2",
+      "source": "https://esahubble.org/images/heic0515a/",
+      "license": "CC-BY-4.0",
+      "attribution": "NASA, ESA, J. Hester and A. Loll (Arizona State University)"
+    },
+    "NGC1976": {
+      "thumb": "/assets/textures/nebulas/NGC1976/thumb.ktx2",
+      "mid": "/assets/textures/nebulas/NGC1976/mid.ktx2",
+      "high": "/assets/textures/nebulas/NGC1976/high.ktx2",
+      "source": "https://esahubble.org/images/heic0601a/",
+      "license": "CC-BY-4.0",
+      "attribution": "NASA, ESA, M. Robberto (STScI/ESA) and the HST Orion Treasury Project Team"
+    },
+    "NGC3372": {
+      "thumb": "/assets/textures/nebulas/NGC3372/thumb.ktx2",
+      "mid": "/assets/textures/nebulas/NGC3372/mid.ktx2",
+      "high": "/assets/textures/nebulas/NGC3372/high.ktx2",
+      "source": "https://esahubble.org/images/heic0707a/",
+      "license": "CC-BY-4.0",
+      "attribution": "NASA, ESA, N. Smith (University of California, Berkeley), and The Hubble Heritage Team (STScI/AURA)"
+    },
+    "NGC6523": {
+      "thumb": "/assets/textures/nebulas/NGC6523/thumb.ktx2",
+      "mid": "/assets/textures/nebulas/NGC6523/mid.ktx2",
+      "high": "/assets/textures/nebulas/NGC6523/high.ktx2",
+      "source": "https://esahubble.org/images/heic1808a/",
+      "license": "CC-BY-4.0",
+      "attribution": "NASA, ESA, and STScI"
+    },
+    "NGC6611": {
+      "thumb": "/assets/textures/nebulas/NGC6611/thumb.ktx2",
+      "mid": "/assets/textures/nebulas/NGC6611/mid.ktx2",
+      "high": "/assets/textures/nebulas/NGC6611/high.ktx2",
+      "source": "https://esahubble.org/images/heic1501a/",
+      "license": "CC-BY-4.0",
+      "attribution": "NASA, ESA, and the Hubble Heritage Team (STScI/AURA)"
+    },
+    "NGC6618": {
+      "thumb": "/assets/textures/nebulas/NGC6618/thumb.ktx2",
+      "mid": "/assets/textures/nebulas/NGC6618/mid.ktx2",
+      "high": "/assets/textures/nebulas/NGC6618/high.ktx2",
+      "source": "https://esahubble.org/images/heic0305a/",
+      "license": "CC-BY-4.0",
+      "attribution": "NASA, ESA, and J. Hester (Arizona State University)"
+    },
+    "NGC6853": {
+      "thumb": "/assets/textures/nebulas/NGC6853/thumb.ktx2",
+      "mid": "/assets/textures/nebulas/NGC6853/mid.ktx2",
+      "high": "/assets/textures/nebulas/NGC6853/high.ktx2",
+      "source": "https://esahubble.org/images/opo0306a/",
+      "license": "CC-BY-4.0",
+      "attribution": "NASA/ESA and the Hubble Heritage Team (STScI/AURA)"
+    },
+    "NGC7000": {
+      "thumb": "/assets/textures/nebulas/NGC7000/thumb.ktx2",
+      "mid": "/assets/textures/nebulas/NGC7000/mid.ktx2",
+      "high": "/assets/textures/nebulas/NGC7000/high.ktx2",
+      "source": "https://esahubble.org/images/heic0510a/",
+      "license": "CC-BY-4.0",
+      "attribution": "Davide De Martin (ESA/Hubble), the ESA/ESO/NASA Photoshop FITS Liberator & Digitized Sky Survey 2"
+    }
+  }
+}

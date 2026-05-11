@@ -90,6 +90,206 @@
       "catalogId": "NGC7000",
       "featured": true,
       "wikipediaTitle": "North America Nebula"
+    },
+
+    {
+      "catalogId": "NGC0598",
+      "distPc": 840000,
+      "wikipediaTitle": "Triangulum Galaxy"
+    },
+    {
+      "catalogId": "NGC0292",
+      "distPc": 62000,
+      "wikipediaTitle": "Small Magellanic Cloud"
+    },
+
+    {
+      "catalogId": "NGC2070",
+      "name": "Tarantula Nebula",
+      "aliases": ["30 Doradus", "30 Dor", "NGC 2070"],
+      "distPc": 49970,
+      "majAxArcmin": 40,
+      "minAxArcmin": 25,
+      "featured": true,
+      "wikipediaTitle": "Tarantula Nebula"
+    },
+    {
+      "catalogId": "NGC2014",
+      "distPc": 49970,
+      "wikipediaTitle": "NGC 2014"
+    },
+    {
+      "catalogId": "NGC2074",
+      "distPc": 49970,
+      "wikipediaTitle": "NGC 2074"
+    },
+    {
+      "catalogId": "NGC2080",
+      "name": "Ghost Head Nebula",
+      "aliases": ["NGC 2080"],
+      "distPc": 49970,
+      "wikipediaTitle": "Ghost Head Nebula"
+    },
+    {
+      "catalogId": "NGC1763",
+      "name": "Bean Nebula",
+      "aliases": ["LMC N11", "N11"],
+      "distPc": 49970,
+      "wikipediaTitle": "N11 (emission nebula)"
+    },
+
+    {
+      "catalogId": "NGC0346",
+      "distPc": 62000,
+      "wikipediaTitle": "NGC 346"
+    },
+
+    {
+      "catalogId": "NGC0604",
+      "name": "NGC 604",
+      "distPc": 840000,
+      "parentGalaxyId": "NGC0598",
+      "featured": true,
+      "wikipediaTitle": "NGC 604"
+    },
+    {
+      "catalogId": "NGC0595",
+      "distPc": 840000,
+      "parentGalaxyId": "NGC0598",
+      "wikipediaTitle": "NGC 595"
+    },
+    {
+      "catalogId": "NGC0588",
+      "distPc": 840000,
+      "parentGalaxyId": "NGC0598",
+      "wikipediaTitle": "NGC 588"
+    },
+
+    {
+      "catalogId": "NGC6960",
+      "distPc": 735,
+      "featured": true,
+      "aliases": ["Western Veil", "Witch's Broom"],
+      "wikipediaTitle": "Veil Nebula"
+    },
+    {
+      "catalogId": "NGC6992",
+      "distPc": 735,
+      "featured": true,
+      "aliases": ["Eastern Veil", "Network Nebula"],
+      "wikipediaTitle": "Veil Nebula"
+    },
+    {
+      "catalogId": "NGC1499",
+      "distPc": 470,
+      "featured": true,
+      "wikipediaTitle": "California Nebula"
+    },
+    {
+      "catalogId": "NGC1909",
+      "distPc": 280,
+      "wikipediaTitle": "IC 2118"
+    },
+    {
+      "catalogId": "IC5070",
+      "distPc": 590,
+      "featured": true,
+      "wikipediaTitle": "Pelican Nebula"
+    },
+    {
+      "catalogId": "IC0434",
+      "distPc": 400,
+      "wikipediaTitle": "IC 434"
+    },
+    {
+      "catalogId": "NGC2237",
+      "distPc": 1600,
+      "featured": true,
+      "wikipediaTitle": "Rosette Nebula"
+    },
+    {
+      "catalogId": "IC0405",
+      "distPc": 480,
+      "wikipediaTitle": "Flaming Star Nebula"
+    },
+    {
+      "catalogId": "IC0443",
+      "distPc": 1500,
+      "wikipediaTitle": "IC 443"
+    },
+    {
+      "catalogId": "NGC6888",
+      "distPc": 1500,
+      "featured": true,
+      "wikipediaTitle": "Crescent Nebula"
+    },
+    {
+      "catalogId": "NGC2174",
+      "distPc": 1800,
+      "wikipediaTitle": "Monkey Head Nebula"
+    },
+    {
+      "catalogId": "NGC0281",
+      "distPc": 2800,
+      "featured": true,
+      "wikipediaTitle": "Pacman Nebula"
+    },
+    {
+      "catalogId": "NGC1432",
+      "distPc": 136,
+      "featured": true,
+      "wikipediaTitle": "Maia Nebula"
+    },
+    {
+      "catalogId": "NGC1435",
+      "distPc": 136,
+      "wikipediaTitle": "Merope Nebula"
+    },
+    {
+      "catalogId": "IC0349",
+      "distPc": 136,
+      "wikipediaTitle": "Barnard's Merope Nebula"
+    },
+    {
+      "catalogId": "IC4604",
+      "distPc": 140,
+      "wikipediaTitle": "Rho Ophiuchi cloud complex"
+    },
+    {
+      "catalogId": "IC4592",
+      "distPc": 140,
+      "wikipediaTitle": "Blue Horsehead Nebula"
+    },
+    {
+      "catalogId": "NGC6334",
+      "distPc": 1700,
+      "wikipediaTitle": "Cat's Paw Nebula"
+    },
+    {
+      "catalogId": "NGC6357",
+      "distPc": 1700,
+      "wikipediaTitle": "NGC 6357"
+    },
+    {
+      "catalogId": "NGC6188",
+      "distPc": 1300,
+      "wikipediaTitle": "NGC 6188"
+    },
+    {
+      "catalogId": "NGC2024",
+      "distPc": 400,
+      "wikipediaTitle": "Flame Nebula"
+    },
+    {
+      "catalogId": "NGC2736",
+      "distPc": 250,
+      "wikipediaTitle": "Pencil Nebula"
+    },
+    {
+      "catalogId": "NGC7293",
+      "distPc": 200,
+      "featured": true,
+      "wikipediaTitle": "Helix Nebula"
     }
   ]
 }

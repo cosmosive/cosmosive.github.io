@@ -1,0 +1,8 @@
+Source: https://esahubble.org/images/heic0515a/
+License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
+Attribution: NASA, ESA, J. Hester and A. Loll (Arizona State University)
+
+Processing: reprojected from the original flat (rectilinear) Earth-POV mosaic
+to equirectangular projection (100° horizontal FOV) for inside-viewing
+spheremap display. Reprojection is not a physical "inside the nebula" view —
+it stretches the Earth-POV image across one hemisphere for immersive feel.

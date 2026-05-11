@@ -1,0 +1,8 @@
+Source: https://esahubble.org/images/heic0707a/
+License: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
+Attribution: NASA, ESA, N. Smith (University of California, Berkeley), and The Hubble Heritage Team (STScI/AURA)
+
+Processing: reprojected from the original flat (rectilinear) Earth-POV mosaic
+to equirectangular projection (150° horizontal FOV) for inside-viewing
+spheremap display. Reprojection is not a physical "inside the nebula" view —
+it stretches the Earth-POV image across one hemisphere for immersive feel.
