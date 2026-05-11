@@ -1,0 +1,1 @@
+import{i as n}from"./rolldown-runtime-BOC55nOF.js";import{p as o}from"./r3f-vendor-CsRxu71a.js";var t=n(o(),1);function c(r){const e=t.useRef({value:r,previous:r});return t.useMemo(()=>(e.current.value!==r&&(e.current.previous=e.current.value,e.current.value=r),e.current.previous),[r])}function a(r,[e,u]){return Math.min(u,Math.max(e,r))}export{c as n,a as t};
