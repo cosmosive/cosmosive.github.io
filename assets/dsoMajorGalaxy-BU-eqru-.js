@@ -1,1 +1,0 @@
-import{n as e,t as a}from"./majorDsoSelector-CCktovim.js";var r=new Set(["galaxy"]);function n(t){return t==null?!0:t==="G"}function l(t){return e(t,{types:r,max:5,openNgcTypeFilter:n,excludeSatellites:!0})}function s(t){return a(l(t))}export{l as n,s as t};
