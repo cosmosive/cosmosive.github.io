@@ -1,0 +1,1 @@
+import{i as o}from"./rolldown-runtime-BOC55nOF.js";import{d as a,p as i}from"./r3f-vendor-CiF_hEUp.js";import{$t as m}from"./sceneRuntimeTypes-Ba-OycFt.js";var s=o(i(),1),n=(0,s.createContext)(null),u=a();function p({children:r,value:t}){const e=t??m();return(0,u.jsx)(n.Provider,{value:e,children:r})}export{p as t};
