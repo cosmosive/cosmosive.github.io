@@ -32,33 +32,33 @@ This site publishes 2K for every body and 8K for most. Where the source offers a
 
 If Solar System Scope is unavailable or lower-quality for a given body, the following NASA / USGS originals are public domain (no attribution required, but encouraged):
 
-| Body    | Source                                                       |
-| ------- | ------------------------------------------------------------ |
-| Mercury | MESSENGER global mosaic — USGS Astrogeology                  |
-| Venus   | Magellan radar surface mosaic                                |
-| Earth   | NASA Visible Earth / Blue Marble                             |
-| Mars    | Viking + MOLA color shaded relief — USGS Astrogeology        |
-| Jupiter | Cassini ISS global mosaic                                    |
-| Saturn  | Cassini ISS global mosaic                                    |
-| Uranus  | Voyager 2 / Hubble composite                                 |
-| Neptune | Voyager 2 / Hubble composite                                 |
-| Moon    | LRO WAC global mosaic                                        |
+| Body    | Source                                                                                   |
+| ------- | ---------------------------------------------------------------------------------------- |
+| Mercury | MESSENGER global mosaic — USGS Astrogeology                                              |
+| Venus   | Magellan radar surface mosaic                                                            |
+| Earth   | NASA Visible Earth / Blue Marble                                                         |
+| Mars    | Viking + MOLA color shaded relief — USGS Astrogeology                                    |
+| Jupiter | Cassini ISS global mosaic                                                                |
+| Saturn  | Cassini ISS global mosaic                                                                |
+| Uranus  | Voyager 2 / Hubble composite                                                             |
+| Neptune | Voyager 2 / Hubble composite                                                             |
+| Moon    | LRO WAC global mosaic                                                                    |
 | Pluto   | New Horizons LORRI/MVIC mosaic — e.g. https://photojournal.jpl.nasa.gov/catalog/PIA20198 |
 
 ## Per-Body Manifest
 
 Record the actual source used per body here as files land. Format: `body — source — license — buckets present`.
 
-- mercury — *(TBD)* — *(TBD)* — *(none)*
-- venus — *(TBD)* — *(TBD)* — *(none)*
-- earth — *(TBD)* — *(TBD)* — *(none)*
-- mars — *(TBD)* — *(TBD)* — *(none)*
-- jupiter — *(TBD)* — *(TBD)* — *(none)*
-- saturn — *(TBD)* — *(TBD)* — *(none)*
-- uranus — *(TBD)* — *(TBD)* — *(none)*
-- neptune — *(TBD)* — *(TBD)* — *(none)*
-- moon — *(TBD)* — *(TBD)* — *(none)*
-- pluto — *(TBD)* — *(TBD)* — *(none)*
+- mercury — _(TBD)_ — _(TBD)_ — _(none)_
+- venus — _(TBD)_ — _(TBD)_ — _(none)_
+- earth — _(TBD)_ — _(TBD)_ — _(none)_
+- mars — _(TBD)_ — _(TBD)_ — _(none)_
+- jupiter — _(TBD)_ — _(TBD)_ — _(none)_
+- saturn — _(TBD)_ — _(TBD)_ — _(none)_
+- uranus — _(TBD)_ — _(TBD)_ — _(none)_
+- neptune — _(TBD)_ — _(TBD)_ — _(none)_
+- moon — _(TBD)_ — _(TBD)_ — _(none)_
+- pluto — _(TBD)_ — _(TBD)_ — _(none)_
 
 ## Attribution string for the app
 
