@@ -1,0 +1,1 @@
+import{n as e,t as r}from"./majorDsoSelector-uaCIT2XX.js";var l=new Set(["black_hole"]);function i(a){return e(a,{types:l,max:4,requireAngularSize:!1,extraFilter:s=>s.physical?.schwarzschildRadiusKm!=null&&Number.isFinite(s.physical.schwarzschildRadiusKm)&&s.physical.schwarzschildRadiusKm>0})}function c(a){return r(i(a))}export{i as n,c as t};
