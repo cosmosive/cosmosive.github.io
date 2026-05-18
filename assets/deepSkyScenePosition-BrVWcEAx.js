@@ -1,0 +1,1 @@
+import{X as t,at as o}from"./simStateMigration-BQPJicFR.js";function a(e){const c=t(e.raDeg,e.decDeg)??{x:0,y:0,z:1},i=o(Number.isFinite(e.distPc)&&e.distPc>0?e.distPc:0);return{x:c.x*i,y:c.y*i,z:c.z*i}}export{a as t};
