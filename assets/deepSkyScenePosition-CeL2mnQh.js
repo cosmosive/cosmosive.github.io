@@ -1,0 +1,1 @@
+import{H as i,tt as o}from"./simStateMigration-TsdJEFdK.js";function a(e){const t=o(e.raDeg,e.decDeg)??{x:0,y:0,z:1},c=i(Number.isFinite(e.distPc)&&e.distPc>0?e.distPc:0);return{x:t.x*c,y:t.y*c,z:t.z*c}}export{a as t};
