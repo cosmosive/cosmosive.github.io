@@ -1,1 +1,0 @@
-import{U as i,tt as o}from"./simStateMigration-Bbd5-ke_.js";function a(e){const t=i(e.raDeg,e.decDeg)??{x:0,y:0,z:1},c=o(Number.isFinite(e.distPc)&&e.distPc>0?e.distPc:0);return{x:t.x*c,y:t.y*c,z:t.z*c}}export{a as t};
