@@ -1,1 +1,0 @@
-import{i as a}from"./rolldown-runtime-BOC55nOF.js";import{p as o}from"./r3f-vendor-IQKBR3Qm.js";import{n as r,t as s}from"./activeGameplayHost-Dna_G3u2.js";var e=a(o(),1),m=(0,e.createContext)(null);function c(){const t=(0,e.useContext)(m)??s();return r(t),t}export{m as n,c as t};
