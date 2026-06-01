@@ -1,0 +1,1 @@
+var t=new Set,n=new Set;function a(){for(const e of n)e(t)}function i(e){t.has(e)||(t.add(e),a())}function o(e){t.delete(e)&&a()}function r(){return t}function u(e){return n.add(e),()=>{n.delete(e)}}export{u as i,i as n,o as r,r as t};

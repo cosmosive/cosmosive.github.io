@@ -76,3 +76,23 @@ Reprojection is intentionally non-physical — it is **not** an
 `NGC6611`, `NGC6618`, `NGC6853`, `NGC7000`.
 
 Per-id provenance lives in each `<id>/LICENSE.txt`.
+
+## Imagery credit (per object)
+
+These are vetted real-imagery KTX2 equirect spheremaps. The credit below was
+formerly shown in the (now-deprecated) in-scene DSO survey-imagery HUD
+attribution; it is transcribed here from `manifest.json` so the attribution
+stays discoverable. All fields are copied verbatim from each manifest entry's
+`source` / `license` / `attribution`.
+
+| Catalog ID          | Source                                  | License   | Attribution                                                                                         |
+| ------------------- | --------------------------------------- | --------- | --------------------------------------------------------------------------------------------------- |
+| `CUSTOM-BARNARD-33` | https://esahubble.org/images/heic1307a/ | CC-BY-4.0 | NASA, ESA, and the Hubble Heritage Team (STScI/AURA)                                                |
+| `NGC1952`           | https://esahubble.org/images/heic0515a/ | CC-BY-4.0 | NASA, ESA, J. Hester and A. Loll (Arizona State University)                                         |
+| `NGC1976`           | https://esahubble.org/images/heic0601a/ | CC-BY-4.0 | NASA, ESA, M. Robberto (STScI/ESA) and the HST Orion Treasury Project Team                          |
+| `NGC3372`           | https://esahubble.org/images/heic0707a/ | CC-BY-4.0 | NASA, ESA, N. Smith (University of California, Berkeley), and The Hubble Heritage Team (STScI/AURA) |
+| `NGC6523`           | https://esahubble.org/images/heic1808a/ | CC-BY-4.0 | NASA, ESA, and STScI                                                                                |
+| `NGC6611`           | https://esahubble.org/images/heic1501a/ | CC-BY-4.0 | NASA, ESA, and the Hubble Heritage Team (STScI/AURA)                                                |
+| `NGC6618`           | https://esahubble.org/images/heic0305a/ | CC-BY-4.0 | NASA, ESA, and J. Hester (Arizona State University)                                                 |
+| `NGC6853`           | https://esahubble.org/images/opo0306a/  | CC-BY-4.0 | NASA/ESA and the Hubble Heritage Team (STScI/AURA)                                                  |
+| `NGC7000`           | https://esahubble.org/images/heic0510a/ | CC-BY-4.0 | Davide De Martin (ESA/Hubble), the ESA/ESO/NASA Photoshop FITS Liberator & Digitized Sky Survey 2   |

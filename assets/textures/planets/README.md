@@ -6,18 +6,24 @@ Real-world basemaps for the major solar system bodies, consumed by `assetBodyTex
 
 ```
 public/assets/textures/planets/
-  2k/   # 2048x1024 JPG  (active bucket — current registry default)
-  4k/   # 4096x2048 JPG  (committed, not consumed yet)
-  8k/   # 8192x4096 JPG  (committed where the source publishes it; not consumed yet)
+  2k/   # 2048x1024 JPG  (floor — every file ships here)
+  4k/   # 4096x2048 JPG  (consumed when present; selected via Texture Quality)
+  8k/   # 8192x4096 JPG  (consumed when present; selected via Texture Quality)
 ```
+
+Buckets are chosen at runtime by the **Texture Quality** option (8K/4K/2K, default 2K).
+The selection is a _ceiling_: each file resolves to the highest bucket it actually ships
+that is `<=` the selection, flooring at 2K (`resolveResolution` in `planetAssetTextures.ts`).
 
 Each bucket contains planet basemaps at top level plus a `moons/<planet>/` subtree:
 
 ```
 sun.jpg
 mercury.jpg  venus.jpg    earth.jpg    mars.jpg     jupiter.jpg
-saturn.jpg   uranus.jpg   neptune.jpg  pluto.jpg
+saturn.jpg   uranus.jpg   neptune.jpg
 earth_clouds.jpg  earth_night.jpg  saturn_ring.png
+dwarfs/
+  {ceres,eris,haumea,makemake,pluto}.jpg
 moons/
   earth/moon.jpg
   mars/{phobos,deimos}.jpg + {phobos}_comp.jpg
@@ -26,7 +32,7 @@ moons/
   uranus/{miranda,ariel,umbriel,titania,oberon}.jpg
 ```
 
-Switching the active bucket is a one-line edit in `packages/shared-pure/src/scene/planetAssetTextures.ts` (`ACTIVE_PLANET_ASSET_RESOLUTION`).
+Which buckets each file ships in is declared in `HIGHER_RESOLUTIONS_BY_FILE` in `src/shared/shared-pure/scene/planetAssetTextures.ts` — keep that manifest in sync with the files on disk (a file listed for a bucket it lacks 404s).
 
 ## Sources & Licenses
 
@@ -58,6 +64,7 @@ If Solar System Scope is unavailable or lower-quality for a given body, the foll
 Record the actual source used per body here as files land. Format: `body — source — license — buckets present`.
 
 Sources shorthand:
+
 - **SSS** = Solar System Scope (<https://www.solarsystemscope.com/textures/>) — CC BY 4.0
 - **JPL** = JPL/Caltech Solar System Simulator texture maps (<https://space.jpl.nasa.gov/tmaps/>) — NASA/JPL public domain
 - **USGS** = USGS Astrogeology planetary images (<https://planetarynames.wr.usgs.gov/Page/Images>) — public domain; files suffixed `_comp.jpg`
@@ -65,45 +72,58 @@ Sources shorthand:
 When multiple rows exist for a body, the **[active]** tag marks which file the registry currently points to. Other rows are kept for provenance.
 
 - sun — SSS — CC BY 4.0 — 2k
-- mercury — SSS — CC BY 4.0 — 2k
-- venus — SSS — CC BY 4.0 — 2k
-- earth — SSS — CC BY 4.0 — 2k (also `earth_clouds.jpg`, `earth_night.jpg` — SSS)
-  -- moon — SSS — CC BY 4.0 — 2k (`moons/earth/moon.jpg`)
-- mars — SSS — CC BY 4.0 — 2k
+- mercury — SSS — CC BY 4.0 — 2k, 4k, 8k
+- venus — SSS — CC BY 4.0 — 2k, 4k, 8k (terraform: `terraform/venus-terraform.jpg` — 2k, 4k, 8k)
+- earth — SSS — CC BY 4.0 — 2k, 4k, 8k (also `earth_clouds.jpg`, `earth_night.jpg` — SSS — 2k)
+  -- moon — SSS — CC BY 4.0 — 2k, 4k, 8k (`moons/earth/moon.jpg`; terraform: `moons/earth/terraform/moon-terraform.jpg` — 2k, 4k, 8k)
+- mars — SSS — CC BY 4.0 — 2k, 4k, 8k (terraform: `terraform/mars-terraform.jpg` — 2k, 4k, 8k)
+  -- phobos — renders from NASA GLB shape model (`public/models/nasa/`), not a sphere texture; jpgs kept for reference
   -- phobos — JPL — public domain — 2k (`phobos.jpg`)
-  -- phobos — USGS — public domain — 2k (`phobos_comp.jpg`) **[active]**
+  -- phobos — USGS — public domain — 2k (`phobos_comp.jpg`)
+  -- deimos — renders from NASA GLB shape model (`public/models/nasa/`), not a sphere texture; jpg kept for reference
   -- deimos — JPL — public domain — 2k
-- jupiter — SSS — CC BY 4.0 — 2k
+- jupiter — SSS — CC BY 4.0 — 2k, 4k, 8k
   -- io — JPL — public domain — 2k (`io.jpg`) **[active]**
   -- io — USGS — public domain — 2k (`io_comp.jpg`)
-  -- europa — JPL — public domain — 2k (`europa.jpg`)
-  -- europa — USGS — public domain — 2k (`europa_comp.jpg`) **[active]**
-  -- ganymede — JPL — public domain — 2k (`ganymede.jpg`)
-  -- ganymede — USGS — public domain — 2k (`ganymede_comp.jpg`) **[active]**
-  -- callisto — JPL — public domain — 2k (`callisto.jpg`)
-  -- callisto — USGS — public domain — 2k (`callisto_comp.jpg`) **[active]**
-- saturn — SSS — CC BY 4.0 — 2k (rings: `saturn_ring.png` — SSS)
-  -- mimas — JPL — public domain — 2k (`mimas.jpg`)
-  -- mimas — USGS — public domain — 2k (`mimas_comp.jpg`) **[active]**
-  -- enceladus — JPL — public domain — 2k (`enceladus.jpg`)
-  -- enceladus — USGS — public domain — 2k (`enceladus_comp.jpg`) **[active]**
-  -- tethys — JPL — public domain — 2k (`tethys.jpg`)
-  -- tethys — USGS — public domain — 2k (`tethys_comp.jpg`) **[active]**
-  -- dione — JPL — public domain — 2k (`dione.jpg`)
-  -- dione — USGS — public domain — 2k (`dione_comp.jpg`) **[active]**
-  -- rhea — JPL — public domain — 2k (`rhea.jpg`)
-  -- rhea — USGS — public domain — 2k (`rhea_comp.jpg`) **[active]**
-  -- titan — USGS — public domain — 2k (`titan_comp.jpg`) **[active]**
-  -- iapetus — JPL — public domain — 2k (`iapetus.jpg`)
-  -- iapetus — USGS — public domain — 2k (`iapetus_comp.jpg`) **[active]**
-- uranus — SSS — CC BY 4.0 — 2k
+  -- europa — JPL — public domain — 2k (`europa.jpg`) **[active]**
+  -- europa — USGS — public domain — 2k (`europa_comp.jpg`)
+  -- ganymede — JPL — public domain — 2k (`ganymede.jpg`) **[active]**
+  -- ganymede — USGS — public domain — 2k (`ganymede_comp.jpg`)
+  -- callisto — JPL — public domain — 2k (`callisto.jpg`) **[active]**
+  -- callisto — USGS — public domain — 2k (`callisto_comp.jpg`)
+- saturn — SSS — CC BY 4.0 — 2k, 4k, 8k (rings: `saturn_ring.png` — SSS — 2k, 4k, 8k)
+  -- mimas — JPL — public domain — 2k (`mimas.jpg`) **[active]**
+  -- mimas — USGS — public domain — 2k (`mimas_comp.jpg`)
+  -- enceladus — JPL — public domain — 2k (`enceladus.jpg`) **[active]**
+  -- enceladus — USGS — public domain — 2k (`enceladus_comp.jpg`)
+  -- tethys — JPL — public domain — 2k (`tethys.jpg`) **[active]**
+  -- tethys — USGS — public domain — 2k (`tethys_comp.jpg`)
+  -- dione — JPL — public domain — 2k (`dione.jpg`) **[active]**
+  -- dione — USGS — public domain — 2k (`dione_comp.jpg`)
+  -- rhea — JPL — public domain — 2k (`rhea.jpg`) **[active]**
+  -- rhea — USGS — public domain — 2k (`rhea_comp.jpg`)
+  -- titan — NASA — public domain — 2k, 4k (`titan.jpg`) **[active]**
+  -- titan — USGS — public domain — 2k (`titan_comp.jpg`)
+  -- iapetus — JPL — public domain — 2k (`iapetus.jpg`) **[active]**
+  -- iapetus — USGS — public domain — 2k (`iapetus_comp.jpg`)
+- uranus — SSS — CC BY 4.0 — 2k, 4k, 8k
   -- miranda — JPL — public domain — 2k
   -- ariel — JPL — public domain — 2k
   -- umbriel — JPL — public domain — 2k
   -- titania — JPL — public domain — 2k
   -- oberon — JPL — public domain — 2k
-- neptune — SSS — CC BY 4.0 — 2k
-- pluto — SSS — CC BY 4.0 — 2k
+- neptune — SSS — CC BY 4.0 — 2k, 4k, 8k
+
+### Dwarf planets (`dwarfs/`)
+
+All five are rendered solar-system bodies (catalog `dwarf_planet`), positioned by a
+heliocentric Keplerian propagator (`packages/astro/src/dwarfPlanets.ts`).
+
+- ceres — SSS — CC BY 4.0 — 2k, 4k (`dwarfs/ceres.jpg`) **[active]**
+- eris — SSS — CC BY 4.0 — 2k, 4k (`dwarfs/eris.jpg`) **[active]**
+- haumea — SSS — CC BY 4.0 — 2k, 4k (`dwarfs/haumea.jpg`) **[active]**
+- makemake — SSS — CC BY 4.0 — 2k, 4k (`dwarfs/makemake.jpg`) **[active]**
+- pluto — SSS — CC BY 4.0 — 2k, 4k (`dwarfs/pluto.jpg`) **[active]**
 
 ## Attribution string for the app
 

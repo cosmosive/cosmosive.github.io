@@ -1,0 +1,1 @@
+var t=null,r=null;function e(o){r=o}function a(){if(!t){if(!r)throw new Error('[platform] getPlatform() before a platform was set or a default factory registered. Import "@engine/platform" at the composition root (app boot / test setup) before use.');t=r()}return t}export{e as n,a as t};

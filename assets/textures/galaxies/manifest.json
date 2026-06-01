@@ -1,0 +1,14 @@
+{
+  "$schema": "Vetted real-imagery photo tiles for galaxies. Each entry keyed by DSO catalog id (e.g., 'NGC4594' for M104 Sombrero). Add entries only when sourced from HST/JWST/ESO/STScI archival imagery. Tier paths are relative to /assets/textures/galaxies/<id>/. License + attribution required. 'projection' (default 'equirect') selects the render path: 'flat-disc' = flat plate textured on a true 3D inclined disc + bulge; 'equirect' = legacy spheremap on the volume sphere.",
+  "entries": {
+    "NGC4594": {
+      "thumb": "/assets/textures/galaxies/NGC4594/thumb.ktx2",
+      "mid": "/assets/textures/galaxies/NGC4594/mid.ktx2",
+      "high": "/assets/textures/galaxies/NGC4594/high.ktx2",
+      "source": "https://esahubble.org/images/opo0328a/",
+      "license": "Public Domain",
+      "attribution": "NASA/ESA and The Hubble Heritage Team (STScI/AURA)",
+      "projection": "flat-disc"
+    }
+  }
+}

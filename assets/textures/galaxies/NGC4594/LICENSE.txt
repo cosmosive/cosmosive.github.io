@@ -1,0 +1,10 @@
+Flat (rectilinear) plate for the inclined-disc galaxy render path.
+
+Source:      https://esahubble.org/images/opo0328a/
+Image file:  https://cdn.esahubble.org/archives/images/publicationjpg/opo0328a.jpg
+License:     Public Domain (NASA/STScI Hubble Heritage release; credit required)
+Attribution: NASA/ESA and The Hubble Heritage Team (STScI/AURA)
+
+Processing: scripts/processGalaxyFlatDisc.sh — square-padded (black, centered), no
+equirect reprojection. The prior equirect spheremap tiles (heic2506a) are kept under
+./equirect/ for reference and are no longer wired into rendering.
