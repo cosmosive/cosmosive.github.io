@@ -1,4 +1,4 @@
-import{i as ee}from"./rolldown-runtime-BrVt6FZ6.js";import{p as te}from"./r3f-vendor-CDxlTQ1A.js";import{v as $}from"./sceneRuntimeTypes-CEvW8e0J.js";import{t as w}from"./clamp01-DwraWUL9.js";import{Dt as oe,Et as ne,K as T,_ as I,d as re,et as G,gt as z,mt as ae,tt as se}from"./three-vendor-DtGC8FGl.js";import{dn as B,fn as X}from"./index-Cv20bcLa.js";import{f as ie,i as ce,t as ue}from"./r3fHostExtras-DMAAfGp_.js";import{T as le,a as b,g,r as fe,s as j,t as he,v as P,w as pe,y as de}from"./sunCoronaMaterial-CYI25SiU.js";var W=ee(te(),1),me=`
+import{i as ee}from"./rolldown-runtime-BrVt6FZ6.js";import{p as te}from"./r3f-vendor-CDxlTQ1A.js";import{v as $}from"./sceneRuntimeTypes-CEvW8e0J.js";import{t as w}from"./clamp01-DwraWUL9.js";import{Dt as oe,Et as ne,K as T,_ as I,d as re,et as G,gt as z,mt as ae,tt as se}from"./three-vendor-DtGC8FGl.js";import{dn as B,fn as X}from"./index-Be60UNKa.js";import{f as ie,i as ce,t as ue}from"./r3fHostExtras-C-UhF0Mu.js";import{T as le,a as b,g,r as fe,s as j,t as he,v as P,w as pe,y as de}from"./sunCoronaMaterial-DFNes3fZ.js";var W=ee(te(),1),me=`
 varying vec2 vUv;
 
 void main() {
