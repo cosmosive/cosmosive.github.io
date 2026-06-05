@@ -1,4 +1,4 @@
-import{i as ee}from"./rolldown-runtime-BrVt6FZ6.js";import{p as te}from"./r3f-vendor-CDxlTQ1A.js";import{d as $}from"./src--Dj6uCWZ.js";import{r as w}from"./activeOriginScenePos-DI3XOiL2.js";import{Dt as ne,Et as oe,K as F,_ as T,d as re,et as G,gt as z,mt as se,tt as ae}from"./three-vendor-DtGC8FGl.js";import{Kt as B,qt as X}from"./index-CoiC3ci2.js";import{f as ie,i as ce,t as ue}from"./r3fHostExtras-CfCbysh5.js";import{C as le,a as b,g,r as fe,s as K,t as pe,v as P,w as he,y as me}from"./sunCoronaMaterial-CXk1RJ0H.js";var W=ee(te(),1),de=`
+import{i as ee}from"./rolldown-runtime-BrVt6FZ6.js";import{p as te}from"./r3f-vendor-CDxlTQ1A.js";import{d as $}from"./src--Dj6uCWZ.js";import{r as w}from"./activeOriginScenePos-DI3XOiL2.js";import{Dt as ne,Et as oe,K as F,_ as T,d as re,et as G,gt as z,mt as se,tt as ae}from"./three-vendor-DtGC8FGl.js";import{Kt as B,qt as X}from"./index-BRqrMmr0.js";import{f as ie,i as ce,t as ue}from"./r3fHostExtras-BxsX4C09.js";import{C as le,a as b,g,r as fe,s as K,t as pe,v as P,w as he,y as me}from"./sunCoronaMaterial-DNE_OsaH.js";var W=ee(te(),1),de=`
 varying vec2 vUv;
 
 void main() {
