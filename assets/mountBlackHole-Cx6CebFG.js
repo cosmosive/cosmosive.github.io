@@ -1,4 +1,4 @@
-import{n as C}from"./state-data-vendor-poX9OG4b.js";import{t as D}from"./deepSkyScenePosition-BugCExot.js";import{A as R,K as f,U as P,_ as h,dt as _,gt as O,mt as E,q as I}from"./three-vendor-DtGC8FGl.js";import{Nr as v,a as F,sn as L}from"./index-BAtUaQBW.js";import{t as x}from"./r3fHostExtras-DrR5udjk.js";import{t as T}from"./createMountComponent-DG-7Dxbz.js";import{n as g,t as A}from"./deepSkyCatalogBridge-0sHJ7zE_.js";import{n as V}from"./dsoMajorBlackHole-BvYPib4P.js";import{t as k}from"./shaderNoiseHelpers-DYuLfImQ.js";var B=`
+import{n as C}from"./state-data-vendor-poX9OG4b.js";import{t as D}from"./deepSkyScenePosition-CIyVuXnZ.js";import{A as R,K as f,U as P,_ as h,dt as _,gt as O,mt as E,q as I}from"./three-vendor-DtGC8FGl.js";import{Nr as v,a as F,sn as L}from"./index-CoiC3ci2.js";import{t as x}from"./r3fHostExtras-CfCbysh5.js";import{t as T}from"./createMountComponent-BCGSf65i.js";import{n as g,t as A}from"./deepSkyCatalogBridge-DNIUuEyM.js";import{n as V}from"./dsoMajorBlackHole-BvYPib4P.js";import{t as k}from"./shaderNoiseHelpers-DYuLfImQ.js";var B=`
 varying vec3 vWorldPos;
 varying vec3 vLocalPos;
 void main() {
