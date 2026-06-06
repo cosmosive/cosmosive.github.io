@@ -1,4 +1,4 @@
-import{i as B}from"./rolldown-runtime-BrVt6FZ6.js";import{p as K}from"./r3f-vendor-CDxlTQ1A.js";import{d as z}from"./src--Dj6uCWZ.js";import{r as M}from"./activeOriginScenePos-DI3XOiL2.js";import{Dt as j,Et as J,K as b,_ as k,d as Q,et as T,gt as _,mt as Y,tt as Z}from"./three-vendor-DtGC8FGl.js";import{Kt as D,qt as W}from"./index-MktzlqV8.js";import{f as ee,i as te,t as ne}from"./r3fHostExtras-DrhaHBJo.js";import{C as oe,i as re,n as se,s as H,t as ae,w as ie,y as ce}from"./starPaletteFromEntry-C99C4qHi.js";var q=B(K(),1),ue=`
+import{i as B}from"./rolldown-runtime-BrVt6FZ6.js";import{p as K}from"./r3f-vendor-CDxlTQ1A.js";import{d as z}from"./src--Dj6uCWZ.js";import{r as M}from"./activeOriginScenePos-DI3XOiL2.js";import{Dt as j,Et as J,K as b,_ as k,d as Q,et as T,gt as _,mt as Y,tt as Z}from"./three-vendor-DtGC8FGl.js";import{Kt as D,qt as W}from"./index-n1EAFJ_Z.js";import{f as ee,i as te,t as ne}from"./r3fHostExtras-LkYRkCt0.js";import{C as oe,i as re,n as se,s as H,t as ae,w as ie,y as ce}from"./starPaletteFromEntry-5Mjhl3L9.js";var q=B(K(),1),ue=`
 varying vec2 vUv;
 
 void main() {
