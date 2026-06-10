@@ -1,1 +1,0 @@
-import{N as o}from"./src-Da5Hff70.js";import"./src-BHpUXOwJ.js";var r=o,a=null;function i(t){r=t.length>0?[...t].sort((e,n)=>e-n):o}function l(){return r}function d(t){a=t}function p(){a?.()}export{i,l as n,d as r,p as t};

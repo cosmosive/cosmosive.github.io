@@ -8,7 +8,7 @@ The pipeline is `scripts/processGalaxySpheremap.sh` — a galaxy-output sibling 
 `scripts/processNebulaSpheremap.sh` (identical reprojection + encoding; only the
 output directory differs).
 
-> **Not yet wired into rendering.** Galaxies currently render *procedurally*
+> **Not yet wired into rendering.** Galaxies currently render _procedurally_
 > (`src/engine/render/sceneMounts/mountGalaxyDisc.r3f.ts` — spiral/bulge/dust
 > shader on an ellipsoid shell). These spheremaps are staged assets; there is no
 > galaxy equivalent of the nebula `nebulaSpheremapManifest.ts` loader or mount
