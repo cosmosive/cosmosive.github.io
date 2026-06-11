@@ -1,1 +1,0 @@
-function o(n){let e=17;for(let t=0;t<n.length;t+=1)e=(e*31+n.charCodeAt(t))%104729;return e/104729}function r(n,e){const t=Math.sin((n+e)*43758.5453123)*12589.317;return t-Math.floor(t)}export{r as n,o as t};
