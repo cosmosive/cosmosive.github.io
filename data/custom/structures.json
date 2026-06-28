@@ -1,0 +1,13 @@
+{
+  "version": 26062801,
+  "structures": [
+    {
+      "id": "GJ-179-GATE",
+      "name": "Tannhäuser Gate",
+      "kind": "gate",
+      "anchorCatalogId": "GJ 179 b",
+      "sizeKm": 8,
+      "description": "Derelict jump gate in orbit of GJ 179 b. \"I've seen things you people wouldn't believe... attack ships on fire off the shoulder of Orion. I watched C-beams glitter in the dark near the Tannhäuser Gate.\""
+    }
+  ]
+}
