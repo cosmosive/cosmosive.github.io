@@ -1,0 +1,1 @@
+function V(a,t,s,n,c,u,f,y){const x=a*n.x+t*n.y+s*n.z;if(x<=1e-6)return!1;const z=a*c.x+t*c.y+s*c.z,h=a*u.x+t*u.y+s*u.z,m=Math.tan(f*.5),C=m*y*x,M=m*x;return Math.abs(z)<=C&&Math.abs(h)<=M}function b(a,t,s,n,c,u,f){return V(a.x-t.x,a.y-t.y,a.z-t.z,s,n,c,u,f)}export{b as t};

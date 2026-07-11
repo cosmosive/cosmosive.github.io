@@ -1,0 +1,1 @@
+function t(e){return e.featured===!0||e.messier!=null&&e.messier.length>0||e.vMag!=null&&e.vMag<=6}function s(e){return e.filter(t)}function u(e){return e.filter(r=>r.featured===!0||r.messier!=null&&r.messier.length>0||r.vMag!=null&&r.vMag<=5.5)}export{s as n,t as r,u as t};

@@ -1,0 +1,1 @@
+var n=new WeakMap;function r(t,e){n.set(t,e)}function s(t){n.delete(t)}function i(t){if(t.engineKind!=="r3f")throw new Error("asR3F: SceneHost is not an R3F implementation");const e=n.get(t);if(!e)throw new Error("asR3F: missing R3F extras (host not fully initialized?)");return e}export{r as n,s as r,i as t};

@@ -3,6 +3,14 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <!-- Inline so the very first paint is black — external CSS arrives too late to stop the
+         white flash between window creation and stylesheet load (most visible in Tauri/WebKit). -->
+    <style>
+      html,
+      body {
+        background: #000;
+      }
+    </style>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -16,34 +24,93 @@
       content="Cosmosive is a real-time 3D space simulation app to explore planets, stars, and galaxies with scientific accuracy and immersive visuals—ideal for education and research."
     />
     <title>universe astronomy planetarium space explorer | hello cosmos | Cosmosive</title>
-    <script type="module" crossorigin src="/assets/index-BKt-qaSx.js"></script>
+    <script type="module" crossorigin src="/assets/index-Bg7YfoDx.js"></script>
     <link rel="modulepreload" crossorigin href="/assets/rolldown-runtime-BooKvqCB.js">
-    <link rel="modulepreload" crossorigin href="/assets/three-vendor-7Zt43m1U.js">
-    <link rel="modulepreload" crossorigin href="/assets/r3f-vendor-4CYXUxjL.js">
-    <link rel="modulepreload" crossorigin href="/assets/react-vendor-CX_5sacZ.js">
-    <link rel="modulepreload" crossorigin href="/assets/state-data-vendor-I825NqV8.js">
-    <link rel="modulepreload" crossorigin href="/assets/zustandPersistStorage-CRLVJlan.js">
-    <link rel="modulepreload" crossorigin href="/assets/src-CZjK4KKE.js">
-    <link rel="modulepreload" crossorigin href="/assets/src-BlOGNk8m.js">
-    <link rel="modulepreload" crossorigin href="/assets/state-BKiDPTu6.js">
-    <link rel="modulepreload" crossorigin href="/assets/astro-CU9DxjLB.js">
-    <link rel="modulepreload" crossorigin href="/assets/audio-CD7rSjC1.js">
-    <link rel="modulepreload" crossorigin href="/assets/dist-BXCq_G-l.js">
-    <link rel="modulepreload" crossorigin href="/assets/overlayDescriptors-D5VJgVFH.js">
-    <link rel="modulepreload" crossorigin href="/assets/overlayStackStore-lYr6qyeI.js">
+    <link rel="modulepreload" crossorigin href="/assets/three-vendor-CoNqi1xW.js">
+    <link rel="modulepreload" crossorigin href="/assets/r3f-vendor-B17IO2wO.js">
+    <link rel="modulepreload" crossorigin href="/assets/react-vendor-CrPg-O_a.js">
+    <link rel="modulepreload" crossorigin href="/assets/state-data-vendor-WU1eBiTX.js">
+    <link rel="modulepreload" crossorigin href="/assets/src-C2JCdUBO.js">
+    <link rel="modulepreload" crossorigin href="/assets/src-B6EY7K87.js">
+    <link rel="modulepreload" crossorigin href="/assets/manifest.generated-Djd1_uGl.js">
+    <link rel="modulepreload" crossorigin href="/assets/publicUrl-BBfwyy7p.js">
+    <link rel="modulepreload" crossorigin href="/assets/catalog-query-defaults-ovtsCG-1.js">
+    <link rel="modulepreload" crossorigin href="/assets/queryClient-Ba_QXq70.js">
+    <link rel="modulepreload" crossorigin href="/assets/state-BeRwBlr3.js">
+    <link rel="modulepreload" crossorigin href="/assets/astro-DpZn8r66.js">
+    <link rel="modulepreload" crossorigin href="/assets/zustandPersistStorage-CvaopgTT.js">
+    <link rel="modulepreload" crossorigin href="/assets/xoshiro256ss-CjadTrwG.js">
+    <link rel="modulepreload" crossorigin href="/assets/registry-rj1yfO1U.js">
+    <link rel="modulepreload" crossorigin href="/assets/xstate.esm-DeYQBwKW.js">
+    <link rel="modulepreload" crossorigin href="/assets/dntTerms-uvq9eVz9.js">
     <link rel="modulepreload" crossorigin href="/assets/camera-controls-vendor-BJkrRypV.js">
-    <link rel="modulepreload" crossorigin href="/assets/manifest.generated-C3012b77.js">
-    <link rel="modulepreload" crossorigin href="/assets/skyLightStore-ahq7l6TE.js">
-    <link rel="modulepreload" crossorigin href="/assets/darkAgeIntroStore-DvPxJXvP.js">
-    <link rel="modulepreload" crossorigin href="/assets/activeGameplayHost-DZslRFdR.js">
-    <link rel="modulepreload" crossorigin href="/assets/publicUrl-OmYSLw34.js">
-    <link rel="modulepreload" crossorigin href="/assets/sceneRuntimeStore-B7m18MGP.js">
-    <link rel="modulepreload" crossorigin href="/assets/galaxySpheremapManifest-9RTTJzIn.js">
-    <link rel="modulepreload" crossorigin href="/assets/celestial-__ZPLgRp.js">
-    <link rel="modulepreload" crossorigin href="/assets/overlayRouterActor-C5697-Oa.js">
+    <link rel="modulepreload" crossorigin href="/assets/skyLightStore-CVz1oC2L.js">
+    <link rel="modulepreload" crossorigin href="/assets/darkAgeIntroStore-DpZWBYgg.js">
+    <link rel="modulepreload" crossorigin href="/assets/activeGameplayHost-BBU1MNU4.js">
+    <link rel="modulepreload" crossorigin href="/assets/sceneRuntimeStore-CbblIk7b.js">
+    <link rel="modulepreload" crossorigin href="/assets/activeOriginScenePos-CZOyX8kR.js">
+    <link rel="modulepreload" crossorigin href="/assets/celestial-DZLq-kZC.js">
+    <link rel="modulepreload" crossorigin href="/assets/useGameplayHost-BAc2Kkc7.js">
+    <link rel="modulepreload" crossorigin href="/assets/panelStore-D5P9gLtR.js">
+    <link rel="modulepreload" crossorigin href="/assets/overlayDescriptors-D5VJgVFH.js">
+    <link rel="modulepreload" crossorigin href="/assets/overlayRouterActor-CDLNGO5f.js">
+    <link rel="modulepreload" crossorigin href="/assets/overlayCommands-BpbiGRD0.js">
+    <link rel="modulepreload" crossorigin href="/assets/galaxyHubble-D4hA3_wv.js">
+    <link rel="modulepreload" crossorigin href="/assets/galaxyMorphology-CEpT_qwE.js">
+    <link rel="modulepreload" crossorigin href="/assets/blackHoleParams-DoGYGBnV.js">
+    <link rel="modulepreload" crossorigin href="/assets/clusterMorphology-CdnAFuup.js">
+    <link rel="modulepreload" crossorigin href="/assets/teleportRun-lspX_mdx.js">
+    <link rel="modulepreload" crossorigin href="/assets/urlSimMerge-Bskf1VS0.js">
+    <link rel="modulepreload" crossorigin href="/assets/r3fHostExtras-CS8xlzvG.js">
+    <link rel="modulepreload" crossorigin href="/assets/viewDirectionRef-TYueNo29.js">
+    <link rel="modulepreload" crossorigin href="/assets/scenePrefsStore-C7ujWUnb.js">
+    <link rel="modulepreload" crossorigin href="/assets/clsx-DWz4Q8_5.js">
+    <link rel="modulepreload" crossorigin href="/assets/audio-C3lNltro.js">
+    <link rel="modulepreload" crossorigin href="/assets/dist-C1aK7Eya.js">
+    <link rel="modulepreload" crossorigin href="/assets/HudTooltip-BdhE9oSt.js">
+    <link rel="modulepreload" crossorigin href="/assets/overlayStackStore-DJGeMdOy.js">
+    <link rel="modulepreload" crossorigin href="/assets/anchorPersistence-DBw1gMNi.js">
+    <link rel="modulepreload" crossorigin href="/assets/currentSystemMarket-BvWI2BjZ.js">
+    <link rel="modulepreload" crossorigin href="/assets/preload-helper-75KnWHr6.js">
+    <link rel="modulepreload" crossorigin href="/assets/useOverlayStackSelectors-B_lCSVAV.js">
+    <link rel="modulepreload" crossorigin href="/assets/useT-CUPtGn96.js">
+    <link rel="modulepreload" crossorigin href="/assets/useRegisterOverlay-BJd9H3A3.js">
+    <link rel="modulepreload" crossorigin href="/assets/dist-DjOVvBmG.js">
+    <link rel="modulepreload" crossorigin href="/assets/dist-CCBhKUGD.js">
+    <link rel="modulepreload" crossorigin href="/assets/dist-D68xh7B3.js">
+    <link rel="modulepreload" crossorigin href="/assets/config-Dxao7sKa.js">
+    <link rel="modulepreload" crossorigin href="/assets/app-display-name-D8doS6yv.js">
     <link rel="modulepreload" crossorigin href="/assets/control-actions-CIZahb1f.js">
-    <link rel="modulepreload" crossorigin href="/assets/panelStore-B1t3VIzq.js">
-    <link rel="stylesheet" crossorigin href="/assets/index-D0ogaS7K.css">
+    <link rel="modulepreload" crossorigin href="/assets/inputStore-c_W3JyZa.js">
+    <link rel="modulepreload" crossorigin href="/assets/CommandBus-CbZ_QOZZ.js">
+    <link rel="modulepreload" crossorigin href="/assets/input-BLHAkhjg.js">
+    <link rel="modulepreload" crossorigin href="/assets/targetCatalog-BJ6YPonU.js">
+    <link rel="modulepreload" crossorigin href="/assets/openNgc-RxThfLBv.js">
+    <link rel="modulepreload" crossorigin href="/assets/catalogTargets-BoT2XL1y.js">
+    <link rel="modulepreload" crossorigin href="/assets/clamp01-C0YE5yT6.js">
+    <link rel="modulepreload" crossorigin href="/assets/cameraImpulse-CIkV0N5p.js">
+    <link rel="modulepreload" crossorigin href="/assets/jumpBridge-BySvuBgO.js">
+    <link rel="modulepreload" crossorigin href="/assets/viewBasisStore-BZi5KEoJ.js">
+    <link rel="modulepreload" crossorigin href="/assets/objectListViewModel-DRECDbFO.js">
+    <link rel="modulepreload" crossorigin href="/assets/usePlayerView-DrKiZ1ej.js">
+    <link rel="modulepreload" crossorigin href="/assets/titleScreenLookDirection-BwPRZDvX.js">
+    <link rel="modulepreload" crossorigin href="/assets/useHygStars-DeHFSXCU.js">
+    <link rel="modulepreload" crossorigin href="/assets/computeDeepScanCandidates-6Q8fdYKG.js">
+    <link rel="modulepreload" crossorigin href="/assets/frameSectionProfiler-Da7-zvU8.js">
+    <link rel="modulepreload" crossorigin href="/assets/formatFlightHudSpeedDisplay-DXEO0kXW.js">
+    <link rel="modulepreload" crossorigin href="/assets/executeLandTarget-CTQQ6NwA.js">
+    <link rel="modulepreload" crossorigin href="/assets/openTitleOnStartup-Ccs4_FU6.js">
+    <link rel="modulepreload" crossorigin href="/assets/comlink-D0dm8X-W.js">
+    <link rel="modulepreload" crossorigin href="/assets/keyboard-labels-24OJDy94.js">
+    <link rel="modulepreload" crossorigin href="/assets/modalFrame.module-p-ofxT_7.js">
+    <link rel="modulepreload" crossorigin href="/assets/ModalFrame-CvjPCQtt.js">
+    <link rel="modulepreload" crossorigin href="/assets/preGameModeIntroMusic.web-BohXERGl.js">
+    <link rel="modulepreload" crossorigin href="/assets/titleScreenMusic.web-DxTsVddW.js">
+    <link rel="modulepreload" crossorigin href="/assets/isAppleLikeKeyboardHost-B9P_F5cS.js">
+    <link rel="modulepreload" crossorigin href="/assets/keymap-BXNYjUKb.js">
+    <link rel="modulepreload" crossorigin href="/assets/demoStore-Dt7RhpwX.js">
+    <link rel="stylesheet" crossorigin href="/assets/modalFrame-Buav5OIJ.css">
+    <link rel="stylesheet" crossorigin href="/assets/index-jTxfK860.css">
   </head>
   <body>
     <div id="root"></div>

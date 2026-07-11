@@ -1,0 +1,1 @@
+body.demo-cinematic :is(.cockpit-frame,.cockpit-canopy,.reticle,.attitude-indicator,.app-branding,.stats-overlay){transition:opacity .5s;opacity:0!important;pointer-events:none!important}@media (prefers-reduced-motion:reduce){body.demo-cinematic :is(.cockpit-frame,.cockpit-canopy,.reticle,.attitude-indicator,.app-branding,.stats-overlay){transition:none}}

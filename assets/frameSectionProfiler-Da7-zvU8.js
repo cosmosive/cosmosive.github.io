@@ -1,0 +1,7 @@
+var S="cosmosive:runtimePerfSections",g=6e4,h=7200,w="__COSMOSIVE_PERF_SECTIONS__",m=!1,r=!1,u=null,c=new Map,i=new Map;function v(){const e=[];for(const[o,n]of c)if(n.length>0){const t=[...n].sort((l,f)=>l-f),s=t.reduce((l,f)=>l+f,0),a=Math.min(t.length-1,Math.floor(t.length*.95)),M=Math.min(t.length-1,Math.floor(t.length*.99));e.push({section:o,calls:n.length,meanMs:s/t.length,p95Ms:t[a],p99Ms:t[M],maxMs:t[t.length-1]})}return e.sort((o,n)=>n.p95Ms-o.p95Ms),e}function p(){const e=v();if(e.length===0&&i.size===0){console.warn("[cosmosive:perfSections] no section samples yet");return}const o="section | calls | mean | p95 | p99 | max (ms)",n=e.map(s=>`${s.section} | ${String(s.calls)} | ${s.meanMs.toFixed(3)} | ${s.p95Ms.toFixed(3)} | ${s.p99Ms.toFixed(3)} | ${s.maxMs.toFixed(3)}`).join(`
+`);let t="";i.size>0&&(t=`
+react commits by subtree (window since last reset)
+${[...i.entries()].sort((s,a)=>a[1]-s[1]).map(([s,a])=>`commit:${s} | ${String(a)}`).join(`
+`)}`),console.warn(`[cosmosive:perfSections] per-section ms (window since last reset)
+${o}
+${n}${t}`)}function $(){if(u!=null)return;u=setInterval(p,g);const e=window;e[w]=o=>{p(),o===!0&&(c.clear(),i.clear())}}function d(){if(m)return r;return m=!0,r=!1,r;try{r=localStorage.getItem(S)==="1"}catch{r=!1}return r&&$(),r}function x(){return 0}function E(){return!1}function y(e){r&&i.set(e,(i.get(e)??0)+1)}function _(e,o){if(!r)return;let n=c.get(e);n||(n=[],c.set(e,n)),n.push(o),n.length>h&&n.shift()}function I(e,o){o===0||!r||_(e,performance.now()-o)}export{y as a,E as i,_ as n,x as r,I as t};

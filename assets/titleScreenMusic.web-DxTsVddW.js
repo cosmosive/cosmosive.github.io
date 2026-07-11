@@ -1,0 +1,1 @@
+function n(e){}function s(){return!1}async function a(e,i){await Promise.resolve()}async function t(){await Promise.resolve()}async function c(e){await Promise.resolve()}export{a,t as i,s as n,n as r,c as t};
