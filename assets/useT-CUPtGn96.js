@@ -1,1 +1,0 @@
-import{i}from"./rolldown-runtime-BooKvqCB.js";import{d as n}from"./r3f-vendor-B17IO2wO.js";import{r as s}from"./state-data-vendor-WU1eBiTX.js";import"./src-C2JCdUBO.js";import{t as e}from"./dntTerms-uvq9eVz9.js";var m=i(n(),1);function u(r,t,o){return r(t,{...e,...o})}function _(){const{t:r,i18n:t}=s();return{t:(0,m.useCallback)((o,a)=>u(r,o,a),[r]),i18n:t}}export{_ as n,u as t};

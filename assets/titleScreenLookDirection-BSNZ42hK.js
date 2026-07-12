@@ -1,0 +1,1 @@
+import{X as s,j as N}from"./src-Bzr4zRFs.js";var c=42/15*s,n=N,i=[n,0,0],p=[n+c,0,0];function C(){const[S,T,r]=i,[I,a,e]=p,o=I-S,t=a-T,_=e-r,E=Math.hypot(o,t,_)||1;return{x:o/E,y:t/E,z:_/E}}export{i as n,C as r,p as t};
