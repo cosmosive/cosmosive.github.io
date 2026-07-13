@@ -1,1 +1,0 @@
-import{l as e}from"./state-data-vendor-WU1eBiTX.js";var n=e(a=>({active:!1,captionKey:null,fade:null,card:null,start:()=>a({active:!0,captionKey:null,fade:{to:"black",ms:0},card:null}),stop:()=>a({active:!1,captionKey:null,fade:null,card:null}),setCaption:l=>a({captionKey:l}),setFade:l=>a({fade:l}),setCard:l=>a({card:l})}));export{n as t};
