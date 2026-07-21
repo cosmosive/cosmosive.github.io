@@ -1,0 +1,1 @@
+import{i as t}from"./r3f-vendor-B17IO2wO.js";import"./urlSimMerge-CLmjNV0S.js";var o={tick:-2e3,simulate:-1e3,"present.view":-2,"present.world":-.25,"present.hud":0,render:1};function s(n,e=0){return o[n]+e}function a(n,e,r=0){t(n,typeof e=="number"?e:s(e,r))}export{s as n,a as t};
