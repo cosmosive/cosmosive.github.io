@@ -1,0 +1,1 @@
+import{i as a}from"./rolldown-runtime-BooKvqCB.js";import{d as o}from"./r3f-vendor-B17IO2wO.js";import{r,t as s}from"./activeGameplayHost-DRpV2Jdy.js";var e=a(o(),1),m=(0,e.createContext)(null);function c(){const t=(0,e.useContext)(m)??s();return r(t),t}export{m as n,c as t};
