@@ -1,1 +1,0 @@
-import{k as n}from"./src-B26Vn2jI.js";var u=3,a=50,o=1.5,s=1e7;function l(i){if(i.type!=="black_hole")return null;const r=i.physical?.schwarzschildRadiusKm;if(r==null||!Number.isFinite(r)||r<=0)return null;const e=r*n*s;return{eventHorizonSu:e,innerDiscSu:e*u,outerDiscSu:e*a,photonSphereSu:e*o}}export{l as t};
