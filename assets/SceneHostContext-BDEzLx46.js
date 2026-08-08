@@ -1,0 +1,1 @@
+import{i as o}from"./rolldown-runtime-CZmViO_C.js";import{d as r}from"./r3f-vendor-Bk8QkJCo.js";var e=o(r(),1),n=(0,e.createContext)(null);function c(){const t=(0,e.useContext)(n);if(!t)throw new Error("useSceneHost: no SceneHostContext provider");return t.host}export{n,c as t};
