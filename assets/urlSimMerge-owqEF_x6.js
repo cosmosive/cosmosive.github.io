@@ -1,0 +1,1 @@
+import"./state-CKKR4IFM.js";var d="body";function a(i,n){const r=n?.includeJd!==!1,e=new URLSearchParams;return i.view.visitId!==null&&e.set(d,i.view.visitId),r&&e.set("jd",String(Math.floor(i.jd))),e}export{a as n,d as t};
