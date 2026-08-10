@@ -1,0 +1,1 @@
+import{O as e,c as s}from"./src-CU7dW3yu.js";var N=42/15*e,n=s,i=[n,0,0],p=[n+N,0,0];function R(){const[S,T,r]=i,[I,a,c]=p,o=I-S,t=a-T,_=c-r,E=Math.hypot(o,t,_)||1;return{x:o/E,y:t/E,z:_/E}}export{i as n,R as r,p as t};
